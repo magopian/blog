@@ -1,7 +1,7 @@
 PyCON.fr, excellent!
 ####################
 :date: 2009-06-05 06:56
-:category: python
+:category: django
 :tags: conference
 
 Et voilà, l'édition 2009 de PyCON.fr, ma toute première conférence sur

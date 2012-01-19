@@ -1,5 +1,5 @@
-La vie a la couleur qu&#039;on veut bien lui donner
-###################################################
+La vie a la couleur qu'on veut bien lui donner
+##############################################
 :date: 2010-11-15 08:53
 :category: misc
 :tags: mavie
@@ -43,21 +43,13 @@ question. Voici notre échange :
 ::
 
     <magopian> voilà pourquoi je ne sais pas écrire de nouvelles :
-
         ça finirait en rouspétage
-
     <magopian> j'ai pas envie qu'on m'appelle le caliméro du polar geek ^^
-
     <J-Mad> ben ca pourrait être une idée cool de perso
-
     <J-Mad> un gros râleur
-
     <J-Mad> qui râle pour tout
-
     <J-Mad> un de mes amis est comme ça
-
     <J-Mad> quand il rale pour des trucs insignifiants
-
     <J-Mad> on sait que tout va bien, qu'il faut juste qu'il râle sur un truc
 
 Un râleur continuel, le rouspéteur de service. Ce gars dont les

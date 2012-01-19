@@ -1,5 +1,5 @@
-PyCon.fr 2010 : retour sur une conférence organisée par l&#039;AFPY
-###################################################################
+PyCon.fr 2010 : retour sur une conférence organisée par l'AFPY
+##############################################################
 :date: 2010-08-30 08:53
 :category: django
 :tags: conference

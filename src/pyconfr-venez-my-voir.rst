@@ -1,5 +1,5 @@
-PyCon.fr: venez m&#039;y voir!
-##############################
+PyCon.fr: venez m'y voir!
+#########################
 :date: 2009-05-23 07:28
 :category: misc
 

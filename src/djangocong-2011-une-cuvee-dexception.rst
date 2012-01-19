@@ -1,5 +1,5 @@
-Djangocong 2011 : une cuvée d&#039;exception
-############################################
+Djangocong 2011 : une cuvée d'exception
+#######################################
 :date: 2011-04-21 08:32
 :category: django
 :tags: mavie, conference
