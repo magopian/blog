@@ -1,6 +1,7 @@
 Django forms, HTML5 et fieldsets
 ################################
 :date: 2011-02-11 22:56
+:slug: la-beaute-de-lopen-source-et-du-libre
 :category: django
 
 J'adore l'open-source, et j'adore le libre.
