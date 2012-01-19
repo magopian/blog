@@ -1,8 +1,9 @@
-Les ``hooks`` de Git
-####################
+Les hooks de Git
+################
 :date: 2012-01-12 22:54
 :category: django
 :tags: (D)VCS, Git
+:status: draft
 
 
 Les ``hooks`` (crochets) de `Git <http://git-scm.com>`_ sont des scripts
