@@ -1,7 +1,5 @@
 RewriteEngine on
 # 2011/01/<titre>/ => /<titre>.html
-RewriteRule ^/blog/\d{4}/\d{2}/(.*?)/$ /blog/$1.html
+RewriteRule \d{4}/\d{2}/([^/]+)/? /blog/$1.html [L,R=301]
 # /about => /a-propos.html
-RewriteRule ^/blog/about/$ /blog/a-propos.html
-# / => /index.html
-RewriteRule ^/blog/$ /blog/index.html
+RewriteRule about/? /blog/pages/a-propos.html [L,R=301]
