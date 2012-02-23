@@ -2,6 +2,7 @@ Point-virgule
 #############
 :date: 2011-10-13 08:30
 :category: misc
+:tags: polargeek
 
 *(Ceci est mon premier essai d'écriture. Je trouve l'idée sympa, mais la
 réalisation est au mieux moyenne... faites moi connaître votre avis et
