@@ -8,3 +8,6 @@ SITEURL = "http://mathieu.agopian.info/blog"
 #WITH_PAGINATION = True
 TWITTER_USERNAME = "magopian"
 TIMEZONE = "Europe/Paris"
+THEME = '../pelican-themes/mnmlist/'
+DEFAULT_LANG = 'fr'
+DEFAULT_DATE_FORMAT = '%Y-%m-%d'
