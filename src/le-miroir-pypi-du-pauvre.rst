@@ -2,6 +2,9 @@ Le miroir PyPI du pauvre
 #########################
 :category: django
 
+(J'ai présenté ce sujet sous forme de présentation courte (`lightning talk`)
+lors de `Djangocong 2012`_, voici le `support de présentation`_.)
+
 
 Bonjour ami lecteur. Je vais te conter mon histoire, en me disant que tu es
 peut-être toi aussi passé par là, et que cette expérience t'enrichira.
@@ -199,6 +202,8 @@ version) dans le répertoire du miroir local.
 
 .. target-notes::
 
+.. _`Djangocong 2012`: http://rencontres.django-fr.org/2012/lightning-talks.html#l5
+.. _`support de présentation`: http://mathieu.agopian.info/djangocong/2012/miroir_pypi_local_du_pauvre.pdf
 .. _`la présentation`: http://mathieu.agopian.info/djangocong/dplf.html
 .. _`Djangocong 2010`: http://rencontres.django-fr.org/2010/
 .. _`pip`: http://pip-installer.org
