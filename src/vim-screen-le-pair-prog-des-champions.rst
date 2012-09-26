@@ -32,7 +32,7 @@ Tu l'as deviné (facile, c'est dans le titre), grâce à VIM (ou tout autre
 prononcer le nom), le logiciel screen_, tout ça sur SSH.
 
 Je te fais ici un résumé de ce qui a été très bien expliqué dans un `article
-du blog de Siyelo`_.
+du blog de Siyelo`_, adapté, simplifié et automatisé à ma sauce.
 
 
 Installer un serveur SSH
@@ -66,24 +66,24 @@ modifications.
 Configurer
 ~~~~~~~~~~
 
-Nommons ici *hôte* l'utilisateur local qui va lancer le screen, et *client*
-l'utilisateur local sur lequel va se connecter le collègue distant par ssh, et
-qui se connectera au ``screen`` lancé par l'hôte donc.
+L'idée est simple : un utilisateur local (que l'on nommera ``pair``) va lancer
+le ``screen``, sur lequel tu pourra te connecter. Il suffira ensuite de donner
+le mot de passe de ce compte à ton collègue distant, pour qu'il s'y connecte en
+ssh, puis se connecte lui aussi à ce ``screen``.
 
-.. note:: **ATTENTION**, l'utilisateur client (et donc le collègue distant
-          connecté sur le compte de l'utilisateur client) aura le même accès,
-          les mêmes droits et permissions, une fois connecté sur le screen
-          lancé par l'hôte, que l'hôte lui-même. Il est donc prudent de créer
-          un utilisateur hôte pour l'occasion, qui n'ait pas accès aux données
-          personnelles de votre compte.
+Cet utilisateur ``pair`` sera donc utilisé pour programmer, voire même
+*commiter* le code, avec éventuellement un ``~/.gitconfig`` ou ``~/.hgrc`` avec
+un nom évocateur du genre ``pair-benoit-mathieu``, afin que les *commits*
+puissent être directement attribués aux bonnes personnes.
 
+Pour créer ce nouvel utilisateur :
 
-L'hôte
-------
+.. code-block:: sh
 
-Toute la configuration de ``screen`` peut être mise dans un fichier
+    sudo adduser pair
+
+Enfin, toute la configuration de ``screen`` est mise dans un fichier
 ``.screenrc`` à la racine du compte :
-
 
 ::
 
@@ -95,47 +95,27 @@ Toute la configuration de ``screen`` peut être mise dans un fichier
     term screen-256color
 
     multiuser on
-    acladd pair  # user "pair" allowed to connect
+    acladd <ton user>  # user allowed to connect
 
-
-Le client
----------
-
-Pour créer un nouvel utilisateur client, nommé ``pair`` dans notre exemple :
-
-.. code-block:: sh
-
-    sudo adduser pair
-
-Petite astuce : pour que le collègue distant, une fois connecté en local, soit
-automatiquement connecté sur le ``screen`` lancé par l'hôte, rajoute les
-lignes suivantes au ``.bashrc`` de l'utilisateur client :
-
-::
-
-    export TERM=xterm-256color  # compatibility with screen
-
-    trap "" 2 3 19
-    clear
-    echo "Welcome to the pair-programming session"
-    echo -n "Press Enter to continue..." && read
-    screen -x <hote>/pairprog  # pairprog est le nom de la session
-
-Remplace ``<hote>`` par le nom de l'utilisateur hôte (ton nom d'utilisateur
-si tu n'es pas prudent, et que tu n'as pas suivi le conseil de la note
-ci-dessus).
+Prends bien soin de remplacer ``<ton user>`` par ton utilisateur, afin que
+lorsque le ``screen`` soit lancé, tu puisse t'y connecter.
 
 
 Utiliser
 ~~~~~~~~
 
-Connecte toi à l'utilisateur hôte et lance le ``screen``
+Lance un ``screen`` sur l'utilisateur ``pair`` en mode détaché :
 
 .. code-block:: sh
 
-    sudo su - <hote>
-    screen -S pairprog  # -S nomme la session
-    # dans le screen
+    sudo -u pair screen -d -m -S pairprog  # -S nomme la session
+
+Connecte toi au ``screen`` de cet utilisateur :
+
+.. code-block:: sh
+
+    screen -x pair/pairprog
+    # une fois connecté au screen
     vim
     # créer une nouvelle fenêtre dans le screen : <ctrl-a c>
     # passer à la fenêtre suivante : <ctrl-a n>
@@ -143,20 +123,44 @@ Connecte toi à l'utilisateur hôte et lance le ``screen``
     # passer à la fenêtre 1 : <ctrl-a 1>
     # détruire la fenêtre courante : <ctrl-a k> ou <ctrl-d>
 
-Indique l'utilisateur client et son mot de passe, ton adresse IP et le port de
-connexion SSH à ton collègue pour qu'il puisse te rejoindre
+Si tu es un vrai bon fainéant comme moi, tu aura bien sûr sauté sur l'occasion
+d'en faire un alias dans ton ``~/.bashrc``.
+
+Indique l'utilisateur ``pair`` et son mot de passe, ton adresse IP et le port
+de connexion SSH à ton collègue pour qu'il puisse te rejoindre :
 
 .. code-block:: sh
 
     ssh pair@<ip de ta box> -p 22222
+    screen -x pairprog  # alias pair='screen -x pairprog'
 
-Pour pouvoir dialoguer plus facilement, j'utilise un logiciel de voix sur IP
-(ou tout bêtement le téléphone). C'est nettement plus pratique pour faciliter
-la communication !
+Petite astuce de sioux, pour que l'utilisateur distant n'ai même pas besoin de
+se connecter manuellement au ``screen`` (ni même à lancer l'alias), à rajouter
+au ``~/.bashrc`` de l'utilisateur ``pair``
+
+.. code-block:: sh
+
+    export TERM=xterm-256color  # compatibility with screen
+
+    if [ ${SSH_CLIENT:+x} ]
+        clear
+        echo "Welcome to the pair-programming session"
+        echo -n "Press Enter to continue..." && read
+        screen -x pairprog  # pairprog est le nom de la session
+    fi
+
+La variable d'environnement ``SSH_CLIENT`` est testée pour que la petite astuce
+ne soit utilisée que lors d'une connexion ssh, et non à chaque lancement d'un
+``shell``.
+
+Enfin, pour pouvoir dialoguer plus facilement, j'utilise un logiciel de voix
+sur IP (ou tout bêtement le téléphone). C'est nettement plus pratique pour
+faciliter la communication !
 
 
 Il ne me reste plus qu'à te souhaiter de te coupler avec un de tes pair, de
 vivre heureux, et d'avoir plein de belles lignes de codes !
+
 
 ----
 
