@@ -46,6 +46,10 @@ rajoute donc une règle de redirection sur ton routeur/ta box , par exemple du
 port externe ``22222``, en ``TCP``, vers le port ``22`` de l'adresse IP de ton
 ordinateur.
 
+.. note:: Il existe un logiciel très pratique pour gérer ses règles de
+          redirection sans avoir à se connecter à l'interface de sa box :
+          portmapper_ (Korben_ en parle d'ailleurs très bien).
+
 
 Installer screen
 ~~~~~~~~~~~~~~~~
@@ -115,7 +119,7 @@ lignes suivantes au ``.bashrc`` de l'utilisateur client :
     clear
     echo "Welcome to the pair-programming session"
     echo -n "Press Enter to continue..." && read
-    screen -x <hote>/pairprog
+    screen -x <hote>/pairprog  # pairprog est le nom de la session
 
 Remplace ``<hote>`` par le nom de l'utilisateur hôte (ton nom d'utilisateur
 si tu n'es pas prudent, et que tu n'as pas suivi le conseil de la note
@@ -130,7 +134,7 @@ Connecte toi à l'utilisateur hôte et lance le ``screen``
 .. code-block:: sh
 
     sudo su - <hote>
-    screen -t pairprog
+    screen -S pairprog  # -S nomme la session
     # dans le screen
     vim
     # créer une nouvelle fenêtre dans le screen : <ctrl-a c>
@@ -162,3 +166,5 @@ vivre heureux, et d'avoir plein de belles lignes de codes !
 .. _`pair-programming`: http://fr.wikipedia.org/wiki/Programmation_en_bin%C3%B4me
 .. _screen: http://www.gnu.org/s/screen/
 .. _`article du blog de Siyelo`: http://blog.siyelo.com/remote-pair-programming-with-screen
+.. _portmapper: http://upnp-portmapper.sourceforge.net/
+.. _Korben: http://korben.info/comment-ouvrir-et-mapper-facilement-des-ports-sur-votre-routeur.html
