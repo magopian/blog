@@ -55,7 +55,7 @@ d'évoluer au sein d'une entreprise. Le travail acharné, l'implication, la
 loyauté, donner le meilleur de soi-même, être fiable, ne pas compter ses
 heures, être agréable et aimable, facile à vivre, bon équipier.
 
-Pour faire part de mon expérience, ayant gravé plusieurs échelons, très
+Pour faire part de mon expérience, ayant gravi plusieurs échelons, très
 rapidement, j'ai aussi fait de mon mieux pour être un moteur, être force de
 proposition (et de réalisation !).
 
