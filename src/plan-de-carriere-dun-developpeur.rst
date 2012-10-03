@@ -142,3 +142,35 @@ Le but de ce billet est surtout de faire partager ma prise de conscience
 tardive. Tant qu'on est jeune, fougueux et plein d'énergie, il vaut mieux se
 concentrer sur une seule échelle, et le faire consciemment, au lieu de se
 lancer tête baissée et de potentiellement le regretter plus tard !
+
+
+Edit : 19h29
+============
+
+Suite à la `réponse de David Larlet`_, j'ai repensé à ce billet, et ma première
+réaction a été « mais il m'énerve ce David à avoir raison, et l'écrire si
+bien ! ».
+
+Si vous n'êtes pas encore abonnés à son flux RSS, je ne peut que vous le
+conseiller, ses billets sont source d'inspiration, très bien écrits,
+synthétiques et concis à souhait.
+
+Revenons à nos moutons : oui, je pense que le conseil de David de **partager**
+est le meilleur qu'on puisse suivre, mais je pense aussi que c'est orthogonal
+à la pensée initiale de ce billet. Je pense effectivement que la meilleure
+chose à faire, **quelle que soit l'échelle qu'on choisi**, c'est de partager,
+et ce pour toutes les raisons énoncées par David.
+
+Ainsi, sur l'échelle de l'entreprise, on partagera par le biais de formations
+internes, de discussions à bâtons rompus à la pause café, de conseils donnés ou
+reçu lors de demande d'aide ou de conseil, de la revue de code.
+
+Sur l'échelle de la visibilité, on partagera en conférences, par des
+contributions open source, etc.
+
+Par contre, je reste convaincu qu'il existe vraiment deux échelles, chacune
+menant à une position différente, plus ou moins avantageuse selon le type
+d'entreprise qu'on vise. Et c'est ce que j'espère montrer et expliquer plus
+clairement avec le prochain billet sur la taxonomie des entreprises.
+
+.. _réponse de David Larlet: https://larlet.fr/david/thoughts/#sharing
