@@ -72,8 +72,8 @@ Dans un sens, oui, ça paraît logique. D'un autre côté, quelqu'un a dit : «
 veux travailler pour vivre, et non vivre pour travailler. »
 
 Par contre, il vaut mieux bien choisir son entreprise, et j'en parlerai dans un
-futur billet. S'investir, être fidèle, loyal, fiable, et tout donner pour une
-entreprise, qui en retour, vous aspire sans vergogne, et vous vide petit à
+`prochain billet`_. S'investir, être fidèle, loyal, fiable, et tout donner pour
+une entreprise, qui en retour, vous aspire sans vergogne, et vous vide petit à
 petit de votre substance, c'est un danger réel à éviter à tout prix !
 
 
@@ -171,6 +171,7 @@ contributions open source, etc.
 Par contre, je reste convaincu qu'il existe vraiment deux échelles, chacune
 menant à une position différente, plus ou moins avantageuse selon le type
 d'entreprise qu'on vise. Et c'est ce que j'espère montrer et expliquer plus
-clairement avec le prochain billet sur la taxonomie des entreprises.
+clairement avec le `prochain billet`_ sur la taxonomie des entreprises.
 
 .. _réponse de David Larlet: https://larlet.fr/david/thoughts/#sharing
+.. _prochain billet: ../taxonomie-des-entreprises.html
