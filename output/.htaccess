@@ -5,3 +5,6 @@ RewriteRule ^\d{4}/\d{2}/([^/]+)/? /blog/$1.html [L,R=301]
 RewriteRule ^about/? /blog/pages/a-propos.html [L,R=301]
 # /feed => /feeds/all.atom.xml
 RewriteRule ^feed/?$ /blog/feeds/all.atom.xml [L,R=301]
+
+# temporary hack to fix images in feeds
+RewriteRule ^feeds/images/(.*) /blog/static/images/$1
