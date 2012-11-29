@@ -104,7 +104,7 @@ Il est naturel de se diriger par défaut vers ses amis et connaissances pour
 sentiment d'exclusion et d'élitisme qui peut être ressenti par les nouveaux
 venus.
 
-Merci d'ailleurs Fabrice d'avoir osé prendre la parole pour faire part de ta
+Merci d'ailleurs Fabrice_ d'avoir osé prendre la parole pour faire part de ta
 crainte de participer et de poser des questions en étant débutant.
 
 Il est de notre devoir à tous, et je ne parle pas des organisateurs qui ont
@@ -145,6 +145,7 @@ vivement la `prochaine rencontre`_ !
 .. _pep8: http://www.python.org/dev/peps/pep-0008/
 .. _Sudweb: http://sudweb.fr
 .. _Mathieu: http://blog.mathieu-leplatre.info/pages/about.html
+.. _Fabrice: https://twitter.com/FabriceBent
 .. _Lauréline: https://twitter.com/zebuline
 .. _Benoit: http://www.marmelune.net/
 .. _Nicolas: https://twitter.com/duboisnicolas
