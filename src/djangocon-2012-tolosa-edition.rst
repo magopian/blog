@@ -131,7 +131,12 @@ C'est grâce à des gens comme vous qu'on peut continuer à se rencontrer, à
 échanger, et passer un si bon moment.
 
 Encore félicitations pour ce week-end qui se sera écoulé bien trop vite, et
-vivement la `prochaine rencontre`_ !
+vivement la `prochaine rencontre`_ !
+
+Ajout (2012-12-10) : les vidéos sont disponibles
+
+* `Vidéo de Screen + vim : le pair programming des champions`_
+* `Vidéo de Django pour les fainéants, le retour`_
 
 ----
 
@@ -150,3 +155,5 @@ vivement la `prochaine rencontre`_ !
 .. _Benoit: http://www.marmelune.net/
 .. _Nicolas: https://twitter.com/duboisnicolas
 .. _prochaine rencontre: http://forum.django-fr.org/viewtopic.php?id=1306
+.. _`Vidéo de Screen + vim : le pair programming des champions`: http://mathieu.agopian.info/presentation_videos/agopian-pair-programming.mp4
+.. _Vidéo de Django pour les fainéants, le retour: http://mathieu.agopian.info/presentation_videos/agopian-django-pour-les-faineants.mp4
