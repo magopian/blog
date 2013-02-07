@@ -21,7 +21,7 @@ Cette première rencontre concrétise quatre précédentes réunions de motivés
   enthousiasmé Alexis (du `Pôle Numérique
   <http://www.pole-numerique.fr/accueil.html>`_), Collin et Pascal
 * quelques semaines après, nous nous retrouvions à nouveau autour d'une bière en
-  compagnie de `Sébastien <http://sebastien.jean.perso.neuf.fr/>`_, enseignant
+  compagnie de `Sébastien <http://sebastienjean.fr/>`_, enseignant
   à l'IUT de Valence
 * puis ce fût une rencontre au Pôle Numérique avec une bonne douzaine de gens
   décidés et motivés à se retrouver deux fois par mois
