@@ -8,7 +8,7 @@ s'est créé à Valence, et nous avons eu notre première rencontre ce mardi 5
 février, dans les locaux de l'`IUT <http://www.iut-valence.fr/>`_, et plus
 précisément dans le bâtiment E.
 
-Cette première rencontre concrétise quatre précédentes réunions de motivés :
+Cette première rencontre concrétise cinq précédentes réunions de motivés :
 
 * il y a plusieurs mois, j'ai proposé à `Nicolas Chauvat
   <http://www.logilab.org/cwuser/nchauvat>`_ de se faire un `afpyro
@@ -16,10 +16,12 @@ Cette première rencontre concrétise quatre précédentes réunions de motivés
   région. Nous y avons rencontré `Gregory Karékinian
   <http://karekinian.com/>`_, qui nous a mis en relation avec le `CARA Valence
   <https://twitter.com/CARAValence>`_
+* Nicolas a ensuite assisté à une présentation Open Data au `Pôle Numérique
+  <http://www.pole-numerique.fr/accueil.html>`_ où il a rencontré Alexis, et
+  lui a parlé de l'idée du FabLab
 * le mardi 8 janvier, nous nous sommes retrouvés, avec Nicolas, au CARA, et
   Nicolas a lancé l'idée d'un FabLab sur Valence, ce qui a immédiatement
-  enthousiasmé Alexis (du `Pôle Numérique
-  <http://www.pole-numerique.fr/accueil.html>`_), Collin et Pascal
+  enthousiasmé Alexis, Collin et Pascal
 * quelques semaines après, nous nous retrouvions à nouveau autour d'une bière en
   compagnie de `Sébastien <http://sebastienjean.fr/>`_, enseignant
   à l'IUT de Valence
