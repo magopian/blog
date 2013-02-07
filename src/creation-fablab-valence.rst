@@ -47,3 +47,5 @@ Pour vous inscrire et suivre les différents événements et rencontres :
 
 * se créer un compte sur https://veille.pole-numerique.com
 * rejoindre le groupe *fablab*
+* rejoindre la liste de diffusion fablab.valence@librelist.com (il suffit d'y
+  envoyer un premier mail qui ne sera pas envoyé à la liste pour s'y inscrire)
