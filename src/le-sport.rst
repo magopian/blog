@@ -84,7 +84,7 @@ Je suis loin d'avoir regagné mon poids de forme, mais je suis loin d'avoir
 envie d'arrêter de pratiquer du sport régulièrement, donc tout va bien !
 
 
-Toi aussi, tu le peut
+Toi aussi, tu le peux
 =====================
 
 Longtemps, je me suis trouvé des excuses pour ne pas m'y mettre : pas le temps,
