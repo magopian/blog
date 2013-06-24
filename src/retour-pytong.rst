@@ -22,17 +22,20 @@ connaître.
 Les présentations
 =================
 
-Reporting web et pdf
---------------------
+Reporting web et print
+----------------------
 
 `Arthur Vuillard`_ nous a montré comment utiliser pygal_ pour faire de
 jolis reporting web avec de jolis graphes SVG annotés, et weasyprint_ pour un
 export en PDF propre, avec gestion des coupures de tableaux, centrage sur la
 page, etc...
 
+`Reporting web et print, les slides`_.
+
 .. _Arthur vuillard: http://hashbang.fr
 .. _pygal: http://pygal.org
 .. _weasyprint: http://weasyprint.org
+.. _Reporting web et print, les slides: http://hashbang.fr/static/medias/pytong_reporting/index.html
 
 
 Tu peux WebTest
