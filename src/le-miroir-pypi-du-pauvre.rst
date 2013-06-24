@@ -1,5 +1,6 @@
 Le miroir PyPI du pauvre
 #########################
+:date: 2012-04-12 09:59
 :category: django
 
 Deux notes pour commencer cet article :
