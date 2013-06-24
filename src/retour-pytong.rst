@@ -213,7 +213,7 @@ parler lors d'une précédente conférence.
 `Utiliser un système de packaging privé, les slides`_.
 
 .. _Buildout: http://buildout.org
-.. _mirroir PyPI privé: ../le-miroir-pypi-du-pauvre.html
+.. _mirroir PyPI privé: |filename|./le-miroir-pypi-du-pauvre.rst
 .. _Utiliser un système de packaging privé, les slides: http://polyconseil.github.io/presentations/private_packaging/
 
 
