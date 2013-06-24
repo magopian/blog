@@ -1,5 +1,6 @@
 VIM et la correction orthographique
 ###################################
+:date: 2012-02-28 09:44
 :category: misc
 
 Si vous ne le saviez pas déjà, VIM possède un correcteur orthographique dans le style de "Myspell" (utilisé aussi par la suite OpenOffice/LibreOffice ainsi que par Mozilla).
