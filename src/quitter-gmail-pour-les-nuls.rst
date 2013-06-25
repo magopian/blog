@@ -12,17 +12,17 @@ Les exemples donnés dans cet article se basent sur GMail, mais ils sont très
 largement applicables pour d'autres fournisseurs comme LaPoste.net ou Hotmail.
 
 Pour l'histoire, Jean Dupont, qui utilisait jusqu'à présent son adresse
-*jean.dupont@gmail.com*, vient de se procurer un compte email chez son
+*jean.dupont@gmail.com*, vient de se procurer un compte mail chez son
 hébergeur, ainsi qu'un nom de domaine et une adresse *jean@dupont.fr*.
 
 Nous n'aborderons pas ici ce qui concerne la réservation d'un nom de domaine,
-ni la création d'un compte email chez un hébergeur.
+ni la création d'un compte mail chez un hébergeur.
 
 
 Pourquoi
 ========
 
-À l'heure du *cloud*, de l'email facile et du GMail si pratique et quasi
+À l'heure du *cloud*, du mail facile et du GMail si pratique et quasi
 universel, pourquoi donc vouloir s'en passer ?
 
 Plusieurs raisons :
@@ -31,7 +31,7 @@ Plusieurs raisons :
   ce qu'ils veulent
 * ils peuvent décider du jour au lendemain de fermer un compte, sans préavis,
   sans possibilité de négociation
-* ils donnent l'accès à tous les emails à la
+* ils donnent l'accès à tous les mails à la
   :abbr:`NSA (National Security Agency, les services secrets des États-Unis)`
   (et à qui d'autre ?)
 
@@ -39,21 +39,21 @@ Si vous pensez que vous n'avez de toute manière rien à cacher, ou qu'il n'y a
 aucune raison qu'on vous ferme votre compte, sachez que les exemples ne
 manquent pas.
 
-Il est clair que d'avoir son adresse, son compte et son client email
+Il est clair que d'avoir son adresse, son compte et son client mail
 tous au même endroit, fournis par la même entité, c'est bien plus pratique,
 mais on est alors entièrement dépendant de cette entité : « Il ne faut pas
 mettre tous ses œufs dans le même panier ».
 
 Nous allons voir quelles sont les stratégies que Jean Dupont peut mettre en
-place pour avoir une adresse email qu'il contrôle, et qu'il peut faire pointer
+place pour avoir une adresse mail qu'il contrôle, et qu'il peut faire pointer
 où il veut.
 
 
 Termes et définitions
 =====================
 
-Adresse email
--------------
+Adresse mail
+------------
 
 C'est l'équivalent du numéro de téléphone. C'est ce qui permet d'acheminer les
 messages au bon endroit.
@@ -62,11 +62,11 @@ Avec un numéro de téléphone, on peut joindre n'importe qui, à partir de
 n'importe quel opérateur, vers n'importe quel opérateur. L'opérateur n'a aucune
 importance, ce qui est important, c'est que tous savent où diriger un appel.
 
-L'adresse email se rapproche ainsi plus d'un numéro de téléphone que d'une
+L'adresse mail se rapproche ainsi plus d'un numéro de téléphone que d'une
 adresse postale (qui dépends de la localisation, et non de la personne qui
 habite à cet endroit).
 
-Il faut donc voir l'adresse email comme une localisation qui peut changer (le
+Il faut donc voir l'adresse mail comme une localisation qui peut changer (le
 même numéro pourrait être chez SFR un jour, et chez Bouygues le lendemain).
 
 De la même manière, *jean@dupont.fr*, qui est la propriété de Jean, pointe vers
@@ -75,14 +75,14 @@ souhaitera, contrairement à l'adresse *jean.dupont@gmail.com* qui appartient à
 Google, et qui ne pointera jamais ailleurs.
 
 
-Compte email
-------------
+Compte mail
+-----------
 
 C'est l'équivalent de la boite postale dans lequel le facteur dépose votre
 courrier. C'est l'endroit où arrivent tous les messages.
 
 Contrairement à la boite postale (qui en général ne sert que temporairement, le
-temps de récupérer le courrier), un compte email peut stocker les messages
+temps de récupérer le courrier), un compte mail peut stocker les messages
 aussi longtemps qu'on le souhaite.
 
 Ce compte est localisé sur un serveur, une machine. En reprenant l'exemple de
@@ -93,8 +93,8 @@ reçus, envoyés, supprimés, classés dans des sous-dossiers, déplacés dans l
 spams...
 
 
-Client email
-------------
+Client mail
+-----------
 
 Le programme qui permet de :
 
@@ -177,7 +177,7 @@ la première étape. C'est un compromis qui permet de ne pas changer grand chose
 Il est aussi tout à fait possible de passer directement à la deuxième étape,
 sans passer par la première.
 
-Le plus important est de pouvoir utiliser sa nouvelle adresse email, afin
+Le plus important est de pouvoir utiliser sa nouvelle adresse mail, afin
 d'avoir à minima le contrôle de la destination et du stockage des messages.
 
 
@@ -189,7 +189,7 @@ changer d'avis si il le souhaite. Il va donc faire passer le mot que sa
 nouvelle adresse est désormais *jean@dupont.fr*, et non plus
 *jean.dupont@gmail.com*.
 
-Par contre, Jean veut toujours recevoir les emails envoyés à
+Par contre, Jean veut toujours recevoir les mails envoyés à
 *jean.dupont@gmail.com*, car il y a beaucoup d'entités qui ne connaissent pas
 encore sa nouvelle adresse, comme les impôts, EDF, ou encore des abonnements à
 des listes de diffusion.
@@ -221,29 +221,29 @@ sur http://mail.google.com, et il aura toujours une copie de sauvegarde sur le
 compte de son hébergeur.
 
 
-Configurer le client GMail : envoyer les emails de la part de *jean@dupont.fr*
-------------------------------------------------------------------------------
+Configurer le client GMail : envoyer les mails de la part de *jean@dupont.fr*
+-----------------------------------------------------------------------------
 
 Par défaut, un client mail envoie tous les mails de la part de l'adresse mail
 associée au compte sur lequel le client se connecte.
 
 Ainsi, le client mail de Gmail (http://mail.google.com), qui est connecté au
-compte GMail, qui lui même est associé à l'adresse email
+compte GMail, qui lui même est associé à l'adresse mail
 *jean.dupont@gmail.com*, va automatiquement, par défaut, envoyer tous les mails
 de la part de *jean.dupont@gmail.com*.
 
 Prenons le scénario suivant :
 
-* *john@smith.com* envoie un email à *jean@dupont.fr*
-* l'email arrive sur l'hébergeur de Jean, qui après avoir fait une copie sur le
+* *john@smith.com* envoie un mail à *jean@dupont.fr*
+* le mail arrive sur l'hébergeur de Jean, qui après avoir fait une copie sur le
   compte local, redirige le message vers Google (sur *jean.dupont@gmail.com*)
-* l'email arrive chez Google (sur le compte GMail)
+* le mail arrive chez Google (sur le compte GMail)
 * Jean peut voir le nouveau message, le consulter, et y répond
 * le client GMail va donc envoyer une réponse à *john@smith.com*, de la part de
   *jean.dupont@gmail.com*
 
 Et là, c'est le drame. En effet, si John répond à nouveau, il va envoyer
-directement l'email à *jean.dupont@gmail.com*. Jean aura beau eu faire part de
+directement le mail à *jean.dupont@gmail.com*. Jean aura beau eu faire part de
 sa nouvelle adresse, dans les faits, la plupart des messages continueront à
 être directement envoyés à son adresse GMail.
 
@@ -274,9 +274,9 @@ Voici une explication résumée :
 #. Choisissez enfin, sous « En réponse à un message », l'option « Toujours
    répondre à partir de l'adresse par défaut (actuellement jean@dupont.fr) »
 
-Suite à ce changement, tous les emails qui seront envoyés à partir du client
+Suite à ce changement, tous les mails qui seront envoyés à partir du client
 GMail seront envoyés de la part de *jean@dupont.fr*, et donc toutes les
-personnes qui répondent, répondront directement à cette nouvelle adresse email.
+personnes qui répondent, répondront directement à cette nouvelle adresse mail.
 
 Tous les mails envoyés à *jean@dupont.fr* ou à *jean.dupont@gmail.com*
 arriverons sur son compte chez Google.
@@ -292,7 +292,7 @@ GMail ne permet pas de se connecter à un compte externe en IMAP, mais
 uniquement en POP, ce qui revient à utiliser le compte GMail, chez Google
 donc).
 
-Il va donc falloir que Jean commence par utiliser un autre client email, comme
+Il va donc falloir que Jean commence par utiliser un autre client mail, comme
 par exemple Thunderbird. Dans ce cas, il lui faudra le télécharger,
 l'installer, et le configurer (voir plus loin pour l'exemple de l'hébergement
 chez AlwaysData).
@@ -302,7 +302,7 @@ Il peut autrement préférer utiliser le « webmail » fourni par son héberge
 messages directement sur un site internet, sans avoir à installer de logiciel
 sur son ordinateur.
 
-Afin de continuer à recevoir les emails envoyés à *jean.dupont@gmail.com*, il
+Afin de continuer à recevoir les mails envoyés à *jean.dupont@gmail.com*, il
 va falloir qu'il configure une redirection au niveau de GMail.
 
 
@@ -360,7 +360,7 @@ Envoi de messages :
 * Port : ``587``
 * Option de sécurité : ``STARTTLS`` ou ``TLS``
 * Nom d'utilisateur : ``jean@dupont.fr``
-* Mot de passe : le mot de passe choisi lors de la création du compte email
+* Mot de passe : le mot de passe choisi lors de la création du compte mail
 
 Connexion au compte :
 
@@ -369,7 +369,23 @@ Connexion au compte :
 * Port : ``993``
 * Option de sécurité : ``STARTTLS`` ou ``TLS``
 * Nom d'utilisateur : ``jean@dupont.fr``
-* Mot de passe : le mot de passe choisi lors de la création du compte email
+* Mot de passe : le mot de passe choisi lors de la création du compte mail
+
+Stratégie timorée
+-----------------
+
+Voici comment configurer le client GMail pour envoyer les mails de la part de
+*jean@dupont.fr* (stratégie timorée) :
+
+.. image:: |filename|./images/gmail_alwaysdata_1.png
+   :alt: Configuration de GMail pour l'hébergeur AlwaysData (1)
+
+.. image:: |filename|./images/gmail_alwaysdata_2.png
+   :alt: Configuration de GMail pour l'hébergeur AlwaysData (2)
+
+
+Stratégie courageuse
+--------------------
 
 Voici à quoi ressemble la configuration lors de l'ajout d'un compte mail sur
 Thunderbird :
@@ -378,4 +394,5 @@ Thunderbird :
    :alt: Configuration de Thunderbird pour l'hébergeur AlwaysData
 
 AlwaysData fourni aussi un client web (Roundcube) accessible sur
-https://webmail.alwaysdata.com.
+https://webmail.alwaysdata.com. Il suffit alors d'indiquer son mail et son mot
+de passe, aucune autre configuration n'est requise.
