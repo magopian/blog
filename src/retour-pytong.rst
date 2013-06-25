@@ -78,7 +78,7 @@ Débuter avec salt
 `Yann Malet`_ nous a fait une rapide présentation de Salt_, un gestionnaire de
 configuration, un framework d'installation et d'exécution à distance. Pour ceux
 qui connaissent Chef_ ou Puppet_, Salt est un remplaçant écrit en Python, très
-performant, car basé sur 0MQ_.
+performant, car basé sur ZMQ_.
 
 Il a ensuite expliqué comment, à LincolnLoop_, ils ont utilisé Salt en tant que
 framework d'exécution à distance pour leur nouveau projet de monitoring :
@@ -88,7 +88,7 @@ Salmon_.
 .. _Salt: http://saltstack.com
 .. _Chef: http://www.opscode.com/chef/
 .. _Puppet: http://puppetlabs.com/
-.. _0MQ: http://zeromq.org
+.. _ZMQ: http://zeromq.org
 .. _LincolnLoop: http://lincolnloop.com
 .. _Salmon: https://github.com/lincolnloop/salmon
 
@@ -123,17 +123,17 @@ facilement extensible, qui permet de répondre à des demandes simples sans avoi
 .. _Mezzanine: http://mezzanine.jupo.org/
 
 
-Use 0MQ and Tornado for fun and profit
+Use ZMQ and Tornado for fun and profit
 --------------------------------------
 
-`Boris Feld`_ nous a donné des recettes pour utiliser 0MQ_ avec Tornado_ pour
+`Boris Feld`_ nous a donné des recettes pour utiliser ZMQ_ avec Tornado_ pour
 faire le lien avec HTTP.
 
-`Use 0MQ and Tornado for fun and profit, les slides`_.
+`Use ZMQ and Tornado for fun and profit, les slides`_.
 
 .. _Boris Feld: http://feldboris.alwaysdata.net/blog/
 .. _Tornado: http://www.tornadoweb.org/
-.. _Use 0MQ and Tornado for fun and profit, les slides: https://speakerdeck.com/lothiraldan/use-omq-and-tornado-for-fun-and-profits
+.. _Use ZMQ and Tornado for fun and profit, les slides: https://speakerdeck.com/lothiraldan/use-omq-and-tornado-for-fun-and-profits
 
 
 Écriture d'un livre sur Django
@@ -324,10 +324,9 @@ Conclusion
 ==========
 
 C'est toujours un vrai plaisir de pouvoir rencontrer ses pairs, apprendre
-d'eux, échanger, faire connaissance, échanger des astuces et techniques. Je
-pense que c'est un investissement indispensable à tout développeur passionné et
-curieux qui souhaite évoluer et rester au courant des avancées dans son
-domaine.
+d'eux, faire des connaissance, échanger des astuces et techniques. Je pense que
+c'est un investissement indispensable à tout développeur passionné et curieux
+qui souhaite évoluer et rester au courant des avancées dans son domaine.
 
 Vous pouvez par ailleurs consulter le `compte rendu de Rémy`_.
 
