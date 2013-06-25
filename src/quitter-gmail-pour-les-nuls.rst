@@ -370,3 +370,12 @@ Connexion au compte :
 * Option de sécurité : ``STARTTLS`` ou ``TLS``
 * Nom d'utilisateur : ``jean@dupont.fr``
 * Mot de passe : le mot de passe choisi lors de la création du compte email
+
+Voici à quoi ressemble la configuration lors de l'ajout d'un compte mail sur
+Thunderbird :
+
+.. image:: |filename|./images/thunderbird_alwaysdata.png
+   :alt: Configuration de Thunderbird pour l'hébergeur AlwaysData
+
+AlwaysData fourni aussi un client web (Roundcube) accessible sur
+https://webmail.alwaysdata.com.
