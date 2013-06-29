@@ -1,4 +1,4 @@
-Quitter GMail pour les nuls
+Quitter Gmail pour les nuls
 ###########################
 :date: 2013-06-25 08:34
 :category: misc
@@ -6,9 +6,9 @@ Quitter GMail pour les nuls
 
 Cet article a pour but d'expliquer de la manière la plus claire et pédagogique
 possible la différence entre une adresse mail, un compte mail et un client
-mail, et de donner des recettes pour se passer de GMail.
+mail, et de donner des recettes pour se passer de Gmail.
 
-Les exemples donnés dans cet article se basent sur GMail, mais ils sont très
+Les exemples donnés dans cet article se basent sur Gmail, mais ils sont très
 largement applicables pour d'autres fournisseurs comme LaPoste.net ou Hotmail.
 
 Pour l'histoire, Jean Dupont, qui utilisait jusqu'à présent son adresse
@@ -22,7 +22,7 @@ ni la création d'un compte mail chez un hébergeur.
 Pourquoi
 ========
 
-À l'heure du *cloud*, du mail facile et du GMail si pratique et quasi
+À l'heure du *cloud*, du mail facile et du Gmail si pratique et quasi
 universel, pourquoi donc vouloir s'en passer ?
 
 Plusieurs raisons :
@@ -86,7 +86,7 @@ temps de récupérer le courrier), un compte mail peut stocker les messages
 aussi longtemps qu'on le souhaite.
 
 Ce compte est localisé sur un serveur, une machine. En reprenant l'exemple de
-GMail, le compte est localisé sur une machine « chez Google ».
+Gmail, le compte est localisé sur une machine « chez Google ».
 
 À la manière d'un dossier sur un ordinateur, un compte stocke tous les messages
 reçus, envoyés, supprimés, classés dans des sous-dossiers, déplacés dans les
@@ -129,7 +129,7 @@ Ce programme se présente généralement sous deux formes différentes :
 .. _Thunderbird: http://www.mozilla.org/fr/thunderbird/?flang=fr
 
 Dans une certaine limite, les clients sont interchangeables. Ainsi, on peut
-utiliser le **client** Thunderbird pour accéder à un **compte** GMail.
+utiliser le **client** Thunderbird pour accéder à un **compte** Gmail.
 
 
 Redirection
@@ -166,7 +166,7 @@ Comment
 
 Avant de rentrer dans le détail, voici les deux stratégies possibles :
 
-* timorée : conserver GMail comme compte principal
+* timorée : conserver Gmail comme compte principal
 * courageuse : utiliser son nouveau compte comme compte principal
 
 Ces deux étapes sont indépendantes, et il est tout à fait possible de rester à
@@ -181,7 +181,7 @@ Le plus important est de pouvoir utiliser sa nouvelle adresse mail, afin
 d'avoir à minima le contrôle de la destination et du stockage des messages.
 
 
-Stratégie timorée : Conserver GMail comme compte principal
+Stratégie timorée : Conserver Gmail comme compte principal
 ==========================================================
 
 Jean veut avoir le contrôle de la destination de ses messages, afin de pouvoir
@@ -194,8 +194,8 @@ Par contre, Jean veut toujours recevoir les mails envoyés à
 encore sa nouvelle adresse, comme les impôts, EDF, ou encore des abonnements à
 des listes de diffusion.
 
-Il veut par ailleurs continuer à utiliser GMail comme compte principal pour des
-raisons pratiques (avoir tous ses messages au même endroit), et le client GMail
+Il veut par ailleurs continuer à utiliser Gmail comme compte principal pour des
+raisons pratiques (avoir tous ses messages au même endroit), et le client Gmail
 (accessible sur http://mail.google.com) parce qu'il en a l'habitude et qu'il le
 trouve pratique.
 
@@ -221,14 +221,14 @@ sur http://mail.google.com, et il aura toujours une copie de sauvegarde sur le
 compte de son hébergeur.
 
 
-Configurer le client GMail : envoyer les mails de la part de *jean@dupont.fr*
+Configurer le client Gmail : envoyer les mails de la part de *jean@dupont.fr*
 -----------------------------------------------------------------------------
 
 Par défaut, un client mail envoie tous les mails de la part de l'adresse mail
 associée au compte sur lequel le client se connecte.
 
 Ainsi, le client mail de Gmail (http://mail.google.com), qui est connecté au
-compte GMail, qui lui même est associé à l'adresse mail
+compte Gmail, qui lui même est associé à l'adresse mail
 *jean.dupont@gmail.com*, va automatiquement, par défaut, envoyer tous les mails
 de la part de *jean.dupont@gmail.com*.
 
@@ -237,17 +237,17 @@ Prenons le scénario suivant :
 * *john@smith.com* envoie un mail à *jean@dupont.fr*
 * le mail arrive sur l'hébergeur de Jean, qui après avoir fait une copie sur le
   compte local, redirige le message vers Google (sur *jean.dupont@gmail.com*)
-* le mail arrive chez Google (sur le compte GMail)
+* le mail arrive chez Google (sur le compte Gmail)
 * Jean peut voir le nouveau message, le consulter, et y répond
-* le client GMail va donc envoyer une réponse à *john@smith.com*, de la part de
+* le client Gmail va donc envoyer une réponse à *john@smith.com*, de la part de
   *jean.dupont@gmail.com*
 
 Et là, c'est le drame. En effet, si John répond à nouveau, il va envoyer
 directement le mail à *jean.dupont@gmail.com*. Jean aura beau eu faire part de
 sa nouvelle adresse, dans les faits, la plupart des messages continueront à
-être directement envoyés à son adresse GMail.
+être directement envoyés à son adresse Gmail.
 
-La solution est donc de configurer le client GMail pour qu'il envoie tous les
+La solution est donc de configurer le client Gmail pour qu'il envoie tous les
 mails de la part de *jean@dupont.fr*.
 
 Il y a une page expliquant comment faire cela : `Envoi de message avec une
@@ -275,7 +275,7 @@ Voici une explication résumée :
    répondre à partir de l'adresse par défaut (actuellement jean@dupont.fr) »
 
 Suite à ce changement, tous les mails qui seront envoyés à partir du client
-GMail seront envoyés de la part de *jean@dupont.fr*, et donc toutes les
+Gmail seront envoyés de la part de *jean@dupont.fr*, et donc toutes les
 personnes qui répondent, répondront directement à cette nouvelle adresse mail.
 
 Tous les mails envoyés à *jean@dupont.fr* ou à *jean.dupont@gmail.com*
@@ -285,11 +285,11 @@ arriverons sur son compte chez Google.
 Stratégie courageuse : Utiliser son nouveau compte
 ==================================================
 
-Bien qu'il soit théoriquement possible de continuer à utiliser le client GMail,
+Bien qu'il soit théoriquement possible de continuer à utiliser le client Gmail,
 en le connectant sur le compte de l'hébergeur, dans la pratique ce n'est pas
 vraiment possible pour des raisons techniques (pour les curieux, le client
-GMail ne permet pas de se connecter à un compte externe en IMAP, mais
-uniquement en POP, ce qui revient à utiliser le compte GMail, chez Google
+Gmail ne permet pas de se connecter à un compte externe en IMAP, mais
+uniquement en POP, ce qui revient à utiliser le compte Gmail, chez Google
 donc).
 
 Il va donc falloir que Jean commence par utiliser un autre client mail, comme
@@ -303,20 +303,20 @@ messages directement sur un site internet, sans avoir à installer de logiciel
 sur son ordinateur.
 
 Afin de continuer à recevoir les mails envoyés à *jean.dupont@gmail.com*, il
-va falloir qu'il configure une redirection au niveau de GMail.
+va falloir qu'il configure une redirection au niveau de Gmail.
 
 
 Rediriger *jean.dupont@gmail.com* vers *jean@dupont.fr*
 -------------------------------------------------------
 
-Cette redirection se met en place par le biais du client GMail, et est bien
+Cette redirection se met en place par le biais du client Gmail, et est bien
 expliquée sur le site du support de Google : `Transfert automatique des
 messages vers un autre compte de messagerie`_.
 
 .. _Transfert automatique des messages vers un autre compte de messagerie: https://support.google.com/mail/answer/10957?hl=fr&ctx=mail
 
 **ATTENTION :** si vous aviez au préalable mis en place une redirection vers
-l'adresse GMail, il vous faut à présent impérativement la désactiver.
+l'adresse Gmail, il vous faut à présent impérativement la désactiver.
 
 Ainsi, Jean devra désactiver la redirection des mails de *jean@dupont.fr* vers
 *jean.dupont@gmail.com*.
@@ -350,7 +350,7 @@ Informations de connexion à un compte hébergé par AlwaysData
 
 Si vous avez choisi AlwaysData_ comme hébergeur, voici les information de
 connexion à configurer au niveau du client mail (Thunderbird, ou le client
-GMail lors de la mise en place de l'envoi de message avec une autre adresse) :
+Gmail lors de la mise en place de l'envoi de message avec une autre adresse) :
 
 .. _AlwaysData: https://alwaysdata.com
 
@@ -374,14 +374,14 @@ Connexion au compte :
 Stratégie timorée
 -----------------
 
-Voici comment configurer le client GMail pour envoyer les mails de la part de
+Voici comment configurer le client Gmail pour envoyer les mails de la part de
 *jean@dupont.fr* (stratégie timorée) :
 
 .. image:: |filename|./images/gmail_alwaysdata_1.png
-   :alt: Configuration de GMail pour l'hébergeur AlwaysData (1)
+   :alt: Configuration de Gmail pour l'hébergeur AlwaysData (1)
 
 .. image:: |filename|./images/gmail_alwaysdata_2.png
-   :alt: Configuration de GMail pour l'hébergeur AlwaysData (2)
+   :alt: Configuration de Gmail pour l'hébergeur AlwaysData (2)
 
 
 Stratégie courageuse
