@@ -155,7 +155,7 @@ La dernière étape de notre périple, avant de rentrer voir sa princesse, de
 vivre heureux et d'avoir beaucoup beaucoup d'enfants.
 
 Comme nous l'avons vu, il faut placer les deux lignes suivantes en tête du
-fichier ``requirements.pip`` :
+fichier ``requirements.pip`` :
 
 .. code-block:: pip
 
@@ -179,7 +179,7 @@ Par exemple, si vous avez installé ``django-notification`` de la sorte :
 
     pip install -e git+ssh://git@github.com/jtauber/django-notification.git#egg=django_notification:nohlsearch
 
-Il suffira de mettre la ligne suivante dans le fichier ``requirements.pip`` :
+Il suffira de mettre la ligne suivante dans le fichier ``requirements.pip`` :
 
 .. code-block:: sh
 

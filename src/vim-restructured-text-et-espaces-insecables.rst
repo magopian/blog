@@ -38,8 +38,8 @@ Pour ceux qui comme moi oublient régulièrement des espaces insécables, voici 
 
 Je vous avais prévenus, c'est violent. En gros, ce que ça fait :
 
-* ``:%s/<search>/<replace>/g`` : faire une recherche et un remplacement sur tout le fichier (et remplace toutes les occurences sur une même ligne)
-* ``\(\S\) \([:;?!]\)`` : le pattern à chercher. Sans l'échappement, ça donne ``(\S) ([:;?!])`` : trouver tous les espaces entre un *non-espace* et une ponctuation, en capturant le *non-espace* ainsi que la ponctuation
-* ``\1<CTRL+k N S>\2`` : ce par quoi il faut remplacer. ``\1`` et ``\2`` sont les deux morceaux capturés à l'étape de recherche, donc le *non-espace* et la ponctuation respectivement.
+* ``:%s/<search>/<replace>/g`` : faire une recherche et un remplacement sur tout le fichier (et remplace toutes les occurences sur une même ligne)
+* ``\(\S\) \([:;?!]\)`` : le pattern à chercher. Sans l'échappement, ça donne ``(\S) ([:;?!])`` : trouver tous les espaces entre un *non-espace* et une ponctuation, en capturant le *non-espace* ainsi que la ponctuation
+* ``\1<CTRL+k N S>\2`` : ce par quoi il faut remplacer. ``\1`` et ``\2`` sont les deux morceaux capturés à l'étape de recherche, donc le *non-espace* et la ponctuation respectivement.
 
 Avec tout ça, plus d'excuses pour ne pas utiliser des espaces insécables quand c'est nécessaire (merci `@n1k0 <https://twitter.com/n1k0>`_ pour la piqûre de rappel ;).
