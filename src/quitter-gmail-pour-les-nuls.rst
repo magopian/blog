@@ -4,9 +4,12 @@ Quitter Gmail pour les nuls
 :category: misc
 
 
-Cet article a pour but d'expliquer de la manière la plus claire et pédagogique
-possible la différence entre une adresse mail, un compte mail et un client
-mail, et de donner des recettes pour se passer de Gmail.
+Cet article est le premier d'une série sur les mails. Il est destiné aux
+personnes n'ayant pas ou peu de connaissances techniques du domaine, et a pour
+but de permettre à chacun de reprendre le contrôle sur son adresse mail.
+
+Nous allons voir la différence entre une adresse mail, un compte mail et un
+client mail, et donner des stratégies pour se passer de Gmail.
 
 Les exemples donnés dans cet article se basent sur Gmail, mais ils sont très
 largement applicables pour d'autres fournisseurs comme LaPoste.net ou Hotmail.
@@ -15,8 +18,9 @@ Pour l'histoire, Jean Dupont, qui utilisait jusqu'à présent son adresse
 *jean.dupont@gmail.com*, vient de se procurer un compte mail chez son
 hébergeur, ainsi qu'un nom de domaine et une adresse *jean@dupont.fr*.
 
-Nous n'aborderons pas ici ce qui concerne la réservation d'un nom de domaine,
-ni la création d'un compte mail chez un hébergeur.
+Nous aborderons dans un futur article ce qui concerne la réservation d'un nom
+de domaine et la création d'un compte mail chez un hébergeur, et dans un autre
+la gestion des contacts.
 
 
 Pourquoi
@@ -164,15 +168,23 @@ compte Dropbox...
 Comment
 =======
 
+Jean veut avoir le contrôle de la destination de ses messages, afin de pouvoir
+changer d'avis si il le souhaite. Il va donc faire passer le mot que sa
+nouvelle adresse est désormais *jean@dupont.fr*, et non plus
+*jean.dupont@gmail.com*.
+
+Par contre, Jean veut toujours recevoir les mails envoyés à
+*jean.dupont@gmail.com*, car il y a beaucoup d'entités qui ne connaissent pas
+encore sa nouvelle adresse, comme les impôts, EDF, ou encore des abonnements à
+des listes de diffusion.
+
 Avant de rentrer dans le détail, voici les deux stratégies possibles :
 
 * timorée : conserver Gmail comme compte principal
 * courageuse : utiliser son nouveau compte comme compte principal
 
 Ces deux étapes sont indépendantes, et il est tout à fait possible de rester à
-la première étape. C'est un compromis qui permet de ne pas changer grand chose
-à ses habitudes quotidiennes, l'inconvénient étant que Google a toujours accès
-à tous les messages, et elle demande plus de configuration.
+la première étape.
 
 Il est aussi tout à fait possible de passer directement à la deuxième étape,
 sans passer par la première.
@@ -184,20 +196,13 @@ d'avoir à minima le contrôle de la destination et du stockage des messages.
 Stratégie timorée : Conserver Gmail comme compte principal
 ==========================================================
 
-Jean veut avoir le contrôle de la destination de ses messages, afin de pouvoir
-changer d'avis si il le souhaite. Il va donc faire passer le mot que sa
-nouvelle adresse est désormais *jean@dupont.fr*, et non plus
-*jean.dupont@gmail.com*.
+Cette stratégie est un compromis qui permet de ne pas changer grand chose à ses
+habitudes quotidiennes, l'inconvénient étant que Google a toujours accès à tous
+les messages, et elle demande plus de configuration.
 
-Par contre, Jean veut toujours recevoir les mails envoyés à
-*jean.dupont@gmail.com*, car il y a beaucoup d'entités qui ne connaissent pas
-encore sa nouvelle adresse, comme les impôts, EDF, ou encore des abonnements à
-des listes de diffusion.
-
-Il veut par ailleurs continuer à utiliser Gmail comme compte principal pour des
-raisons pratiques (avoir tous ses messages au même endroit), et le client Gmail
-(accessible sur http://mail.google.com) parce qu'il en a l'habitude et qu'il le
-trouve pratique.
+Elle permet par ailleurs de continuer à utiliser Gmail comme compte principal
+pour des raisons pratiques (avoir tous ses messages au même endroit), et le
+client Gmail (accessible sur http://mail.google.com).
 
 
 Rediriger *jean@dupont.fr* vers *jean.dupont@gmail.com*
@@ -219,6 +224,10 @@ le compte associé (chez l'hébergeur donc).
 Il accédera alors à ses messages toujours de la même manière, en se connectant
 sur http://mail.google.com, et il aura toujours une copie de sauvegarde sur le
 compte de son hébergeur.
+
+Cette redirection devra rester en place tant que l'adresse
+*jean.dupont@gmail.com* sera connue et utilisée, ou tant que la stratégie
+courageuse ne sera pas mise en place.
 
 
 Configurer le client Gmail : envoyer les mails de la part de *jean@dupont.fr*
@@ -396,3 +405,7 @@ Thunderbird :
 AlwaysData fourni aussi un client web (Roundcube) accessible sur
 https://webmail.alwaysdata.com. Il suffit alors d'indiquer son mail et son mot
 de passe, aucune autre configuration n'est requise.
+
+
+.. note:: Je n'ai aucun intéressement chez Alwaysdata_, si je les prend en
+          exemple c'est que je suis un client satisfait.
