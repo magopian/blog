@@ -143,8 +143,9 @@ la Bible, et j'ai tellement aimé cette réponse que j'ai cherché un nom en
 rapport.
 
 D'ailleurs merci à tous ceux qui m'ont fait des propositions de nom (oui, même
-toi Laurent_, avec ta proposition « noix de cocode » ;).
+toi Martyn_ pour « noix de cocode », et toi Laurent_ pour « TropiCode » ;).
 
+.. _Martyn: https://twitter.com/m_clement
 .. _Laurent: http://providenz.fr/
 
 C'est ma sœur Claire_ qui a fini par trouver le nom final, à la fois facile à
