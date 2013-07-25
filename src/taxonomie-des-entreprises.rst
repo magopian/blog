@@ -479,7 +479,7 @@ expérience pouvait servir à d'autres, tant mieux !
 (Qui a dit que `le partage`_ était la meilleure des stratégies ? :)
 
 
-.. _précédent billet: ../plan-de-carriere-dun-developpeur.html
+.. _précédent billet: |filename|plan-de-carriere-dun-developpeur.rst
 .. _Hybird: http://hybird.org/
 .. _Mozilla: http://mozilla.org
 .. _une autre paire de manches: http://mathieu.agopian.info/mnmlist
