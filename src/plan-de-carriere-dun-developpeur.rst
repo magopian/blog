@@ -174,4 +174,4 @@ d'entreprise qu'on vise. Et c'est ce que j'espère montrer et expliquer plus
 clairement avec le `prochain billet`_ sur la taxonomie des entreprises.
 
 .. _réponse de David Larlet: https://larlet.fr/david/thoughts/#sharing
-.. _prochain billet: ../taxonomie-des-entreprises.html
+.. _prochain billet: |filename|taxonomie-des-entreprises.rst

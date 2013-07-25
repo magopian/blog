@@ -145,7 +145,7 @@ Ajout (2012-12-10) : les vidéos sont disponibles
 
 .. _django-fr: http://django-fr.org
 .. _DjangoCon Toulouse: http://rencontres.django-fr.org/2012/tolosa/
-.. _`Vim + Screen : le pair-prog des champions`: ../vim-screen-le-pair-prog-des-champions.html
+.. _`Vim + Screen : le pair-prog des champions`: |filename|vim-screen-le-pair-prog-des-champions.rst
 .. _Django pour les fainéants, le retour: http://mathieu.agopian.info/presentations/2012_djangocon_toulouse/
 .. _pep8: http://www.python.org/dev/peps/pep-0008/
 .. _Sudweb: http://sudweb.fr

@@ -483,7 +483,7 @@ expérience pouvait servir à d'autres, tant mieux !
 .. _Hybird: http://hybird.org/
 .. _Mozilla: http://mozilla.org
 .. _une autre paire de manches: http://mathieu.agopian.info/mnmlist
-.. _pair-programming: ../vim-screen-le-pair-prog-des-champions.html
+.. _pair-programming: |filename|vim-screen-le-pair-prog-des-champions.rst
 .. _équipez vos développeurs: http://thecodersbreakfast.net/index.php?post/2012/08/26/equipez-vos-d%C3%A9veloppeurs
 .. _celui de Novapost: http://tech.novapost.fr/
 .. _diagrammes radar: https://en.wikipedia.org/wiki/Radar_chart
