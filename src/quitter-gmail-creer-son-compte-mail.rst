@@ -5,15 +5,19 @@ Quitter Gmail : créer son compte mail
 :status: draft
 
 
-Cet article est le troisième d'une série sur `quitter gmail`_.
+Cet article est le troisième d'une série sur comment reprendre le contrôle sur
+son mail, et quitter son fournisseur de mail centralisé.
 
-.. _quitter gmail: |filename|./quitter-gmail.rst
+#. `Pourquoi quitter Gmail`_
+#. `Réserver son propre nom de domaine`_
+#. Créer son compte mail
+#. `Migrer ses mails`_
+#. Gestion des contacts (à paraître)
 
-Nous avons vu précédemment comment `réserver son nom de domaine`_, et le
-prochain article sera sur la Gestion des contacts (à paraître).
-
-.. _réserver son nom de domaine:
+.. _Pourquoi quitter Gmail: |filename|./quitter-gmail.rst
+.. _Réserver son propre nom de domaine:
     |filename|./quitter-gmail-reserver-son-nom-de-domaine.rst
+.. _Migrer ses mails: |filename|./quitter-gmail-migrer-ses-mails.rst
 
 Dans cet article nous allons étudier les différentes possibilités et stratégies
 pour se passer de Gmail pour son adresse mail.
@@ -80,8 +84,7 @@ Le programme qui permet de :
 * trier, ordonner, classer les messages
 
 Accessoirement, un client permet aussi de gérer les adresses (contacts), mais
-c'est un autre sujet que nous aborderons dans le quatrième article de cette
-série.
+c'est un autre sujet que nous aborderons dans un futur article de cette série.
 
 Il existe deux grands types de clients :
 
@@ -131,8 +134,7 @@ Exemple : l'utilisation d'un client lourd comme Thunderbird permet d'avoir une
 copie des messages sur son ordinateur, tout en les conservant sur le serveur
 (sur le compte). On peut alors envisager de sauvegarder ces messages (qui sont
 stockés sous forme de fichiers sur l'ordinateur) sur un disque USB, un
-:abbr:`NAS (Network-Attached Storage : disque dur réseau)`, un compte
-Dropbox...
+:abbr:`NAS (Network-Attached Storage : disque dur réseau)`...
 
 
 Comment
@@ -366,4 +368,4 @@ de passe, aucune autre configuration n'est requise.
 La suite
 ========
 
-Le prochain article abordera la Gestion des contacts (à paraître).
+Le prochain article donnera des techniques pour `Migrer ses mails`_.

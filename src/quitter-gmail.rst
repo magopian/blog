@@ -4,8 +4,20 @@ Quitter Gmail
 :category: misc
 :status: draft
 
+
 Cet article est le premier d'une série sur comment reprendre le contrôle sur
 son mail, et quitter son fournisseur de mail centralisé.
+
+#. Pourquoi quitter Gmail
+#. `Réserver son propre nom de domaine`_
+#. `Créer son compte mail`_
+#. `Migrer ses mails`_
+#. Gestion des contacts (à paraître)
+
+.. _Réserver son propre nom de domaine:
+    |filename|./quitter-gmail-reserver-son-nom-de-domaine.rst
+.. _Créer son compte mail: |filename|./quitter-gmail-creer-son-compte-mail.rst
+.. _Migrer ses mails: |filename|./quitter-gmail-migrer-ses-mails.rst
 
 Les exemples donnés dans cette série d'articles se basent sur Gmail, mais ils
 sont très largement applicables pour d'autres fournisseurs comme LaPoste.net ou
@@ -23,22 +35,6 @@ stratégies pour se passer de Gmail.
 Pour l'histoire, Jean Dupont, qui utilisait jusqu'à présent son adresse
 *jean.dupont@gmail.com*, veut dorénavant pouvoir gérer ses mails sans dépendre
 de Google, et va mettre en place sa propre adresse mail *jean@dupont.fr*.
-
-
-Sommaire
-========
-
-Pour des raisons de clarté, la série est scindée en quatre articles :
-
-#. Quitter Gmail : pourquoi ? (l'article que vous êtes en train de lire)
-#. `Réserver son propre nom de domaine`_
-#. `Créer son compte mail, sauvegarder ses mails`_
-#. Gestion des contacts (à paraître)
-
-.. _Réserver son propre nom de domaine:
-    |filename|./quitter-gmail-reserver-son-nom-de-domaine.rst
-.. _Créer son compte mail, sauvegarder ses mails:
-    |filename|./quitter-gmail-creer-son-compte-mail.rst
 
 
 Quitter Gmail : Pourquoi ?

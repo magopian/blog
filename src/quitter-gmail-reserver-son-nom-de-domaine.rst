@@ -5,16 +5,21 @@ Quitter Gmail : réserver son nom de domaine
 :status: draft
 
 
-Cet article est le deuxième d'une série sur `quitter gmail`_.
+Cet article est le deuxième d'une série sur comment reprendre le contrôle sur
+son mail, et quitter son fournisseur de mail centralisé.
 
-.. _quitter gmail: |filename|./quitter-gmail.rst
+#. `Pourquoi quitter Gmail`_
+#. Réserver son propre nom de domaine
+#. `Créer son compte mail`_
+#. `Migrer ses mails`_
+#. Gestion des contacts (à paraître)
 
-Nous allons voir dans un prochain article comment reprendre le contrôle sur son
-adresse mail (`Créer son compte mail`_), mais cela nécessite d'avoir au
-préalable son propre nom de domaine.
+.. _Pourquoi quitter Gmail: |filename|./quitter-gmail.rst
+.. _Créer son compte mail: |filename|./quitter-gmail-creer-son-compte-mail.rst
+.. _Migrer ses mails: |filename|./quitter-gmail-migrer-ses-mails.rst
 
-.. _Créer son compte mail:
-    |filename|./quitter-gmail-creer-son-compte-mail.rst
+Nous allons voir dans un prochain article comment créer son compte mail, mais
+cela nécessite d'avoir au préalable son propre nom de domaine.
 
 Commençons par quelques définitions.
 
