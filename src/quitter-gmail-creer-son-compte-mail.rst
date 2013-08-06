@@ -224,6 +224,8 @@ autre adresse`_.
 Voici une explication résumée (si vous utilisez Alwaysdata, reportez-vous en
 fin de cette article pour des captures d'écran explicatives) :
 
+.. _AlwaysData: https://alwaysdata.com
+
 #. Cliquez sur l'icône représentant une roue dentée en haut à droite de
    l'écran, puis sélectionnez Paramètres
 #. Cliquez sur l'onglet Comptes
@@ -260,7 +262,7 @@ donc).
 
 Il va donc falloir que Jean utilise un autre client mail, comme
 par exemple Thunderbird. Il lui faudra le télécharger, l'installer, et le
-configurer (voir en fin d'article l'exemple de l'hébergement chez AlwaysData).
+configurer (voir en fin d'article l'exemple de l'hébergement chez Alwaysdata).
 
 Il peut autrement préférer utiliser le « webmail » fourni par son hébergeur
 (par exemple Roundcube, qui est assez répandu), pour continuer à consulter ses
@@ -312,31 +314,8 @@ de contacter tout son carnet d'adresse pour faire connaître sa nouvelle
 adresse.
 
 
-Informations de connexion à un compte hébergé par AlwaysData
+Informations de connexion à un compte hébergé par Alwaysdata
 ============================================================
-
-Si vous avez choisi AlwaysData_ comme hébergeur, voici les information
-génériques de connexion à configurer au niveau du client mail (plus de détail
-pour les différentes stratégies juste après) :
-
-.. _AlwaysData: https://alwaysdata.com
-
-Envoi de messages :
-
-* Serveur SMTP : ``smtp.alwaysdata.com``
-* Port : ``587``
-* Option de sécurité : ``STARTTLS`` ou ``TLS``
-* Nom d'utilisateur : ``jean@dupont.fr``
-* Mot de passe : le mot de passe choisi lors de la création du compte mail
-
-Connexion au compte :
-
-* Serveur Type : ``IMAP``
-* Serveur Name : ``imap.alwaysdata.com``
-* Port : ``993``
-* Option de sécurité : ``STARTTLS`` ou ``TLS``
-* Nom d'utilisateur : ``jean@dupont.fr``
-* Mot de passe : le mot de passe choisi lors de la création du compte mail
 
 Stratégie timorée
 -----------------
@@ -345,10 +324,10 @@ Voici comment configurer le client Gmail pour envoyer les mails de la part de
 *jean@dupont.fr* (stratégie timorée) :
 
 .. image:: |filename|./images/gmail_alwaysdata_1.png
-   :alt: Configuration de Gmail pour l'hébergeur AlwaysData (1)
+   :alt: Configuration de Gmail pour l'hébergeur Alwaysdata (1)
 
 .. image:: |filename|./images/gmail_alwaysdata_2.png
-   :alt: Configuration de Gmail pour l'hébergeur AlwaysData (2)
+   :alt: Configuration de Gmail pour l'hébergeur Alwaysdata (2)
 
 
 Stratégie courageuse
@@ -358,9 +337,9 @@ Voici à quoi ressemble la configuration lors de l'ajout d'un compte mail sur
 Thunderbird :
 
 .. image:: |filename|./images/thunderbird_alwaysdata.png
-   :alt: Configuration de Thunderbird pour l'hébergeur AlwaysData
+   :alt: Configuration de Thunderbird pour l'hébergeur Alwaysdata
 
-AlwaysData fourni aussi un client web (Roundcube) accessible sur
+Alwaysdata fourni aussi un client web (Roundcube) accessible sur
 https://webmail.alwaysdata.com. Il suffit alors d'indiquer son mail et son mot
 de passe, aucune autre configuration n'est requise.
 
