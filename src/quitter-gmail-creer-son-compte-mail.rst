@@ -12,12 +12,13 @@ son mail, et quitter son fournisseur de mail centralisé.
 #. `Réserver son propre nom de domaine`_
 #. Créer son compte mail
 #. `Migrer ses mails`_
-#. Gestion des contacts (à paraître)
+#. `Gestion des contacts`_
 
 .. _Pourquoi quitter Gmail: |filename|./quitter-gmail.rst
 .. _Réserver son propre nom de domaine:
     |filename|./quitter-gmail-reserver-son-nom-de-domaine.rst
 .. _Migrer ses mails: |filename|./quitter-gmail-migrer-ses-mails.rst
+.. _Gestion des contacts: |filename|./quitter-gmail-gestion-des-contacts.rst
 
 Dans cet article nous allons étudier les différentes possibilités et stratégies
 pour se passer de Gmail pour son adresse mail.

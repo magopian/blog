@@ -12,12 +12,13 @@ son mail, et quitter son fournisseur de mail centralisé.
 #. `Réserver son propre nom de domaine`_
 #. `Créer son compte mail`_
 #. Migrer ses mails
-#. Gestion des contacts (à paraître)
+#. `Gestion des contacts`_
 
 .. _Pourquoi quitter Gmail: |filename|./quitter-gmail.rst
 .. _Réserver son propre nom de domaine:
     |filename|./quitter-gmail-reserver-son-nom-de-domaine.rst
 .. _Créer son compte mail: |filename|./quitter-gmail-creer-son-compte-mail.rst
+.. _Gestion des contacts: |filename|./quitter-gmail-gestion-des-contacts.rst
 
 Pour la plupart des gens, les mails sont stockés sur un serveur de mail, sur
 une machine chez l'hébergeur.
@@ -137,4 +138,4 @@ entre l'hébergeur et son ordinateur, et donc :
 .. note:: Vous DEVEZ avoir une sauvegarde de tous vos fichiers, pas seulement
     de vos mails !
 
-Le prochain article abordera la Gestion des contacts (à paraître).
+Le prochain article abordera la Gestion des contacts.

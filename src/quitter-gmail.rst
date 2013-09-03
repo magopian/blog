@@ -12,12 +12,13 @@ son mail, et quitter son fournisseur de mail centralisé.
 #. `Réserver son propre nom de domaine`_
 #. `Créer son compte mail`_
 #. `Migrer ses mails`_
-#. Gestion des contacts (à paraître)
+#. `Gestion des contacts`_
 
 .. _Réserver son propre nom de domaine:
     |filename|./quitter-gmail-reserver-son-nom-de-domaine.rst
 .. _Créer son compte mail: |filename|./quitter-gmail-creer-son-compte-mail.rst
 .. _Migrer ses mails: |filename|./quitter-gmail-migrer-ses-mails.rst
+.. _Gestion des contacts: |filename|./quitter-gmail-gestion-des-contacts.rst
 
 Les exemples donnés dans cette série d'articles se basent sur Gmail, mais ils
 sont très largement applicables pour d'autres fournisseurs comme LaPoste.net ou
