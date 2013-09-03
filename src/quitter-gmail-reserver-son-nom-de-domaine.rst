@@ -2,7 +2,6 @@ Quitter Gmail : réserver son nom de domaine
 ###########################################
 :date: 2013-07-30 13:44
 :category: misc
-:status: draft
 
 
 Cet article est le deuxième d'une série sur comment reprendre le contrôle sur

@@ -2,7 +2,6 @@ Quitter Gmail : gestion des contacts
 ####################################
 :date: 2013-08-06 09:14
 :category: misc
-:status: draft
 
 
 Cet article est le cinquième d'une série sur comment reprendre le contrôle sur

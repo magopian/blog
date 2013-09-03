@@ -2,7 +2,6 @@ Quitter Gmail
 #############
 :date: 2013-07-30 08:38
 :category: misc
-:status: draft
 
 
 Cet article est le premier d'une série sur comment reprendre le contrôle sur

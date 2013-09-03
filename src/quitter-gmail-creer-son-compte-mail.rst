@@ -1,8 +1,7 @@
 Quitter Gmail : créer son compte mail
 #####################################
-:date: 2013-06-25 08:34
+:date: 2013-07-31 08:21
 :category: misc
-:status: draft
 
 
 Cet article est le troisième d'une série sur comment reprendre le contrôle sur

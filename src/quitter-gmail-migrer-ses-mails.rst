@@ -2,7 +2,6 @@ Quitter Gmail : migrer ses mails
 ################################
 :date: 2013-08-05 19:07
 :category: misc
-:status: draft
 
 
 Cet article est le quatrième d'une série sur comment reprendre le contrôle sur
