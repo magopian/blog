@@ -137,4 +137,4 @@ entre l'hébergeur et son ordinateur, et donc :
 .. note:: Vous DEVEZ avoir une sauvegarde de tous vos fichiers, pas seulement
     de vos mails !
 
-Le prochain article abordera la Gestion des contacts.
+Le prochain article abordera la `Gestion des contacts`_.
