@@ -71,8 +71,8 @@ On a alors une synchronisation des contacts sur les différents clients
 Comment
 =======
 
-Rappatrier ses contacts
------------------------
+Rapatrier ses contacts
+----------------------
 
 Nous avons vu dans la définition de vCard, qu'il est possible d'exporter tous
 les contacts de Gmail dans un fichier. Malheureusement, ce fichier n'est pas
@@ -239,7 +239,7 @@ que les décisions récentes de Google d'abandonner les standards ouverts
 (CardDav, CalDav...) y soient pour quelque chose.
 
 Pour la synchronisation avec google, il faut donc se contenter du module
-complémentaire indiqué dans le chapitre « rappatrier ses contacts ».
+complémentaire indiqué dans le chapitre « rapatrier ses contacts ».
 
 
 La suite

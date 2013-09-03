@@ -58,7 +58,7 @@ migrés lors d'un changement d'hébergeur.
 Comment
 =======
 
-Pour migrer ses mails, Jean va devoir commencer par rappatrier tous ses mails
+Pour migrer ses mails, Jean va devoir commencer par rapatrier tous ses mails
 sur son ordinateur. Et pour ça, il va être obligé d'utiliser un client lourd
 (cf l'article précédent).
 
@@ -88,8 +88,8 @@ et l'espace disque`_.
     https://support.mozillamessaging.com/fr/kb/le-protocole-imap#w_configurer-la-synchronisation-et-laoespace-disque
 
 
-Rappatrier les mails
---------------------
+Rapatrier les mails
+-------------------
 
 Il ne reste plus qu'à passer Thunderbird en mode « hors ligne », pour forcer la
 synchronisation, ce qui dans notre cas correspond au téléchargement de tous les
@@ -130,7 +130,7 @@ entre l'hébergeur et son ordinateur, et donc :
 * une copie de ses mails sur l'hébergeur
 * une copie de ses mails sur son ordinateur
 * une copie de ses mails sauvegardés par ses soins
-* une étape de moins à exécuter (le rappatriement) lors du prochain changement
+* une étape de moins à exécuter (le rapatriement) lors du prochain changement
   d'hébergeur
 * la possibilité de travailler hors ligne
 
