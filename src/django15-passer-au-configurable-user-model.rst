@@ -115,7 +115,7 @@ migrations : toutes les applications ayant une relation avec l'utilisateur
 devront dépendre de la migration initiale qui crée la table ``auth_user`` ou
 ``account_rh2user``.
 
-Dans le deuxième cas, il faudra de plus que la première des migration suivant
+Dans le deuxième cas, il faudra de plus que la première des migrations suivant
 le renommage, pour chaque application, dépende de cette migration.
 
 
@@ -133,8 +133,8 @@ Il suffit alors de recopier le code de la migration créée, de le rajouter au
 fichier ``account/migrations/0001_initial.py``, puis de supprimer cette
 nouvelle migration qui ne sera pas utilisée.
 
-Il faut ensuite modifier chacune des migration, en prenant exemple sur ce qui a
-été fait sur django-oauth2-provider_.
+Il faut ensuite modifier chacune des migrations, en prenant exemple sur ce qui
+a été fait sur django-oauth2-provider_.
 
 .. _django-oauth2-provider:
     https://github.com/caffeinehit/django-oauth2-provider/pull/18/files
@@ -184,7 +184,7 @@ migrations : supprimer toutes les migrations existantes, ainsi que la table
     $ python manage.py convert_to_south ....
 
 L'avantage est qu'il n'y a alors aucun soucis de dépendances entre les
-migrations, et qu'on repars de quelque chose de propre.
+migrations, et qu'on repart de quelque chose de propre.
 
 Les inconvénients sont multiples : gérer une migration (à la main?) pour les
 plateformes en cours d'utilisation, impossibilité de retourner en arrière
