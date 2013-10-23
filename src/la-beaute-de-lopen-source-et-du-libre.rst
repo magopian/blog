@@ -31,7 +31,7 @@ me retrouve avec un petit formulaire de test :
 
 Ce qui me donne le résultat visuel suivant :
 
-.. image:: images/html5_form.png
+.. image:: |filename|./images/html5_form.png
     :alt: Formulaire Django avec des inputs HTML5
     :align: center
 
@@ -39,7 +39,7 @@ On y voit bien le *placeholder* dans le champ de type *email*. Sur
 l'image suivante, on voit la validation faite directement au niveau du
 browser (firefox 4b11) :
 
-.. image:: images/html5_form_validation.png
+.. image:: |filename|./images/html5_form_validation.png
     :alt: Formulaire Django avec validation
     :align: center
 
@@ -112,7 +112,7 @@ précédent :
 Et voici le résultat (les moqueurs reconnaîtrons mon talent pour tout
 ce qui touche au design) :
 
-.. image:: images/html5_form_fieldsets.png
+.. image:: |filename|./images/html5_form_fieldsets.png
     :alt: Formulaire Django avec des fieldsets
     :align: center
 

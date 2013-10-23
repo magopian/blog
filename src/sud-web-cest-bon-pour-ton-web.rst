@@ -79,7 +79,7 @@ Conclusion ?
 
 Moi j'y vais, et toi donc ? `Vite vite il ne reste plus que quelques jours !`_
 
-.. |sudweb| image:: images/sudweb.png
+.. |sudweb| image:: |filename|./images/sudweb.png
     :alt: Sud Web, 27 mai à Nîmes : Savoir Faire et Faire Savoir
 .. _sudweb: http://sudweb.fr
 .. _réserver ta place: http://sudweb.fr/pages/Inscription
