@@ -29,7 +29,7 @@ posée.
 Un exemple concret
 ==================
 
-Pour le reste de cet article, je vais me baser sur l'exemple concert du `jeu de
+Pour le reste de cet article, je vais me baser sur l'exemple concret du `jeu de
 la vie de Conway`_ qui était le sujet de la `journée de code retreat à
 Marseille`_ à laquelle j'ai assisté ce samedi 14 Décembre.
 
