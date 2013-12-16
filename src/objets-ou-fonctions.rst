@@ -197,8 +197,8 @@ Est-ce qu'on s'est trompés ?
 Il est communément admis (en tout cas dans mon entourage) que l'utilisation
 d'objets est plus intuitive, plus facile, plus claire et explicite. Seulement,
 lors de la *code retreat* et des différentes sessions, j'ai été confronté à des
-visions très différente de mes collègues de *pair-programming*, par exemple sur
-le découpage des objets, ou sur leur responsabilité :
+visions très différentes de mes collègues de *pair-programming*, par exemple
+sur le découpage des objets, ou sur leur responsabilité :
 
 * est-ce qu'il faut un objet ``CellContext`` qui gère le contexte de la
   cellule, ses voisines
