@@ -5,7 +5,7 @@ DjangoCon Europe
 :status: draft
 
 .. note:: are you an english reader? If so, please scroll down to the `english
-          translation`_.
+          version`_.
 
 
 Version française
@@ -117,5 +117,107 @@ Cette rencontre sera ce que tu y apporte. Inscris toi, propose un sujet,
 sponsorise. Cette rencontre, c'est toi.
 
 
-English translation
-===================
+English version
+===============
+
+(Thanks a lot `Daniele Procida`_ for the translation!)
+
+.. _Daniele Procida: http://medicine.cf.ac.uk/person/mr-daniele-marco-procida/
+
+Once again the European Django_ community will get together as it does every
+year, but this year's edition of its great annual gathering will take place in
+France. More precisely, on an island, the Îsle des Embiez, in the mediterranean
+department of the Var.
+
+`DjangoCon Europe`_ is an unmissable event, that gives several hundred
+participants a chance to get together in the same place, for 3 to 5 days (3
+days of talks and meetings, 2 days of sprints).
+
+
+Why you should attend
+---------------------
+
+Our strength is nurtured by our passion for a job well done, our eagerness
+always to become more skilled with the tools of our trade, our desire to learn
+more. And what could be a better way of doing that than to meet our peers, to
+exchange and share what we know for the benefit of our daily work.
+
+These conferences provide an opportunity to meet new people, to find new
+clients, an employer or one's next colleague.
+
+They also provide an excellent way to keep up-to-date with the latest
+developments in the language or the framework, or simply to acquire a better
+understanding of its use cases, of problems that others have solved, or tips
+and techniques that will help on a day-to-day basis.
+
+And don't be under any doubt: your future employers, collaborators, clients
+will be well aware of what it means: a passionate developer, who takes part in
+community events, is even more attractive and interesting!
+
+
+Who should come
+---------------
+
+This conference is aimed at everyone:
+
+* beginners, who'll learn a huge amount in a few days
+* those eager to learn more, who'll gain an excellent overview of the toolbase,
+  its use and the problems it can be applied to
+* skilled, who will also find their interest
+* freelancers, who'll have opportunities for networking, and finding new
+  partners or clients
+* employees, who may discover their next new co-worker
+* those seeking new employment opportunities, who'll have a chance to meet
+  recruiters in person, and meet their future colleagues
+* organisations that need their staff to be at the forefront of developments
+  and always learning
+* sponsors, who want to increase their visibility, to become better known
+  amongst Django developers, to give a bit back to the community, to find new
+  members of staff
+
+
+You are this conference
+-----------------------
+
+Yes, you the reader - we count on you, the community counts on you. A community
+is nothing without its members, a conference is nothing without its
+participants. I invite you not just because I want to meet you, to learn more
+about you and your work; I ask you to join in and take an active part in this
+event.
+
+I invite you to propose a talk.
+
+
+Why propose a talk?
+-------------------
+
+Because it's good for the community, for the conference, but also for you:
+
+* are you a beginner? What better than to speak to other beginners, to share
+  with them your experience, the obstacles you encountered, and the secrets you
+  discovered while learning
+* are you experienced? Who better than you to speak of a library you've
+  discovered (or written), and to explain it to others?
+* are you an expert? Who better than you to present an advanced technique, a
+  little-known functionality in Python or Django?
+* you work on specialised projects, you have encountered obstacles or problems
+  and solved them? Who better than you to give your peers a chance to learn
+  something new, sharing your experience so that it benefits the greatest
+  number?
+
+And if you've never spoken or given a presentation to a conference before,
+don't let that put you off: this is the perfect opportunity to start. There's a
+first time for everything, and to give a talk to this particular community -
+one that's known for being welcoming, sympathetic, patient and courteous - will
+help make sure that it's an excellent experience for you.
+
+And if you're an experienced and regular speaker, don't hesitate either. We're
+certainly not tired of hearing from you, and we ask of you just one thing: that
+once more you share what you know with us.
+
+
+See you soon
+------------
+
+This conference will be what you bring to it. Sign up, propose a talk, become a
+sponsor. This conference: it's you.
