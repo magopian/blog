@@ -2,7 +2,6 @@ DjangoCon Europe
 ################
 :date: 2014-01-28 08:08
 :category: django
-:status: draft
 
 .. note:: are you an english reader? If so, please scroll down to the `english
           version`_.
