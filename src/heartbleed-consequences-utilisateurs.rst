@@ -8,7 +8,7 @@ Le problème
 ===========
 
 Hier, le 8 avril 2014, une énorme faille de sécurité a été divulguée, nom de
-code Heartbleed (plus d'infos sur http://heartbleed.com). Elle impacte "SSL",
+code Heartbleed (plus d'infos sur http://heartbleed.com). Elle impacte OpenSSL,
 qui est la technologie qui permet de sécuriser les échanges entre notre
 navigateur et les sites qui utilisent des adresses qui commencent par
 "https://" (notez bien le "s" final). On estime qu'elle impacte environ 2/3
