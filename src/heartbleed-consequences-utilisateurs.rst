@@ -76,11 +76,11 @@ passe :
    d'ordinateur (c'est un fichier qu'il faut sauvegarder et garder en lieu
    sûr).
 #. il existe de multiples logiciels de gestion de mots de passe, comme
-   1password_ ou revelation_ (pour linux). Ils permettent d'enregistrer les
-   mots de passe pour tous ses sites, et les sauvegarder dans un fichier
-   chiffré. Il faut bien sauvegarder ce fichier (comme pour la clé de
-   récupération Sync). C'est très pratique pour retenir tous ses mots de passe,
-   en sachant que vous êtes sensé(e)s avoir un mot de passe sécurisé et
+   KeePassX_, 1password_ ou revelation_ (pour linux). Ils permettent
+   d'enregistrer les mots de passe pour tous ses sites, et les sauvegarder dans
+   un fichier chiffré. Il faut bien sauvegarder ce fichier (comme pour la clé
+   de récupération Sync). C'est très pratique pour retenir tous ses mots de
+   passe, en sachant que vous êtes sensé(e)s avoir un mot de passe sécurisé et
    différent sur chacun des sites que vous fréquentez. Autrement, si un de ces
    sites se fait pirater, le pirate peut réutiliser votre mot de passe sur tous
    les autres sites que vous utilisez... Et les sites qui se font pirater
@@ -91,6 +91,7 @@ passe :
     https://support.mozilla.org/fr/kb/utiliser-mot-passe-principal-proteger-identifiants
 .. _firefox sync:
     https://support.mozilla.org/fr/kb/comment-configurer-firefox-sync
+.. _KeePassX: https://www.keepassx.org/
 .. _1password: https://agilebits.com/onepassword
 .. _revelation: http://revelation.olasagasti.info/
 
