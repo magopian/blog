@@ -25,24 +25,14 @@ et le site, empêchant quiconque de pouvoir espionner (par exemple en "sniffant"
 le wifi sur lequel vous êtes connectés) et récupérer vos mots de passe.
 
 Seulement voilà, hier on a appris que cette sécurité comportait un bug logiciel
-qui permet à n'importe qui de récupérer, directement à partir du site qui
-utilise SSL, les mots de passe des utilisateurs qui se connectent, ainsi que
-leur cookie (c'est ce qui permet au site de savoir que vous êtes déjà connecté,
-et ne pas avoir à vous redemander votre mot de passe sur chaque page affichée
-d'un même site), et plein d'autres informations. Accessoirement, il est aussi
-possible de récupérer le certificat, qui est la preuve qu'un site utilisant SSL
-est bien qui il est, et non quelqu'un qui se fait passer pour lui, et donc à
-quiconque de se faire passer pour un site à sa place (et ainsi récupérer toutes
-les informations qu'il veut).
+qui permet à n'importe qui de récupérer les mots de passe des utilisateurs et
+plein d'autres informations sur les sites qui utilisent cette sécurité.
 
-Petite note pour les utilisateurs de Google Chrome concernant cette dernière
-vulnérabilité (la récupération d'un certificat) : je vous recommande d'utiliser
-Firefox_. Si vous souhaitez continuer à utiliser Chrome, veillez à activer la
-`vérifier la révocation du certificat serveur`_, dans les paramètres avancés,
-pour être sûr qu'un certificat que votre navigateur reçoit n'est pas un ancien
-certificat compromis et révoqué. Malheureusement, Chrome a choisi de ne pas
-activer cette vérification par défaut pour permettre aux pages de se charger
-plus vite... au dépends de votre sécurité donc.
+Petite note pour les utilisateurs de Google Chrome : je vous recommande
+d'utiliser Firefox_. Si vous souhaitez continuer à utiliser Chrome, veillez à activer
+l'option `vérifier la révocation du certificat serveur`_. Malheureusement,
+Chrome a choisi de ne pas activer cette vérification par défaut pour permettre
+aux pages de se charger plus vite... au dépends de votre sécurité donc.
 
 .. _Firefox: http://www.mozilla.org/fr/firefox/new/
 .. _vérifier la révocation du certificat serveur:
