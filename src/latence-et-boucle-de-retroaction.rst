@@ -24,8 +24,8 @@ plusieurs dizaines voire centaines de requêtes. Même si la latence n'est que d
 
 Prenons un autre exemple : il n'est pas rare d'avoir des pages nécessitant des
 dizaines (des centaines, voire des milliers ?) de requêtes SQL à une base de
-donnée. Là encore, il faut multiplier ce nombre de requête par le temps de
-traitement par la base de donnée, mais aussi par la latence.
+données. Là encore, il faut multiplier ce nombre de requête par le temps de
+traitement par la base de données, mais aussi par la latence.
 
 Étant donné la difficulté de réduire la latence, l'optimisation de la
 performance passe par le réduction du nombre de requêtes : on fait des
@@ -84,7 +84,7 @@ Voici quelques exemples de latence :
   faire un très grand nombre de mesures de position)
 - retours de l'utilisateur final/décideur très lents (mesure de position très
   rare)
-- dialogue avec une API/base de donnée/système distant/... très lent (chaque
+- dialogue avec une API/base de données/système distant/... très lent (chaque
   mesure de position demande de très longs traitements)
 - peu de confiance dans les résultats (nécessité de refaire plusieurs fois les
   mesures ou de les retraiter)
@@ -102,7 +102,7 @@ pour le projet AMO_.
 Afin de pouvoir présenter des graphiques d'utilisation/téléchargement des
 extensions à leur auteur (comme pour Firebug_), toutes les requêtes de
 téléchargement et de demande de mise à jour sont enregistrées et stockées dans
-une base de donnée « big data » (pour les curieux : c'est stocké dans Hadoop_
+une base de données « big data » (pour les curieux : c'est stocké dans Hadoop_
 et récupéré par le biais de Hive_). On parle de plus d'un milliard de requête
 par jour, toutes requêtes confondues.
 
