@@ -45,7 +45,7 @@ Configurer *ccache* ::
     ccache --max-size 10GB
 
 Désactiver le verrouillage de l'écran (l'outil de communication avec le
-téléphone, *adb*, ne peux se connecter qu'avec un téléphone déverrouillé) ::
+téléphone, *adb*, ne peut se connecter qu'avec un téléphone déverrouillé) ::
 
     Paramètres > Affichage > Délai de l'écran de veille > Jamais
 
