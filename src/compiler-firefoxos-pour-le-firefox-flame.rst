@@ -30,7 +30,7 @@ Installer les prérequis
 
 https://developer.mozilla.org/en-US/Firefox_OS/Firefox_OS_build_prerequisites#Ubuntu_13.10
 
-..
+::
 
     sudo dpkg --add-architecture i386
     sudo apt-get update
@@ -68,8 +68,8 @@ Configurer le débuguage à distance (par USB en utilisant *adb*) ::
     SUBSYSTEM=="usb", ATTR{idVendor}=="18d1", MODE="0666", GROUP="plugdev"
     EOF
 
-    $ sudo mv android.rules /etc/udev/rules.d/
-    $ sudo service udev restart
+    sudo mv android.rules /etc/udev/rules.d/
+    sudo service udev restart
 
 .. _Ajouter les règles udev:
     https://developer.mozilla.org/en-US/Firefox_OS/Firefox_OS_build_prerequisites#For_Linux.3A_configure_the_udev_rule_for_your_phone
@@ -90,9 +90,12 @@ Vérifier que *adb* peut se connecter ::
 Sauvegarder le téléphone
 ========================
 
+Cette étape est optionnelle, et doit permettre de réinstaller la version
+initiale si nécessaire.
+
 https://developer.mozilla.org/en-US/Firefox_OS/Firefox_OS_build_prerequisites#Backup_the_phone_system_partition
 
-..
+::
 
     mkdir -p flame/backup-flame/
     cd flame
@@ -117,6 +120,8 @@ Cloner le dépôt ::
     export CC=gcc-4.6
     export CXX=g++-4.6
     # Various optional settings.
+    export B2G_UPDATE_CHANNEL=nightly  # OTA channel to use.
+    export B2G_UPDATER=1  # Enable the OTA updater.
     export DEVICE_DEBUG=1  # Enable developer mode.
     #export B2G_DEBUG=1  # build a debug build.
     #export MOZ_PROFILING=1  # enable profiling (don't pair with B2G_NOOPT).
@@ -131,11 +136,7 @@ Cloner le dépôt ::
 Configurer le build pour le Flame, et récupérer tous les fichiers (très long,
 télécharge plus de 15Go de fichiers) ::
 
-    ANDROIDFS_DIR=/home/mathieu/flame/backup-flame ./config.sh flame
-
-.. note:: Ne pas oublier de remplacer */home/mathieu/flame/backup-flame* par le
-          chemin absolu vers votre répertoire de sauvegarde du téléphone
-          effectué à l'étape précédente.
+    ./config.sh flame
 
 
 Compiler
@@ -146,10 +147,19 @@ https://developer.mozilla.org/en-US/Firefox_OS/Building
 Compiler (prend un peu moins d'une heure sur mon i7, en tournant sur les 4
 cœurs en parallèle) ::
 
-    ANDROIDFS_DIR=/home/mathieu/flame/backup-flame ./build.sh
+    ./build.sh
 
 .. note:: La taille totale utilisée par le répertoire *B2G* est de 22Go une
           fois la compilation terminée.
+
+
+.. note:: Si vous avez comme moi un message d'erreur lors de la compilation
+          à propos du fichier *nsIUpdateDriver.h* qui est introuvable, lancez
+          la commande suivante puis relancez le build.
+
+::
+
+    cp gaia/xulrunner-sdk-33/xulrunner-sdk/include/nsIUpdateService.h gecko/toolkit/xre/
 
 
 Installer sur le téléphone
@@ -157,7 +167,7 @@ Installer sur le téléphone
 
 https://developer.mozilla.org/en-US/Firefox_OS/Installing_on_a_mobile_device#Flashing_your_phone
 
-..
+::
 
     ./flash.sh
 
@@ -165,10 +175,9 @@ https://developer.mozilla.org/en-US/Firefox_OS/Installing_on_a_mobile_device#Fla
 Mettre à jour
 =============
 
-À l'heure actuelle il n'y a pas de moyen public pour recevoir les mises à jours
-automatiques sur le Firefox Flame, espérons que ça arrive vite ! En attendant,
-voici une méthode manuelle très approximative (que j'espère pouvoir
-améliorer) :
+Malgré tous mes essais, et malgré la configuration *B2G_UPDATER=1* et
+*B2G_UPDATE_CHANNEL=nightly*, je n'arrive pas à avoir de mise à jour OTA.
+En attendant, voici une méthode manuelle :
 
 Mettre à jour le code ::
 
@@ -177,22 +186,19 @@ Mettre à jour le code ::
 
 Recompiler ::
 
-    ANDROIDFS_DIR=/home/mathieu/flame/backup-flame ./build.sh
+    ./build.sh
 
-Mettre à jour tout sauf le module *user* qui écraserait toutes nos données
-personnelles (mots de passe, applications installées, contacts...) ::
-
-    ./flash.sh system boot gaia gecko data
-
-
-Une autre méthode consiste à d'abord sauvegarder son profil ::
+Sauvegarder son profil pour ne pas perdre ses préférences, données, contacts,
+applications installée... ::
 
     adb pull /data/local local
     adb pull /data/b2g b2g
 
-Puis, le restaurer une fois le *flash* effectué ::
+Flasher la nouvelle version ::
+
+    ./flash.sh
+
+Puis, restaurer le profil une fois le *flash* effectué ::
 
     adb push local /data/local
     adb push b2g /data/b2g
-
-D'après mes tests, au moins certaines données sont perdues avec cette méthode.
