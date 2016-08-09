@@ -58,7 +58,7 @@ asynchrone et/ou de faire des appels non bloquants:
   programmes, l'un qui pose des messages dessus quand bon lui semble, l'autre
   que les récupère également quand il le peut. Les deux bouts de code sont donc
   désynchronisés et ne se bloquent pas l'un l'autre.
-- en python : un appel asynchrone passe par utilisation de générateurs,
+- en python : un appel asynchrone passe par l'foutilisation de générateurs,
   appelées `coroutines` dans le cas de `asyncio`. Dans ce cas, on gère
   explicitement la boucle d'exécution.
 
@@ -168,7 +168,7 @@ qu'une machine travaille, l'employé peut faire autre chose, comme remplir le
 chargeur de la machine, décharger les produits finis, lancer une autre machine,
 etc...
 
-C'est la grande force de `asyncio`: pouvoir faire des appels non bloquants,
+C'est la grande force de `asyncio` : pouvoir faire des appels non bloquants,
 c'est à dire profiter d'un temps d'attente pour pouvoir faire autre chose.
 
 Reprenons notre exemple :
@@ -281,8 +281,8 @@ Plusieurs remarques :
   rapport à la version synchrone, le temps de CPU étant "masqué" par le temps
   du téléchargement des pages et des images.
 - le code asynchrone est plus long, plus complexe, et nécessite de penser le
-  programme différemment. **(tu mettrais aussi un petit mot sur le debug, bien
-  merdique - ou pas ^^?)**
+  programme différemment.
+- le debugging de code asynchrone est également plus complexe (voir `ici<https://docs.python.org/3/library/asyncio-dev.html#debug-mode-of-asyncio>`_ et `là<https://pymotw.com/3/asyncio/debugging.html>`_)
 
 
 Attention aux pièges
@@ -434,3 +434,6 @@ synchrone/séquentielle, alors qu'ils s'expriment de manière tout à fait logiq
 de manière asynchrone. Par exemple un moteur de jeu : une `coroutine` qui gère
 l'affichage en continu, et d'autres `coroutines` pour récupérer/traiter les
 entrées du joueur.
+
+Merci à `Aurélien G. <http://aurelien.latitude77.org/>`_ pour la `relecture et réécriture de l'article <https://github.com/magopian/blog/pull/1>` afin de le rendre plus agréable à lire !
+
