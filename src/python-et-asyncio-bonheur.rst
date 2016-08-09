@@ -51,8 +51,9 @@ Oui, d'accord, mais comment ça marche ?
 Suivant les langages, il y a différentes façons de concevoir l'exécution
 asynchrone et/ou de faire des appels non bloquants:
 
-- en javascript : un appel asynchrone rend la main directement et passe à la ligne
-  suivante. Son résultat est ensuite récupéré par le biais d'un `callback`.
+- en javascript : un appel asynchrone rend la main directement et passe à la
+  ligne suivante. Son résultat est ensuite récupéré par le biais d'un
+  `callback`.
 - en clojure ou en go : des `canaux` sont utilisés pour envoyer et recevoir des
   messages. Ils sont assimilables à des tapis roulants entre deux morceaux de
   programmes, l'un qui pose des messages dessus quand bon lui semble, l'autre
@@ -282,7 +283,9 @@ Plusieurs remarques :
   du téléchargement des pages et des images.
 - le code asynchrone est plus long, plus complexe, et nécessite de penser le
   programme différemment.
-- le debugging de code asynchrone est également plus complexe (voir `ici <https://docs.python.org/3/library/asyncio-dev.html#debug-mode-of-asyncio>`_ et `là <https://pymotw.com/3/asyncio/debugging.html>`_)
+- le debugging de code asynchrone est également plus complexe (voir `ici
+  <https://docs.python.org/3/library/asyncio-dev.html#debug-mode-of-asyncio>`_
+  et `là <https://pymotw.com/3/asyncio/debugging.html>`_)
 
 
 Attention aux pièges
@@ -309,7 +312,7 @@ Attention aux pièges
 Comment ça, 10 secondes ? Pourtant, les 10 appels à ``time.sleep(1)`` semblent
 asynchrones, non bloquants, concurrents, dans des `coroutines` qui vont bien ?!
 
-Il y a un piège: dans le code ci-dessus les 10 `coroutines` sont exécutées
+Il y a un piège : dans le code ci-dessus les 10 `coroutines` sont exécutées
 **les unes après les autres**. Il pourrait être réécrit de la façon suivante,
 qui met bien en valeur le problème :
 
@@ -354,9 +357,9 @@ auquel le programme demande d'exécuter une liste de tâches. Si Jean-Michel est
 déjà surchargé de travail, réarranger ses tâches, les mettre dans le désordre,
 bloquantes ou non bloquantes, ne changera rien du tout.
 
-Par contre, si Jean-Michel CPU est en train de se tourner les pouces pendant que
-Bernard IO est en train de trimmer à transporter des paquets de gauche et de
-droite, alors les choses peuvent être optimisées :
+Par contre, si Jean-Michel CPU est en train de se tourner les pouces pendant
+que Bernard IO est en train de trimmer à transporter des paquets de gauche et
+de droite, alors les choses peuvent être optimisées :
 
 En synchrone/bloquant :
 
@@ -419,8 +422,8 @@ niveau de la base de donnée elle-même). Pire, on perd le temps de la gestion
 des `coroutines`.
 
 La programmation asynchrone est vraiment efficace et utile dans quelques cas
-notables, comme par exemple les lecture/écriture sur un système de fichier ou sur
-un socket vers un serveur distant.
+notables, comme par exemple les lecture/écriture sur un système de fichier ou
+sur un socket vers un serveur distant.
 
 Gérer des requêtes entrantes sur un serveur web de manière asynchrones grâce à
 `aiohttp`, ou des requêtes à postgresql avec `aiopg` (`probablement inutile
@@ -435,5 +438,7 @@ de manière asynchrone. Par exemple un moteur de jeu : une `coroutine` qui gèr
 l'affichage en continu, et d'autres `coroutines` pour récupérer/traiter les
 entrées du joueur.
 
-Merci à `Aurélien G. <https://twitter.com/Alatitude77>`_ pour la `relecture et réécriture de l'article <https://github.com/magopian/blog/pull/1>` afin de le rendre plus agréable à lire !
+Merci à `Aurélien G. <https://twitter.com/Alatitude77>`_ pour la `relecture et
+réécriture de l'article <https://github.com/magopian/blog/pull/1>`_ afin de le
+rendre plus agréable à lire !
 
