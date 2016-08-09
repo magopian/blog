@@ -1,22 +1,25 @@
 Python et asyncio : la recette du bonheur ?
-===========================================
+###########################################
+:date: 2016-08-09 10:57
+:category: python
 
-Asyncio est une librairie (qui fait partie de la stdlib dans les dernières
+
+`asyncio` est une librairie (qui fait partie de la `stdlib` dans les dernières
 versions de python3) qui permet de faire de la programmation asynchrone.
 
 Oui, ok, mais ça veut dire quoi au juste ?
 
 
 Asynchrone, concurrent, coroutine, parallèle
----------------------------------------------
+============================================
 
 Il y a un intrus dans ce titre. Ce sont plusieurs termes qui sont utilisés pour
 parler de styles de programmation, mais qui sont parfois mal compris, ou qui
 prêtent à confusion :
 
 - asynchrone == concurrent == un seul process, plusieurs morceaux de code
-  (coroutines) qui s'exécutent l'un après l'autre, dans le désordre, de manière
-  non bloquante (on va y revenir), sur le même process
+  (`coroutines`) qui s'exécutent l'un après l'autre, dans le désordre, de
+  manière non bloquante (on va y revenir), sur le même process
 - parallèle == multiprocessing == plusieurs process, plusieurs morceaux de code
   (ou le même), qui s'exécutent **en même temps**, sur plusieurs
   processeurs/cœurs/machines
@@ -29,7 +32,7 @@ ont tous accès à la même zone mémoire.
 Les inconvénients : n'accélèrent pas le programme. Il n'y a qu'un seul process,
 donc le programme ne sera plus rapide que dans certains cas particuliers. Il
 pourra même être plus lent, parce qu'il y a un besoin supplémentaire de CPU
-pour gérer les coroutines.
+pour gérer les `coroutines`.
 
 Les avantages du parallèle : le programme s'exécute sur plusieurs process, ce
 qui accélère d'autant plus les calculs, et en théorie divise la durée de ce
@@ -40,24 +43,24 @@ gérer (lancer, synchroniser, arrêter).
 
 
 Oui, d'accord, mais comment ça marche ?
----------------------------------------
+=======================================
 
 Il y a différentes manières de permettre de l'exécution asynchrone, différentes
 manières de faire des appels non bloquants, différents paradigmes :
 
 - javascript : un appel asynchrone rend la main directement, et passe à la
-  ligne suivante. Le résultat est ensuite récupéré par le biais d'un callback.
-- clojure, go : utilisation de "canaux" pour envoyer et recevoir des messages.
+  ligne suivante. Le résultat est ensuite récupéré par le biais d'un `callback`
+- clojure, go : utilisation de `canaux` pour envoyer et recevoir des messages.
   On peut imaginer ça comme des tapis roulants, avec un morceau de programme
   d'un côté qui pose des messages sur le tapis roulant, quand bon lui semble,
   et de l'autre côté un autre bout de programme qui les récupère quand bon lui
   semble. Si il n'y en a aucun, il attend. Les deux bouts de code sont donc
   désynchronisés, ils ne se bloquent pas l'un l'autre.
-- python : utilisation de générateurs, appelées coroutines dans le cas de
-  asyncio. On gère explicitement la boucle d'exécution.
+- python : utilisation de générateurs, appelées `coroutines` dans le cas de
+  `asyncio`. On gère explicitement la boucle d'exécution.
 
-Dans le cas de asyncio, il faut imaginer chaque "await" (ou "yield from") comme
-étant le moyen pour un bout de code de dire au scheduler (à la boucle
+Dans le cas de `asyncio`, il faut imaginer chaque ``await`` (ou ``yield from``)
+comme étant le moyen pour un bout de code de dire au `scheduler` (à la boucle
 d'exécution) : "hep, j'ai fini pour le moment, rend moi la main plus tard s'il
 te plait". Ça permet à la boucle d'exécution de passer la main à d'autres bouts
 de code qui ont quelque chose à faire, au lieu d'attendre séquentiellement (de
@@ -65,10 +68,10 @@ manière synchrone) que chaque bout de code se termine.
 
 
 Asynchrone == plus rapide, ou pas...
-------------------------------------
+====================================
 
 Mais alors, si le code s'exécute sur un seul et même process, et qu'en plus il
-faut du temps de calcul pour gérer les coroutines, mon programme va être plus
+faut du temps de calcul pour gérer les `coroutines`, mon programme va être plus
 lent au final ?!
 
 Petite expérience :
@@ -85,9 +88,11 @@ En synchrone/bloquant
     for i in range(10000):
         foo()
 
-real    0m0.087s
-user    0m0.071s
-sys     0m0.013s
+::
+
+    real    0m0.087s
+    user    0m0.071s
+    sys     0m0.013s
 
 
 
@@ -104,26 +109,28 @@ En asynchrone/non bloquant
     for i in range(10000):
         loop.run_until_complete(foo())
 
-real    0m0.452s
-user    0m0.429s
-sys     0m0.019s
+::
+
+    real    0m0.452s
+    user    0m0.429s
+    sys     0m0.019s
 
 
 Donc si on fait un rapide calcul, on a environ 360ms uniquement pour la
-gestion des 10000 coroutines (l'import du module asyncio, qui se fait une seule
-fois au chargement du programme, a été fait dans les deux cas, histoire de ne
-pas fausser les mesures).
+gestion des 10000 `coroutines` (l'import du module `asyncio`, qui se fait une
+seule fois au chargement du programme, a été fait dans les deux cas, histoire
+de ne pas fausser les mesures).
 
-Le but de cet exemple aberrant n'est pas de prouver que les coroutines sont
+Le but de cet exemple aberrant n'est pas de prouver que les `coroutines` sont
 lentes (elles ne le sont pas), mais que la programmation asynchrone en
 elle-même ne fait pas aller un programme plus vite (mais ça, vous vous en
 doutiez).
 
 
 Asyncio plus rapide pour IO-bound
----------------------------------
+=================================
 
-Mais alors, ça sert à rien asyncio ?
+Mais alors, `asyncio` ne sert à rien ?
 
 Laissez-moi vous conter l'histoire du programme qui attendait, parce qu'il
 était bloquant.
@@ -135,16 +142,16 @@ de son site préféré. Voici un petit morceau de pseudo-code :
 
     for url in urls:
         img = get_image_from_website(url)
-        thumbnail = compute_thumbnail(img)
+        thumbnails = compute_thumbnails(img)
         ...
 
 Le programme va tour à tour télécharger les images sur le site, puis en faire
-une miniature. Il y a donc deux cas différents :
+des miniatures. Il y a donc deux cas différents :
 
-- le téléchargement de l'image sur le site : on appelle ça "IO-bound",
+- le téléchargement de l'image depuis le site : on appelle ça "IO-bound",
   c'est-à-dire lié/limité par l'IO (l'input-output, entrée sortie, tout ce qui
   est un échange entre le programme et l'extérieur). Le programme va passer la
-  majeure partie du temps à attendre : que la requête soit reçue par le serveur
+  majeure partie du temps à attendre que la requête soit reçue par le serveur
   distant, puis traitée, puis que les données soient envoyées, puis reçues.
   Pendant tout ce temps, le programme est bloqué, et ne fait rien d'autre.
   C'est un appel bloquant.
@@ -161,12 +168,12 @@ qu'une machine travaille, l'employé peut faire autre chose, comme remplir le
 chargeur de la machine, décharger les produits finis, lancer une autre machine,
 etc...
 
-Voilà la grande force de asyncio : pouvoir faire des appels non bloquants, pour
-pouvoir faire autre chose en attendant.
+Voilà la grande force de `asyncio`, pouvoir faire des appels non bloquants,
+pour pouvoir faire autre chose en attendant.
 
 Reprenons notre exemple :
 
-En synchrone/bloquant :
+En synchrone/bloquant
 
 ::
 
@@ -201,14 +208,16 @@ En synchrone/bloquant :
 
     get_all_thumbnails()
 
-real    0m9.722s
-user    0m0.466s
-sys     0m0.089s
+::
+
+    real    0m9.722s
+    user    0m0.466s
+    sys     0m0.089s
 
 Soit environ 10 secondes, une seconde par image.
 
 
-En asynchrone/non-bloquant :
+En asynchrone/non bloquant
 
 ::
 
@@ -253,27 +262,30 @@ En asynchrone/non-bloquant :
     loop = asyncio.get_event_loop()
     thumbnails = loop.run_until_complete(asyncio.gather(*tasks))
 
-real    0m4.139s
-user    0m0.795s
-sys     0m0.094s
+::
+
+    real    0m4.139s
+    user    0m0.795s
+    sys     0m0.094s
 
 Soit environ 4 secondes, 0.5 seconde par image.
 
 Plusieurs remarques :
 
 - dans le cas du code asynchrone, il faut faire bien attention d'utiliser des
-  appels non bloquants uniquement. On utilise donc aiohttp pour récupérer la
+  appels non bloquants uniquement. On utilise donc `aiohttp` pour récupérer la
   page et l'image, puis faire les miniatures (en utilisant
-  loop.run_in_executor).
-- plus le code dans compute_thumbnails sera gourmand en CPU, et sera donc long
-  a exécuter, plus on gagnera en performance sur la version asynchrone par
+  ``loop.run_in_executor``).
+- plus le code dans ``compute_thumbnails`` sera gourmand en CPU, et sera donc
+  long a exécuter, plus on gagnera en performance sur la version asynchrone par
   rapport à la version synchrone, le temps de CPU étant "masqué" par le temps
   du téléchargement des pages et des images.
 - le code asynchrone est plus long et complexe, et nécessite de penser le
   programme différemment.
 
+
 Attention aux pièges
---------------------
+====================
 
 ::
 
@@ -287,15 +299,17 @@ Attention aux pièges
     loop = asyncio.get_event_loop()
     loop.run_until_complete(foo())
 
-real    0m10.137s
-user    0m0.079s
-sys     0m0.017s
+::
+
+    real    0m10.137s
+    user    0m0.079s
+    sys     0m0.017s
 
 Euhhhhh, 10 secondes ? Mais pourtant, on est sensé faire les 10 appels à
-time.sleep(1) en asynchrone, non bloquant, concurrent, dans des coroutines qui
-vont bien et compagnie ?!
+``time.sleep(1)`` en asynchrone, non bloquant, concurrent, dans des `coroutines`
+qui vont bien toussa toussa ?!
 
-Le piège c'est que dans le code ci-dessus on exécute 10 coroutines **les unes
+Le piège c'est que dans le code ci-dessus on exécute 10 `coroutines` **les unes
 après les autres**.
 
 Le code pourrait se réécrire de la façon suivante, qui met bien en valeur le
@@ -313,9 +327,10 @@ problème :
     for i in range(10):
         loop.run_until_complete(foo())
 
-On lance une coroutine, puis on attend qu'elle se termine avant d'en lancer une
-autre. La façon correcte de l'écrire est de lancer toutes les coroutines en
-même temps avec asyncio.wait() ou asyncio.gather() :
+On lance une `coroutine`, puis on attend qu'elle se termine avant d'en lancer
+une autre. La façon correcte de l'écrire est de lancer toutes les `coroutines`
+en même temps avec ``asyncio.wait()`` ou ``asyncio.gather()`` comme
+ci-dessous :
 
 ::
 
@@ -331,9 +346,9 @@ même temps avec asyncio.wait() ou asyncio.gather() :
 
 
 Asyncio est inutile pour CPU-bound
-----------------------------------
+==================================
 
-La programmation asynchrone par coroutines n'est utile que pour les cas
+La programmation asynchrone par `coroutines` n'est utile que pour les cas
 IO-bound : lecture/écriture sur le système de fichier, sur une socket, un
 serveur distant...
 
@@ -398,26 +413,25 @@ Voilà un autre cas qui a l'air d'être IO-bound, mais en fait non :
 Les bases de données sont en général bien plus rapides que n'importe quel
 programme qu'on peut écrire en python. Et donc même si en théorie une requête à
 la base de donnée est de la lecture/écriture (Input-Output), dans la pratique
-la réponse est tellement rapide qu'on ne peut (quasiment) rien gagner en
-rendant les requêtes asynchrones. Si la base de données est distante, et que le
-délai (le round-trip) est long, on peut espérer gratter un peu. Mais en général
-ce n'est pas le cas (et si ça l'est, vous avez d'autres soucis à régler). Pire,
-on perd le temps de la gestion des coroutines.
+la réponse est tellement rapide qu'on ne gagne souvent rien en rendant les
+requêtes asynchrones. Si la base de données est distante, et que le délai (le
+round-trip) est long, on peut espérer gratter un peu. Mais en général ce n'est
+pas le cas (et si ça l'est, vous avez d'autres soucis à régler). Pire, on perd
+le temps de la gestion des `coroutines`.
 
 La programmation asynchrone est vraiment efficace et utile dans le cas de
 lecture/écriture sur un système de fichier, sur une socket vers un serveur
 distant... ou dans quelques autres cas notables.
 
 Gérer des requêtes entrantes sur un serveur web de manière asynchrones grâce à
-aiohttp, ou des requêtes à postgresql avec aiopg (`probablement inutile
-<http://techspot.zzzeek.org/2015/02/15/asynchronous-python-and-databases/>`,
-comme vu plus haut ?), ou avec le tout nouveau asyncpg, et plus important que
+`aiohttp`, ou des requêtes à postgresql avec `aiopg` (`probablement inutile
+<http://techspot.zzzeek.org/2015/02/15/asynchronous-python-and-databases/>`_,
+comme vu plus haut ?), ou avec le tout nouveau `asyncpg`, et plus important que
 tout, télécharger des photos de chat. Voilà les exemples les plus courants
 croisés dans les tutoriels.
 
 Certains problèmes sont très pénibles à écrire de manière
 synchrone/séquentielle, alors qu'ils s'expriment de manière tout à fait logique
-de manière asynchrone. Par exemple un moteur de jeu : une coroutine qui gère
-l'affichage en continu, et d'autres coroutines pour récupérer/traiter les
+de manière asynchrone. Par exemple un moteur de jeu : une `coroutine` qui gère
+l'affichage en continu, et d'autres `coroutines` pour récupérer/traiter les
 entrées du joueur.
-
