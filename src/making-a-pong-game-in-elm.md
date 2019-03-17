@@ -53,6 +53,7 @@ Running `elm make src/Main.elm` will compile successfully and create an
 `index.html` file for us. Opening it in the browser displays a very dull
 *Hello world* message. Dull, for sure, but still a success!
 
+[Source code up to this point](https://github.com/magopian/elm-pong/tree/0-create-project).
 
 ## Display a ball
 
@@ -60,6 +61,20 @@ We're going to use the `elm/svg`, so we need to install it:
 
 ```shell
 elm install elm/svg
+```
+
+Here's the result in the `elm.json` file once elm added the dependency for us:
+
+```diff
+         "direct": {
+             "elm/browser": "1.0.1",
+             "elm/core": "1.0.2",
+-            "elm/html": "1.0.0"
++            "elm/html": "1.0.0",
++            "elm/svg": "1.0.1"
+         },
+         "indirect": {
+             "elm/json": "1.1.3",
 ```
 
 Once that's done, let's first draw a playing field (an empty light gray box),
@@ -88,72 +103,69 @@ main =
         ]
 ```
 
-What that does is display a 500px by 500px light gray rectangle, with a 10px
-circle right in the center:
+[commit](https://github.com/magopian/elm-pong/commit/7e3dd8b0b64b8eb99f8e18105f3cf8a892e3c59c)
+
+This display a 500px by 500px light gray rectangle, with a 10px circle right in
+the center:
 
 ![the pong ball]({static}/images/elm-pong_ball.png)
 
 
 Let's pull this circle out and make a `viewBall` function:
 
-```elm
-module Main exposing (main)
-
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
-
-
-main =
-    svg
-        [ width "500"
-        , height "500"
-        , viewBox "0 0 500 500"
-        , Svg.Attributes.style "background: #efefef"
-        ]
-        [ viewBall
-        ]
-
-
-viewBall : Svg msg
-viewBall =
-    circle
-        [ cx "250"
-        , cy "250"
-        , r "10"
-        ]
-        []
+```diff
+         , viewBox "0 0 500 500"
+         , Svg.Attributes.style "background: #efefef"
+         ]
+-        [ circle
+-            [ cx "250"
+-            , cy "250"
+-            , r "10"
+-            ]
+-            []
++        [ viewBall
+         ]
++
++
++viewBall : Svg msg
++viewBall =
++    circle
++        [ cx "250"
++        , cy "250"
++        , r "10"
++        ]
++        []
 ```
+
+[commit](https://github.com/magopian/elm-pong/commit/e4884af17d60089d38af056394e6919e8e865052)
 
 This doesn't give us much, yet. Now what's our next tiny step? Well, to display
 a ball, the function only needs its coordinates:
 
-```elm
-module Main exposing (main)
-
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
-
-
-main =
-    svg
-        [ width "500"
-        , height "500"
-        , viewBox "0 0 500 500"
-        , Svg.Attributes.style "background: #efefef"
-        ]
-        [ viewBall 250 250
-        ]
-
-
-viewBall : Int -> Int -> Svg.Svg msg
-viewBall x y =
-    circle
-        [ cx <| String.fromInt x
-        , cy <| String.fromInt y
-        , r "10"
-        ]
-        []
+```diff
+         , viewBox "0 0 500 500"
+         , Svg.Attributes.style "background: #efefef"
+         ]
+-        [ viewBall
++        [ viewBall 250 250
+         ]
+ 
+ 
+-viewBall : Svg msg
+-viewBall =
++viewBall : Int -> Int -> Svg.Svg msg
++viewBall x y =
+     circle
+-        [ cx "250"
+-        , cy "250"
++        [ cx <| String.fromInt x
++        , cy <| String.fromInt y
+         , r "10"
+         ]
+         []
 ```
+
+[commit](https://github.com/magopian/elm-pong/commit/7146521653c54b875d1d268cc9cbef6f71b3af16)
 
 Here we started using integers for the positions (a number of pixels), instead
 of strings. This is because we will need to do some mathematics on the
@@ -164,40 +176,46 @@ we'll translate them back to strings.
 Talking about state, let's have a `Ball` type alias for a record holding the
 position:
 
-```elm
-type alias Ball =
-    { x : Int
-    , y : Int
-    }
-
-
-ball =
-    { x = 250
-    , y = 250
-    }
-
-
-main =
-    svg
-        [ width "500"
-        , height "500"
-        , viewBox "0 0 500 500"
-        , Svg.Attributes.style "background: #efefef"
-        ]
-        [ viewBall ball
-        ]
-
-
-viewBall : Ball -> Svg.Svg msg
-viewBall { x, y } =
-    circle
-        [ cx <| String.fromInt x
-        , cy <| String.fromInt y
-        , r "10"
-        ]
-        []
+```diff
+ import Svg.Attributes exposing (..)
+ 
+ 
++type alias Ball =
++    { x : Int
++    , y : Int
++    }
++
++
++ball =
++    { x = 250
++    , y = 250
++    }
++
++
+ main =
+     svg
+         [ width "500"
+         , height "500"
+         , viewBox "0 0 500 500"
+         , Svg.Attributes.style "background: #efefef"
+         ]
+-        [ viewBall 250 250
++        [ viewBall ball
+         ]
+ 
+ 
+-viewBall : Int -> Int -> Svg.Svg msg
+-viewBall x y =
++viewBall : Ball -> Svg.Svg msg
++viewBall { x, y } =
+     circle
+         [ cx <| String.fromInt x
+         , cy <| String.fromInt y
 ```
 
+[commit](https://github.com/magopian/elm-pong/commit/42971617722d016d7f3e944ed44028eb626c5915)
+
+[Source code up to this point](https://github.com/magopian/elm-pong/tree/1-display-ball).
 
 ## Move the ball
 
@@ -227,104 +245,58 @@ embedded as a
 Let's do that a tiny step at a time. First let's extract the `svg` into its own view:
 
 
-```elm
-module Main exposing (main)
+```diff
+ main =
++    view ball
++
++
++view : Ball -> Svg.Svg ()
++view ball_ =
+     svg
+         [ width "500"
+         , height "500"
+         , viewBox "0 0 500 500"
+         , Svg.Attributes.style "background: #efefef"
+         ]
+-        [ viewBall ball
++        [ viewBall ball_
+         ]
 
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
-
-
-type alias Ball =
-    { x : Int
-    , y : Int
-    }
-
-
-ball =
-    { x = 250
-    , y = 250
-    }
-
-
-main =
-    view ball
-
-
-view : Ball -> Svg.Svg ()
-view ball_ =
-    svg
-        [ width "500"
-        , height "500"
-        , viewBox "0 0 500 500"
-        , Svg.Attributes.style "background: #efefef"
-        ]
-        [ viewBall ball_
-        ]
-
-
-viewBall : Ball -> Svg.Svg msg
-viewBall { x, y } =
-    circle
-        [ cx <| String.fromInt x
-        , cy <| String.fromInt y
-        , r "10"
-        ]
-        []
 ```
 
-Now let's actually change the `main` to be a `Browser.element`:
+[commit](https://github.com/magopian/elm-pong/commit/f0a30bb99d11882fc8cca3e0f5dd068bd373b8bb)
 
-```elm
-module Main exposing (main)
+Now let's actually change the `main` to be a `Browser.element`. At the top of the file:
 
-import Browser
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
-
-
-type alias Ball =
-    { x : Int
-    , y : Int
-    }
-
-
-ball =
-    { x = 250
-    , y = 250
-    }
-
-
-main : Program () () ()
-main =
-    Browser.element
-        { init = \_ -> ( (), Cmd.none )
-        , view = \_ -> view ball
-        , update = \_ _ -> ( (), Cmd.none )
-        , subscriptions = \_ -> Sub.none
-        }
-
-
-view : Ball -> Svg.Svg ()
-view ball_ =
-    svg
-        [ width "500"
-        , height "500"
-        , viewBox "0 0 500 500"
-        , Svg.Attributes.style "background: #efefef"
-        ]
-        [ viewBall ball_
-        ]
-
-
-viewBall : Ball -> Svg.Svg msg
-viewBall { x, y } =
-    circle
-        [ cx <| String.fromInt x
-        , cy <| String.fromInt y
-        , r "10"
-        ]
-        []
+```diff
+ module Main exposing (main)
+ 
++import Browser
+ import Svg exposing (..)
+ import Svg.Attributes exposing (..)
 ```
+
+And below:
+
+```diff
+     }
+ 
+ 
++main : Program () () ()
+ main =
+-    view ball
++    Browser.element
++        { init = \_ -> ( (), Cmd.none )
++        , view = \_ -> view ball
++        , update = \_ _ -> ( (), Cmd.none )
++        , subscriptions = \_ -> Sub.none
++        }
+ 
+ 
+ view : Ball -> Svg.Svg ()
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/c31bde2ad50b520f9ea9a97a0dacd56e2ddadf84)
 
 Well, that's an awful lot of empty parens `()`. Those are of the [unit
 type](https://package.elm-lang.org/packages/elm/core/latest/Basics#Never) in
@@ -347,61 +319,57 @@ state, the place were we store all the data needed by our system: the ball
 position, the paddles, the score, you name it. For now the only piece of data
 we have is the ball position, so our model can simply be a type alias to it.
 
-```elm
-module Main exposing (main)
+The `Model` goes near the top of the file by convention:
 
-import Browser
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
-
-
-type alias Model =
-    Ball
-
-
-type alias Ball =
-    { x : Int
-    , y : Int
-    }
-
-
-ball =
-    { x = 250
-    , y = 250
-    }
-
-
-main : Program () Model ()
-main =
-    Browser.element
-        { init = \_ -> ( ball, Cmd.none )
-        , view = view
-        , update = \_ model -> ( model, Cmd.none )
-        , subscriptions = \_ -> Sub.none
-        }
-
-
-view : Model -> Svg.Svg ()
-view model =
-    svg
-        [ width "500"
-        , height "500"
-        , viewBox "0 0 500 500"
-        , Svg.Attributes.style "background: #efefef"
-        ]
-        [ viewBall model
-        ]
-
-
-viewBall : Ball -> Svg.Svg msg
-viewBall { x, y } =
-    circle
-        [ cx <| String.fromInt x
-        , cy <| String.fromInt y
-        , r "10"
-        ]
-        []
+```diff
+ import Svg.Attributes exposing (..)
+ 
+ 
++type alias Model =
++    Ball
++
++
+ type alias Ball =
+     { x : Int
+     , y : Int
 ```
+
+And the `main`:
+
+```diff
+     }
+ 
+ 
+-main : Program () () ()
++main : Program () Model ()
+ main =
+     Browser.element
+-        { init = \_ -> ( (), Cmd.none )
+-        , view = \_ -> view ball
+-        , update = \_ _ -> ( (), Cmd.none )
++        { init = \_ -> ( ball, Cmd.none )
++        , view = view
++        , update = \_ model -> ( model, Cmd.none )
+         , subscriptions = \_ -> Sub.none
+         }
+ 
+ 
+-view : Ball -> Svg.Svg ()
+-view ball_ =
++view : Model -> Svg.Svg ()
++view model =
+     svg
+         [ width "500"
+         , height "500"
+         , viewBox "0 0 500 500"
+         , Svg.Attributes.style "background: #efefef"
+         ]
+-        [ viewBall ball_
++        [ viewBall model
+         ]
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/ab18f793ba18f2abd264c67b5b5834705c29e427)
 
 Let's have a proper initialization function now: given some flags (none in our
 case, so we'll just keep the unit for now), it generates the initial model and
@@ -409,64 +377,33 @@ commands (and we'll use
 [Cmd.none](https://package.elm-lang.org/packages/elm/core/latest/Platform-Cmd#none)
 for now):
 
-```elm
-module Main exposing (main)
-
-import Browser
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
-
-
-type alias Model =
-    Ball
-
-
-type alias Ball =
-    { x : Int
-    , y : Int
-    }
-
-
-init : () -> ( Model, Cmd () )
-init _ =
-    ( { x = 250
-      , y = 250
-      }
-    , Cmd.none
-    )
-
-
-main : Program () Model ()
-main =
-    Browser.element
-        { init = init
-        , view = view
-        , update = \_ model -> ( model, Cmd.none )
-        , subscriptions = \_ -> Sub.none
-        }
-
-
-view : Model -> Svg.Svg ()
-view model =
-    svg
-        [ width "500"
-        , height "500"
-        , viewBox "0 0 500 500"
-        , Svg.Attributes.style "background: #efefef"
-        ]
-        [ viewBall model
-        ]
-
-
-viewBall : Ball -> Svg.Svg msg
-viewBall { x, y } =
-    circle
-        [ cx <| String.fromInt x
-        , cy <| String.fromInt y
-        , r "10"
-        ]
-        []
+```diff
+     }
+ 
+ 
+-ball =
+-    { x = 250
+-    , y = 250
+-    }
++init : () -> ( Model, Cmd () )
++init _ =
++    ( { x = 250
++      , y = 250
++      }
++    , Cmd.none
++    )
+ 
+ 
+ main : Program () Model ()
+ main =
+     Browser.element
+-        { init = \_ -> ( ball, Cmd.none )
++        { init = init
+         , view = view
+         , update = \_ model -> ( model, Cmd.
 ```
+
+[commit](https://github.com/magopian/elm-pong/commit/73bb4c464eddd603ebe53cdde4b092a9f594131e)
 
 Ok, we should be mostly set up to receive events from the browser, and in
 particular the animation frames. A few missing pieces: we need to
@@ -479,149 +416,120 @@ update what we see on the screen.
 
 Let's define a `Msg` type (this is the conventional name used in elm):
 
-```elm
-type Msg = OnAnimationFrame Float
+```diff
+     }
+ 
+ 
++type Msg
++    = OnAnimationFrame Float
++
++
+ init : () -> ( Model, Cmd () )
+ init _ =
+     ( { x = 250
 ```
+
+[commit](https://github.com/magopian/elm-pong/commit/8c560e9a5d9b0b0803cecedea4bd5b07b0336166)
 
 This is a custom time named `OnAnimationFrame` which takes (includes?
 encapsulates? boxes?) a float which is the number of milliseconds since the
 previous animation frame.
 
-We can now use this `Msg` type everywhere we used the unit previously:
+We can now use this `Msg` type everywhere we used the unit previously...
 
-```elm
-module Main exposing (main)
+In the `init` type definition:
 
-import Browser
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
-
-
-type alias Model =
-    Ball
-
-
-type alias Ball =
-    { x : Int
-    , y : Int
-    }
-
-
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( { x = 250
-      , y = 250
-      }
-    , Cmd.none
-    )
-
-
-type Msg
-    = OnAnimationFrame Float
-
-
-main : Program () Model Msg
-main =
-    Browser.element
-        { init = init
-        , view = view
-        , update = \_ model -> ( model, Cmd.none )
-        , subscriptions = \_ -> Sub.none
-        }
-
-
-view : Model -> Svg.Svg Msg
-view model =
-    svg
-        [ width "500"
-        , height "500"
-        , viewBox "0 0 500 500"
-        , Svg.Attributes.style "background: #efefef"
-        ]
-        [ viewBall model
-        ]
-
-
-viewBall : Ball -> Svg.Svg Msg
-viewBall { x, y } =
-    circle
-        [ cx <| String.fromInt x
-        , cy <| String.fromInt y
-        , r "10"
-        ]
-        []
+```diff
+     = OnAnimationFrame Float
+ 
+ 
+-init : () -> ( Model, Cmd () )
++init : () -> ( Model, Cmd Msg )
+ init _ =
+     ( { x = 250
+       , y = 250
 ```
 
-We can now subscribe to the event:
+In the `main` type definition:
 
-```elm
-module Main exposing (main)
-
-import Browser
-import Browser.Events
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
-
-
-type alias Model =
-    Ball
-
-
-type alias Ball =
-    { x : Int
-    , y : Int
-    }
-
-
-init : () -> ( Model, Cmd Msg )
-init _ =
-    ( { x = 250
-      , y = 250
-      }
-    , Cmd.none
-    )
-
-
-type Msg
-    = OnAnimationFrame Float
-
-
-main : Program () Model Msg
-main =
-    Browser.element
-        { init = init
-        , view = view
-        , update = \_ model -> ( model, Cmd.none )
-        , subscriptions = subscriptions
-        }
-
-
-view : Model -> Svg.Svg Msg
-view model =
-    svg
-        [ width "500"
-        , height "500"
-        , viewBox "0 0 500 500"
-        , Svg.Attributes.style "background: #efefef"
-        ]
-        [ viewBall model
-        ]
-
-
-viewBall : Ball -> Svg.Svg Msg
-viewBall { x, y } =
-    circle
-        [ cx <| String.fromInt x
-        , cy <| String.fromInt y
-        , r "10"
-        ]
-        []
-
-
-subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Browser.Events.onAnimationFrameDelta OnAnimationFrame
+```diff
+     )
+ 
+ 
+-main : Program () Model ()
++main : Program () Model Msg
+ main =
+     Browser.element
+         { init = init
 ```
+
+In the `view` type definition:
+
+```diff
+         }
+ 
+ 
+-view : Model -> Svg.Svg ()
++view : Model -> Svg.Svg Msg
+ view model =
+     svg
+         [ width "500"
+```
+
+And in the `viewBall` type definition:
+
+```diff
+         ]
+ 
+ 
+-viewBall : Ball -> Svg.Svg msg
++viewBall : Ball -> Svg.Svg Msg
+ viewBall { x, y } =
+     circle
+         [ cx <| String.fromInt x
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/a5a6c38d8d263c02b171efe517fcf3c85477d71b)
+
+We can now subscribe to the event.
+
+First add the `Browser.Events` import at the top of the file:
+
+```diff
+ module Main exposing (main)
+ 
+ import Browser
++import Browser.Events
+ import Svg exposing (..)
+ import Svg.Attributes exposing (..)
+```
+
+Then use a `subscriptions` function in the `main`:
+
+```diff
+         { init = init
+         , view = view
+         , update = \_ model -> ( model, Cmd.none )
+-        , subscriptions = \_ -> Sub.none
++        , subscriptions = subscriptions
+         }
+```
+
+Then add the `subscriptions` function at the bottom of the file:
+
+```diff
+         , r "10"
+         ]
+         []
++
++
++subscriptions : Model -> Sub Msg
++subscriptions _ =
++    Browser.Events.onAnimationFrameDelta OnAnimationFrame
+
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/c6f34bebdb5630c2ff8dfc32aef50bef67baeb51)
 
 If you compiled your elm files with the `--debug` option for [elm
 make](https://guide.elm-lang.org/install.html#elm-make), you should see many
@@ -632,83 +540,50 @@ many messages being received in the time traveller debug window:
 Let's finally add a (mostly empty) `update` function, and add a `Flags` type
 alias on the unit type to clean things up a bit:
 
-```elm
-module Main exposing (main)
-
-import Browser
-import Browser.Events
-import Svg exposing (..)
-import Svg.Attributes exposing (..)
-
-
-type alias Model =
-    Ball
-
-
-type alias Ball =
-    { x : Int
-    , y : Int
-    }
-
-
-init : Flags -> ( Model, Cmd Msg )
-init _ =
-    ( { x = 250
-      , y = 250
-      }
-    , Cmd.none
-    )
-
-
-type Msg
-    = OnAnimationFrame Float
-
-
-type alias Flags =
-    ()
-
-
-main : Program Flags Model Msg
-main =
-    Browser.element
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    ( model, Cmd.none )
-
-
-view : Model -> Svg.Svg Msg
-view model =
-    svg
-        [ width "500"
-        , height "500"
-        , viewBox "0 0 500 500"
-        , Svg.Attributes.style "background: #efefef"
-        ]
-        [ viewBall model
-        ]
-
-
-viewBall : Ball -> Svg.Svg Msg
-viewBall { x, y } =
-    circle
-        [ cx <| String.fromInt x
-        , cy <| String.fromInt y
-        , r "10"
-        ]
-        []
-
-
-subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Browser.Events.onAnimationFrameDelta OnAnimationFrame
+```diff
+ type Msg
+     = OnAnimationFrame Float
+ 
+ 
+-init : () -> ( Model, Cmd Msg )
++type alias Flags =
++    ()
++
++
++init : Flags -> ( Model, Cmd Msg )
+ init _ =
+     ( { x = 250
+       , y = 250
+       }
+     , Cmd.none
+     )
+ 
+ 
+-main : Program () Model Msg
++main : Program Flags Model Msg
+ main =
+     Browser.element
+         { init = init
+         , view = view
+-        , update = \_ model -> ( model, Cmd.none )
++        , update = update
+         , subscriptions = subscriptions
+         }
+ 
+ 
++update : Msg -> Model -> ( Model, Cmd Msg )
++update msg model =
++    ( model, Cmd.none )
++
++
+ view : Model -> Svg.Svg Msg
+ view model =
+     svg
 ```
+
+[commit](https://github.com/magopian/elm-pong/commit/4e899ec200c65a9b4467ac21e2e753ee1e173b35)
+
+[Source code up to this point](https://github.com/magopian/elm-pong/tree/2-move-ball-maybe).
 
 We can be proud of ourselves: we changed a lot of code, but nothing changed
 visually: the ball still isn't moving! Promise, we're moving this ball next ;)
