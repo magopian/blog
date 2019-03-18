@@ -587,3 +587,86 @@ alias on the unit type to clean things up a bit:
 
 We can be proud of ourselves: we changed a lot of code, but nothing changed
 visually: the ball still isn't moving! Promise, we're moving this ball next ;)
+
+
+## Move the ball (for real)
+
+Now that we have everything in place, moving the ball is simply a matter of
+changing the `x` or `y` coordinates.
+And where better to do that than on each animation frame? We already have a
+subscription that fires an "event" (a message in elm's vocabulary). We also
+have an `update` function that is called with those messages, allowing us to
+return a new (and modified) model.
+
+Yes, returning a new model because in elm everything is immutable: you don't
+change a model, you don't mutate it, you simply create a new one:
+
+```diff
+ update : Msg -> Model -> ( Model, Cmd Msg )
+ update msg model =
+-    ( model, Cmd.none )
++    case msg of
++        OnAnimationFrame timeDelta ->
++            ( { model | x = model.x + 4 }, Cmd.none )
+ 
+ 
+ view : Model -> Svg.Svg Msg
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/065042448a7f1acedb9a66f730b8c51040c2392c)
+
+[Source code up to this point](https://github.com/magopian/elm-pong/tree/3-move-ball).
+
+Instead of always returning the same model we were passed in the update
+function, we now add 4 pixels to the `x` coordinates of the ball.
+
+The `{ foo | bar = crux }` notation is syntactic sugar to create a new record
+from the content of the `foo` record, but with the `bar` field set to the new
+`crux` value.
+
+Once compiled and the browser tab refreshed, you should see the mighty ball
+moving rather quickly towards the right (and then disappearing!).
+
+Now that the ball is moving, let's set us up quickly with some better tooling.
+
+
+## Tooling
+
+At this point, you should start getting tired of running `elm make`, then
+switching to the browser, refreshing the page... modifying the code, and then
+starting over.
+Those few steps can quickly become tedious, and that's why most elm developers
+take advantage of:
+
+### Live reloading
+
+Live reloading is automatically re-compiling the code whenever a file changes,
+and then automatically refreshing the browser tab.
+There are a few tools available that I know of:
+
+- [elm-live](https://github.com/wking-io/elm-live)
+- [create-elm-app](https://github.com/halfzebra/create-elm-app)
+- [parceljs](https://parceljs.org/elm.html)
+
+They all offer some kind of web server that injects some javascript in the page, and then whenever a file changes, recompile the project, and communicate with the loaded web page using a websocket so it reloads.
+I've used all three in various projects, and they all have their up and downs.
+I find elm-live to be one of the smallest and simplest to use, but really do
+feel free to pick one (but pick one, it's really worth it ;)
+
+### Auto code formatting
+
+Another tedious task is indenting and formatting the code properly. In elm,
+indentation is matters, and as in any written code, readability is important.
+The elm community has very broadly adopted a common code formatting tool that
+gives us a way to all share a same code style, which is a real blessing.
+
+It also appears that once you stop caring about a code style, and let the
+machine do it for you, it really frees your mind from this chore, and removes
+all the bikeshedding and useless discussions and trolls.
+
+This code formatting tool is [elm-format](https://github.com/avh4/elm-format),
+and can be configured to automatically reformat the code on save in most
+editors.
+
+With those two tools installed and set up, let us continue with our game:
+adding a paddle!
