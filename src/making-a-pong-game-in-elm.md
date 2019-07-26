@@ -105,8 +105,8 @@ main =
 
 [commit](https://github.com/magopian/elm-pong/commit/7e3dd8b0b64b8eb99f8e18105f3cf8a892e3c59c)
 
-This display a 500px by 500px light gray rectangle, with a 10px circle right in
-the center:
+This displays a 500px by 500px light gray rectangle, with a 10px circle right
+in the center:
 
 ![the pong ball]({static}/images/elm-pong_ball.png)
 
@@ -431,9 +431,9 @@ Let's define a `Msg` type (this is the conventional name used in elm):
 
 [commit](https://github.com/magopian/elm-pong/commit/8c560e9a5d9b0b0803cecedea4bd5b07b0336166)
 
-This is a custom time named `OnAnimationFrame` which takes (includes?
-encapsulates? boxes?) a float which is the number of milliseconds since the
-previous animation frame.
+This is a custom type named `OnAnimationFrame` which takes (includes?
+encapsulates? wraps? boxes?) a float which is the number of milliseconds since
+the previous animation frame.
 
 We can now use this `Msg` type everywhere we used the unit previously...
 
@@ -596,10 +596,10 @@ changing the `x` or `y` coordinates.
 And where better to do that than on each animation frame? We already have a
 subscription that fires an "event" (a message in elm's vocabulary). We also
 have an `update` function that is called with those messages, allowing us to
-return a new (and modified) model.
+return a new (and updated) model.
 
-Yes, returning a new model because in elm everything is immutable: you don't
-change a model, you don't mutate it, you simply create a new one:
+Yes, we need to return a new model because in elm everything is immutable: you
+don't change a model, you don't mutate it, you simply create a new one:
 
 ```diff
  update : Msg -> Model -> ( Model, Cmd Msg )
@@ -649,16 +649,16 @@ There are a few tools available that I know of:
 - [parceljs](https://parceljs.org/elm.html)
 
 They all offer some kind of web server that injects some javascript in the page, and then whenever a file changes, recompile the project, and communicate with the loaded web page using a websocket so it reloads.
-I've used all three in various projects, and they all have their up and downs.
+I've used all three in various projects, and they all have their pros and cons.
 I find elm-live to be one of the smallest and simplest to use, but really do
-feel free to pick one (but pick one, it's really worth it ;)
+feel free to pick one (but do pick one, it's really worth it ;)
 
 ### Auto code formatting
 
-Another tedious task is indenting and formatting the code properly. In elm,
-indentation is matters, and as in any written code, readability is important.
-The elm community has very broadly adopted a common code formatting tool that
-gives us a way to all share a same code style, which is a real blessing.
+Another tedious task is indenting and formatting the code properly. In elm
+indentation matters, and as in any written code, readability is important.  The
+elm community has very broadly adopted a common code formatting tool that gives
+us a way to all share a same code style, which is a real blessing.
 
 It also appears that once you stop caring about a code style, and let the
 machine do it for you, it really frees your mind from this chore, and removes
@@ -670,3 +670,289 @@ editors.
 
 With those two tools installed and set up, let us continue with our game:
 adding a paddle!
+
+
+## Adding a paddle
+
+The right paddle will be a simple rectangle (for now at least), 10 pixels wide,
+50 pixels high, 10 pixels from the right border, and will start at the middle.
+
+This makes the starting paddle coordinates:
+
+- x: 500 - 10 (paddle width) - 10 (margin with the right border) = 480
+- y: 500 / 2 (so it is centered vertically) - 50 / 2 (center of the paddle) = 225
+
+```diff
+         , Svg.Attributes.style "background: #efefef"
+         ]
+         [ viewBall model
++        , rect
++            [ x "480"
++            , y "225"
++            , width "10"
++            , height "50"
++            ]
++            []
+         ]
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/473e5ebe5c282632c16269f0941d2afa8ff3f2b7)
+
+Behold the mighty paddle!
+
+![Right paddle with the ball moving towards it]({static}/images/elm-pong_right_paddle.png)
+
+One problem though... the ball isn't boucing off of it. What good is a paddle
+that doesn't bounce?
+
+But first, what does "bouncing" mean? In our case, bouncing of a vertical
+paddle means changing the horizontal direction of the ball. But we don't have a
+proper "direction" yet. For now, we only need a horizontal "direction" (or
+speed, or vector):
+
+```diff
+ type alias Ball =
+     { x : Int
+     , y : Int
++    , horizSpeed : Int
+     }
+ 
+ 
+@@ -28,6 +29,7 @@ init : Flags -> ( Model, Cmd Msg )
+ init _ =
+     ( { x = 250
+       , y = 250
++      , horizSpeed = 4
+       }
+     , Cmd.none
+     )
+@@ -47,7 +49,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
+ update msg model =
+     case msg of
+         OnAnimationFrame timeDelta ->
+-            ( { model | x = model.x + 4 }, Cmd.none )
++            ( { model | x = model.x + model.horizSpeed }, Cmd.none )
+ 
+ 
+ view : Model -> Svg.Svg Msg
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/a255c8ca93ee898ab272eb820ade1d34abed7fac)
+
+In case you're wondering what those `@@ -28,6 +29,7 @@ init : Flags -> ( Model,
+Cmd Msg )` lines mean: that's the diff [unified
+format](https://en.wikipedia.org/wiki/Diff#Unified_format) telling us where the
+line is located: it's line 28, and it gives us a bit of context: it's in the
+`init` function.
+
+What we did here was to extract the number of pixels we were adding to the `x`
+position of the ball into a `horizSpeed` state in the model.
+
+Now that we have a horizontal speed, boucing (horizontally) simply means
+"reversing" its value, which is achieved by changing its sign. If we were
+adding 4 pixels per frame and bounced of the right paddle, we'd now need to
+substract 4 pixels per frame to the `x` coordinate.
+
+Before going further, let's do some cleanup and slight reorganization:
+
+- Extract the ball radius and store it in the state:
+
+```diff
+ type alias Ball =
+     { x : Int
+     , y : Int
++    , radius : Int
+     , horizSpeed : Int
+     }
+ 
+@@ -29,6 +30,7 @@ init : Flags -> ( Model, Cmd Msg )
+ init _ =
+     ( { x = 250
+       , y = 250
++      , radius = 10
+       , horizSpeed = 4
+       }
+     , Cmd.none
+@@ -72,11 +74,11 @@ view model =
+ 
+ 
+ viewBall : Ball -> Svg.Svg Msg
+-viewBall { x, y } =
++viewBall { x, y, radius } =
+     circle
+         [ cx <| String.fromInt x
+         , cy <| String.fromInt y
+-        , r "10"
++        , r <| String.fromInt radius
+         ]
+         []
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/51867fe6ffd7d4109e32ab27e0ec92b1d4bfee4a)
+
+- Change the state to be a record holding a ball (instead of BEING a ball)
+
+```diff
+ type alias Model =
+-    Ball
++    { ball : Ball
++    }
+ 
+ 
+ type alias Ball =
+@@ -28,15 +29,22 @@ type alias Flags =
+ 
+ init : Flags -> ( Model, Cmd Msg )
+ init _ =
+-    ( { x = 250
+-      , y = 250
+-      , radius = 10
+-      , horizSpeed = 4
++    ( { ball =
++            initBall
+       }
+     , Cmd.none
+     )
+ 
+ 
++initBall : Ball
++initBall =
++    { x = 250
++    , y = 250
++    , radius = 10
++    , horizSpeed = 4
++    }
++
++
+ main : Program Flags Model Msg
+ main =
+     Browser.element
+@@ -51,18 +59,22 @@ update : Msg -> Model -> ( Model, Cmd Msg )
+ update msg model =
+     case msg of
+         OnAnimationFrame timeDelta ->
+-            ( { model | x = model.x + model.horizSpeed }, Cmd.none )
++            let
++                ball =
++                    model.ball
++            in
++            ( { model | ball = { ball | x = ball.x + ball.horizSpeed } }, Cmd.none )
+ 
+ 
+ view : Model -> Svg.Svg Msg
+-view model =
++view { ball } =
+     svg
+         [ width "500"
+         , height "500"
+         , viewBox "0 0 500 500"
+         , Svg.Attributes.style "background: #efefef"
+         ]
+-        [ viewBall model
++        [ viewBall ball
+         , rect
+             [ x "480"
+             , y "225"
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/3ad3edeb268a9beb1633e2b4efff4a487ca12899)
+
+- Extract the right paddle into its own type and state
+
+```diff
+ type alias Model =
+     { ball : Ball
++    , paddle : Paddle
+     }
+ 
+ 
+@@ -19,6 +20,14 @@ type alias Ball =
+     }
+ 
+ 
++type alias Paddle =
++    { x : Int
++    , y : Int
++    , width : Int
++    , height : Int
++    }
++
++
+ type Msg
+     = OnAnimationFrame Float
+ 
+@@ -31,6 +40,7 @@ init : Flags -> ( Model, Cmd Msg )
+ init _ =
+     ( { ball =
+             initBall
++      , paddle = initPaddle
+       }
+     , Cmd.none
+     )
+@@ -45,6 +55,15 @@ initBall =
+     }
+ 
+ 
++initPaddle : Paddle
++initPaddle =
++    { x = 480
++    , y = 225
++    , width = 10
++    , height = 50
++    }
++
++
+ main : Program Flags Model Msg
+ main =
+     Browser.element
+@@ -70,7 +89,7 @@ update msg model =
+ 
+ 
+ view : Model -> Svg.Svg Msg
+-view { ball } =
++view { ball, paddle } =
+     svg
+         [ width "500"
+         , height "500"
+@@ -78,13 +97,7 @@ view { ball } =
+         , Svg.Attributes.style "background: #efefef"
+         ]
+         [ viewBall ball
+-        , rect
+-            [ x "480"
+-            , y "225"
+-            , width "10"
+-            , height "50"
+-            ]
+-            []
++        , viewPaddle paddle
+         ]
+ 
+ 
+@@ -98,6 +111,17 @@ viewBall { x, y, radius } =
+         []
+ 
+ 
++viewPaddle : Paddle -> Svg.Svg Msg
++viewPaddle paddle =
++    rect
++        [ x <| String.fromInt paddle.x
++        , y <| String.fromInt paddle.y
++        , width <| String.fromInt paddle.width
++        , height <| String.fromInt paddle.height
++        ]
++        []
++
++
+ subscriptions : Model -> Sub Msg
+ subscriptions _ =
+     Browser.Events.onAnimationFrameDelta OnAnimationFrame
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/29841ff6fea5b3d5a0eb6e960700acbc31baa936)
+
+
+We're now ready to detect the bounce, and reverse the direction the ball is
+moving.
+
+[Source code up to this point](https://github.com/magopian/elm-pong/tree/4-display-paddle).
