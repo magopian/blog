@@ -1129,3 +1129,24 @@ clever and persistent enough to investigate the bug and fix it! Maybe we can
 still be working in a programming job after all.
 
 (Yes, this kind of ups and downs are very very common, at least in my case).
+
+
+## Now draw the rest of the owl
+
+(For the reference to this meme, check [How to draw an
+owl](https://knowyourmeme.com/memes/how-to-draw-an-owl))
+
+We've come a long way, but we're still a long way from having a finished pong
+game! This post being long enough as it is, let's wrap it here.
+
+I might publish a follow up some day, please let me
+know via [email](mailto:mathieu@agopian.info?subject=making a pong game in elm)
+or [twitter](https://twitter.com/magopian) if you'd be
+interested.
+
+I've tried something different with the code snippets in this blog post, using
+the diff format. Did it make it easier to follow? Or worse? It does have the
+main drawback of not having the elm syntax highlighting. But on the other hand
+it shows exactly what changes between two code excerpts.
+
+What do you think?
