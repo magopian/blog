@@ -1,5 +1,5 @@
 Title: Making a pong game in elm
-Date: 2019-03-13 17:53
+Date: 2019-07-26 15:01
 Category: elm
 Tags: gamedev
 
