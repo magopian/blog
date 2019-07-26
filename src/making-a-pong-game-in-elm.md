@@ -1035,3 +1035,97 @@ direction) according to the check:
 Such joy, a mighty ball boucing off a glorious paddle! We're so good! The world
 is ours! This feeling is why I became a developer in the first place. Feeling
 invincible, powerful, knowledgeable.
+
+
+## The horror
+
+And at the same time, there's a nagging feeling in the back of my head: how can
+I make sure that the code is working properly? I mean, most of it is very
+straightforward, not much complexity. But maybe the `shouldBallBounce` which
+seems a bit cryptic.
+
+To make the doubt go away, let's try a few different starting positions for the
+ball: if it starts at 10, everything seems fine (it doesn't bounce and
+disappears off screen as expected).
+If it starts at 400, same thing.
+What about 200? OH NOES!!!!!!11!1!! It bounces back, even though it's very
+clearly way above the paddle!
+Wait, what about 260? OH NOES!!!!!!11!1!! It goes right through the paddle!
+
+```diff
+ initBall : Ball
+ initBall =
+     { x = 250
+-    , y = 250
++    , y = 260
+     , radius = 10
+     , horizSpeed = 4
+     }
+```
+
+![the horror]({static}/images/elm-pong_the_horror.png)
+
+[commit](https://github.com/magopian/elm-pong/commit/69f0b57f95a4af30579cb3a3cc99c88993e18d4d)
+
+Ok, I'm so bad. I'm worthless. I know nothing about programming. I should stop
+and switch jobs. Maybe become a shepherd or something.
+
+But first, let's try to find the issue here. I'm glad we tried a few different
+cases, and caught the issue early, it should be easier to deal with. By the
+way, that's why people like testing their code with corner cases (either using
+automated tests, or manual ones).
+
+Let's look at the `shouldBallBounce` code again:
+
+```elm
+shouldBallBounce : Paddle -> Ball -> Bool
+shouldBallBounce paddle ball =
+    (ball.x + ball.radius >= paddle.x)
+        && (ball.y >= paddle.y - 50 // 2)
+        && (ball.y <= paddle.y + 50 // 2)
+```
+
+Mmmmm... it seems we dealt with the paddle as if its `y` position was in the
+center of the paddle. But in SVG, it's the top left of the rectangle! That's
+why we had to computer the center to display it vertically centered in the game
+window.
+
+So the correct code should instead be:
+
+```diff
+ shouldBallBounce : Paddle -> Ball -> Bool
+ shouldBallBounce paddle ball =
+     (ball.x + ball.radius >= paddle.x)
+-        && (ball.y >= paddle.y - 50 // 2)
+-        && (ball.y <= paddle.y + 50 // 2)
++        && (ball.y >= paddle.y)
++        && (ball.y <= paddle.y + 50)
+ 
+ 
+ view : Model -> Svg.Svg Msg
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/cde809af95dd1ecf069cefb55795205f025c5460)
+
+[Source code up to this point](https://github.com/magopian/elm-pong/tree/5-bounce-ball).
+
+
+This looks way better, if the starting `y` position of the ball is between 225
+and 275 it properly bounces.
+
+We still have the corner case of the ball's center grazing off the paddle (so
+the ball's `y` position being for example 224 or 276): the center isn't within
+the paddle, but the ball's radius being 10 pixels, there's still 9 pixels of
+the ball clipping through the paddle. We could decide that we instead want the
+ball to bounce off, but it then looks weird because the hitbox of the ball is a
+square (we check on the `x` and the `y`, not the shortest distance between the
+ball and the paddle which could be in diagonal.
+
+Anyway, let's decide that this is good enough for now, and an improvement to
+make in the future!
+
+Also, let's feel good about ourselves again, and maybe even more: we were
+clever and persistent enough to investigate the bug and fix it! Maybe we can
+still be working in a programming job after all.
+
+(Yes, this kind of ups and downs are very very common, at least in my case).
