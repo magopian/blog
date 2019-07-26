@@ -956,3 +956,82 @@ We're now ready to detect the bounce, and reverse the direction the ball is
 moving.
 
 [Source code up to this point](https://github.com/magopian/elm-pong/tree/4-display-paddle).
+
+
+## Bouncing the ball off the paddle
+
+The ball should bounce off the paddle, which is when the ball "touches" the
+paddle. That means that the ball should bounce (reverse direction) when both
+those conditions are met:
+
+- the `x` position of the ball (center) is more than `radius` away from the `x`
+  position of the paddle
+- the `y` position of the ball is between the top (the paddle's `y`) and the
+  bottom (the paddle's `y` plus the paddle's height) of the paddle
+
+Let's make a helper function for that, which given a ball and a paddle will
+return `True` if the ball should bounce, and display the result of that check
+in each animation frame in the console:
+
+```diff
+                 ball =
+                     model.ball
+ 
++                shouldBounce =
++                    shouldBallBounce model.paddle model.ball
++                        |> Debug.log "shouldBounce"
++
+                 updatedBall =
+                     { ball | x = ball.x + ball.horizSpeed }
+             in
+             ( { model | ball = updatedBall }, Cmd.none )
+ 
+ 
++shouldBallBounce : Paddle -> Ball -> Bool
++shouldBallBounce paddle ball =
++    (ball.x >= paddle.x)
++        && (ball.y >= paddle.y - 50 // 2)
++        && (ball.y <= paddle.y + 50 // 2)
++
++
+ view : Model -> Svg.Svg Msg
+ view { ball, paddle } =
+     svg
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/8ab7760be55cc34cfc4023e399b579e6f1112f89)
+
+When running the code, you should see `shouldBounce: False` displayed several
+times per second until the ball reaches the right paddle, and the message then
+displaying `shouldBounce: True`.
+
+It works! We can now use this to update the ball's horizontal speed (its
+direction) according to the check:
+
+```diff
+                 shouldBounce =
+                     shouldBallBounce model.paddle model.ball
+-                        |> Debug.log "shouldBounce"
++
++                horizSpeed =
++                    if shouldBounce then
++                        ball.horizSpeed * -1
++
++                    else
++                        ball.horizSpeed
+ 
+                 updatedBall =
+-                    { ball | x = ball.x + ball.horizSpeed }
++                    { ball
++                        | x = ball.x + horizSpeed
++                        , horizSpeed = horizSpeed
++                    }
+             in
+             ( { model | ball = updatedBall }, Cmd.none )
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/31d86df31b40ccf2ec1d811266246d894de410ca)
+
+Such joy, a mighty ball boucing off a glorious paddle! We're so good! The world
+is ours! This feeling is why I became a developer in the first place. Feeling
+invincible, powerful, knowledgeable.
