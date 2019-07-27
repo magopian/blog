@@ -409,7 +409,7 @@ Ok, we should be mostly set up to receive events from the browser, and in
 particular the animation frames. A few missing pieces: we need to
 [subscribe](https://package.elm-lang.org/packages/elm/core/latest/Platform-Sub)
 to those events, and we need to provide a message to the subscription, which
-will act as a kind of callback. The elm runtime will call our (future) update
+will act as a kind of callback. The elm runtime will call our future update
 function with this message and our current model, to allow us to update the
 model. This updated model will then be passed down the `view` function to
 update what we see on the screen.
@@ -989,7 +989,7 @@ in each animation frame in the console:
  
 +shouldBallBounce : Paddle -> Ball -> Bool
 +shouldBallBounce paddle ball =
-+    (ball.x >= paddle.x)
++    (ball.x + ball.radius >= paddle.x)
 +        && (ball.y >= paddle.y - 50 // 2)
 +        && (ball.y <= paddle.y + 50 // 2)
 +
