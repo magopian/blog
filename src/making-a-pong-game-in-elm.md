@@ -1150,3 +1150,7 @@ main drawback of not having the elm syntax highlighting. But on the other hand
 it shows exactly what changes between two code excerpts.
 
 What do you think?
+
+----
+
+There's now a [follow up]({filename}/making-a-pong-game-in-elm-2.md).
