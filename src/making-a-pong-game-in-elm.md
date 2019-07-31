@@ -5,11 +5,11 @@ Tags: gamedev
 
 
 Let's make a pong game in [elm](https://elm-lang.org/), by taking [tiny
-steps](https://medium.com/@dillonkearns/moving-faster-with-tiny-steps-in-elm-2e6a269e4efc>).
+steps](https://medium.com/@dillonkearns/moving-faster-with-tiny-steps-in-elm-2e6a269e4efc).
 
 If you haven't already, the very first step is to [install
 elm](https://guide.elm-lang.org/install.html), and to keep in mind that the
-folks on [the slack](https://elmlang.herokuapp.com/) are very friendly and
+folks on [the slack channel](https://elmlang.herokuapp.com/) are very friendly and
 helpful if you ever face an issue that you can't manage to solve on your own.
 You are not alone!
 
