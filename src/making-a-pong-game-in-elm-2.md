@@ -965,3 +965,7 @@ make you want to give it a go for gamedev or webdev?
 
 I would be curious to see if you come up with completed/improved games of your
 own!
+
+----
+
+There's now a [follow up]({filename}/making-a-pong-game-in-elm-3.md).
