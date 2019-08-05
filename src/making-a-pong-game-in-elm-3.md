@@ -319,7 +319,7 @@ helper to make sure the `y` coordinates of the paddles can't go above `500 -
 paddle.height` (which means the full paddle is always displayed), nor below 0.
 
 
-## Adding some randomization
+## Adding some verticalization
 
 Up till now the ball would always move horizontally. Never up or down. And as
 such, the game... well, let's say that it wasn't very challenging. But that
@@ -365,7 +365,7 @@ And behold the result!
 
 And now we know what we need to do next:
 
-## Bouncing the ball of the walls
+## Bouncing the ball off the walls
 
 What good is a ball that we can't see anymore? Let's fix that by mimicking what
 we did for the bouncing off the paddles:
@@ -413,3 +413,414 @@ we did for the bouncing off the paddles:
 ```
 
 [commit](https://github.com/magopian/elm-pong/commit/09af771d95ca043f6ba24cc60d36e93d0febf046)
+
+
+## Losing and winning
+
+Whenever the ball reaches the left or right side of the screen, the game should
+reset, and the opposite player should win a point.
+
+So let's detect the win/lose condition:
+
+```diff
+@@ -44,6 +44,11 @@ type PaddleMovement
+     | NotMoving
+ 
+ 
++type Player
++    = LeftPlayer
++    | RightPlayer
++
++
+ type Msg
+     = OnAnimationFrame Float
+     | KeyDown PlayerAction
+@@ -144,6 +149,10 @@ update msg model =
+ 
+                 updatedLeftPaddle =
+                     updatePaddle model.leftPaddleMovement model.leftPaddle
++
++                winner =
++                    maybeWinner updatedBall
++                        |> Debug.log "Winner"
+             in
+             ( { model
+                 | ball = updatedBall
+@@ -253,6 +262,18 @@ shouldBallBounceVertically ball =
+     ball.y <= radius || ball.y >= (500 - radius)
+ 
+ 
++maybeWinner : Ball -> Maybe Player
++maybeWinner ball =
++    if ball.x <= ball.radius then
++        Just RightPlayer
++
++    else if ball.x >= (500 - ball.radius) then
++        Just LeftPlayer
++
++    else
++        Nothing
++
++
+ view : Model -> Svg.Svg Msg
+ view { ball, rightPaddle, leftPaddle } =
+     svg
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/70edf149c9bb77cc59de4126c4e2c7febd8844e3)
+
+This displays `Winner: Nothing` in the console on each frame, until there's a
+`Winner: Just RightPlayer` as soon as the ball hits the right border... and
+then on each following frame, as the game doesn't reset. Yet.
+
+"But Mathieu, what is this `Maybe` thing, and all that `Just` and `Nothing`
+nonsense?".
+Hoy! Behave, that's no nonsense, that's proper engineering! It's called the
+[Maybe type](https://package.elm-lang.org/packages/elm/core/latest/Maybe) and
+it represents "values that may or may not exist", which is exactly what we need
+here: there may be a winner, or maybe not. The result is either "just a player"
+or "nothing" (no winner). And we can now use this `Maybe Player` to update a
+new custom type that we'll call `GameStatus`:
+
+```diff
+@@ -13,6 +13,7 @@ type alias Model =
+     , leftPaddle : Paddle
+     , rightPaddleMovement : PaddleMovement
+     , leftPaddleMovement : PaddleMovement
++    , gameStatus : GameStatus
+     }
+ 
+ 
+@@ -49,6 +50,11 @@ type Player
+     | RightPlayer
+ 
+ 
++type GameStatus
++    = NoWinner
++    | Winner Player
++
++
+ type Msg
+     = OnAnimationFrame Float
+     | KeyDown PlayerAction
+@@ -73,6 +79,7 @@ init _ =
+       , leftPaddle = LeftPaddle <| initPaddle 10
+       , rightPaddleMovement = NotMoving
+       , leftPaddleMovement = NotMoving
++      , gameStatus = NoWinner
+       }
+     , Cmd.none
+     )
+@@ -150,14 +157,19 @@ update msg model =
+                 updatedLeftPaddle =
+                     updatePaddle model.leftPaddleMovement model.leftPaddle
+ 
+-                winner =
+-                    maybeWinner updatedBall
+-                        |> Debug.log "Winner"
++                gameStatus =
++                    case maybeWinner updatedBall of
++                        Nothing ->
++                            NoWinner
++
++                        Just player ->
++                            Winner player
+             in
+             ( { model
+                 | ball = updatedBall
+                 , rightPaddle = updatedRightPaddle
+                 , leftPaddle = updatedLeftPaddle
++                , gameStatus = gameStatus
+               }
+             , Cmd.none
+             )
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/583616d83b7371cce1fe2e79647b96ea57eea9a1)
+
+We now have a proper `GameState` that gets updated whenever the ball reaches
+the left or right, but we aren't doing anything with it yet. But what should we
+do with it?
+
+Well... if we're in the `NoWinner` state, it means we should be playing, and as
+such listening to user input and animation frames. If we're in the `Winner ...`
+state, we shouldn't.
+
+```diff
+ subscriptions : Model -> Sub Msg
+-subscriptions _ =
+-    Sub.batch
+-        [ Browser.Events.onAnimationFrameDelta OnAnimationFrame
+-        , Browser.Events.onKeyDown (Decode.map KeyDown keyDecoder)
+-        , Browser.Events.onKeyUp (Decode.map KeyUp keyDecoder)
+-        ]
++subscriptions model =
++    case model.gameStatus of
++        NoWinner ->
++            Sub.batch
++                [ Browser.Events.onAnimationFrameDelta OnAnimationFrame
++                , Browser.Events.onKeyDown (Decode.map KeyDown keyDecoder)
++                , Browser.Events.onKeyUp (Decode.map KeyUp keyDecoder)
++                ]
++
++        Winner _ ->
++            Sub.none
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/3f529a05544633f974eb0ab55b3a9978b05d4d8b)
+
+As easy as this! Now the game stops as soon as a player wins.
+
+Now let's restart the game after a 500 milliseconds delay. For that, we'll
+introduce a new concept: the
+[Task](https://package.elm-lang.org/packages/elm/core/latest/Task) which
+makes "it easy to describe asynchronous operations": in our case, the `Task`
+will be a
+[Process.sleep](https://package.elm-lang.org/packages/elm/core/latest/Process#sleep).
+
+Once we have the `Task`, we can ask the elm runtime to execute it for us using
+[Task.perform](https://package.elm-lang.org/packages/elm/core/latest/Task#perform)
+which will return a [Cmd
+Msg](https://package.elm-lang.org/packages/elm/core/latest/Platform-Cmd#Cmd).
+We'll attach a new `Msg` variant that we'll call `SleepDone` to that `Cmd`:
+
+```diff
+ import Browser
+ import Browser.Events
+ import Json.Decode as Decode
++import Process
+ import Svg exposing (..)
+ import Svg.Attributes exposing (..)
++import Task
+ 
+ 
+ type alias Model =
+@@ -59,6 +61,7 @@ type Msg
+     = OnAnimationFrame Float
+     | KeyDown PlayerAction
+     | KeyUp PlayerAction
++    | SleepDone ()
+ 
+ 
+ type PlayerAction
+@@ -157,13 +160,18 @@ update msg model =
+                 updatedLeftPaddle =
+                     updatePaddle model.leftPaddleMovement model.leftPaddle
+ 
+-                gameStatus =
++                ( gameStatus, cmd ) =
+                     case maybeWinner updatedBall of
+                         Nothing ->
+-                            NoWinner
++                            ( NoWinner, Cmd.none )
+ 
+                         Just player ->
+-                            Winner player
++                            let
++                                delayCmd =
++                                    Process.sleep 500
++                                        |> Task.perform SleepDone
++                            in
++                            ( Winner player, delayCmd )
+             in
+             ( { model
+                 | ball = updatedBall
+@@ -171,7 +179,7 @@ update msg model =
+                 , leftPaddle = updatedLeftPaddle
+                 , gameStatus = gameStatus
+               }
+-            , Cmd.none
++            , cmd
+             )
+ 
+         KeyDown playerAction ->
+@@ -218,6 +226,13 @@ update msg model =
+                     , Cmd.none
+                     )
+ 
++        SleepDone _ ->
++            let
++                _ =
++                    Debug.log "restart" "game"
++            in
++            ( model, Cmd.none )
++
+ 
+ updatePaddle : PaddleMovement -> Paddle -> Paddle
+ updatePaddle movement paddle =
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/fdcaa7f9437ff5236ea22b108b88898f20f6a995)
+
+This one involves quite a lot, so let's decompose it piece by piece:
+
+On each frame, we now not only change the game status if needed, we also send a
+`Cmd` to the elm runtime if there was a win.
+This command is:
+
+```elm
+Process.sleep 500
+    |> Task.perform SleepDone
+```
+
+As a reminder, that's the same as writing
+
+```elm
+Task.perform SleepDone (Process.sleep 500)
+```
+
+The `Task.perform` translates a `Task` into a `Cmd`, which can then be sent to
+the elm runtime, by returning it from the `update` function. Which brings us to
+the `( Model, Cmd Msg )` in the type signature of the `update` function, which
+is a
+[tuple type](https://package.elm-lang.org/packages/elm/core/latest/Tuple). A
+`tuple` is a fixed size list of things with types which may differ. This is
+very different from the
+[List type](https://package.elm-lang.org/packages/elm/core/latest/List)
+which is a variable size list of things of the same type.
+
+Back to the code:
+
+```elm
+( gameStatus, cmd ) =
+    case maybeWinner updatedBall of
+        Nothing ->
+            ( NoWinner, Cmd.none )
+
+        Just player ->
+            let
+                delayCmd =
+                    Process.sleep 500
+                        |> Task.perform SleepDone
+            in
+            ( Winner player, delayCmd )
+```
+
+The first part before the `=` sign is destructuring a 2-tuple into two
+variables names `gameStatus` and `cmd`. The `cmd` is the command that will be
+returned by the `update` function if we're processing an
+`onAnimationFrameDelta` message.
+
+And this command is either `Cmd.none` (no command) if there's `NoWinner`, or
+the `delayCmd` if there's a winner.
+
+The end of the previous diff is simply processing the `SleepDone` message. At
+the moment the only thing it's doing is printing a debug message in the
+console. As we've seen previously, using the `_` means we don't care about the
+variable (so we don't care about the `"game"` string that we passed to the
+`Debug.log` function, and we don't care either about the data attached to the
+`SleepDone` message).
+
+"But wait Mathieu, if we don't care about the data attached to the `SleepDone`
+variant, why does it even have it in the first place?". Very good question.
+Brace yourselves for the answer:
+
+A task always returns something. Sometimes, this "thing" is uninteresting, in
+which case we use the `unit`, which is represented by `()` and has only one
+value: `()`. And if we go back to the `Process.sleep` signature, it says
+it returns a `Task x ()` (so a `Task` that returns a unit).
+
+And this thing that the `Task` returns is the same thing that is attached to the
+message that the `Task.perform` takes as its first argument. Hence the
+`SleepDone ()`.
+
+Let me show you a little nugget of cleverness (but please remember, being
+clever is usually a bad idea, so use this sparingly):
+[the `always` helper](https://package.elm-lang.org/packages/elm/core/latest/Basics#always)
+is a function that always returns the same thing, whatever the argument you
+give it. This seems pretty useless, but we could use it to our advantage in our
+case:
+
+```diff
+@@ -61,7 +61,7 @@ type Msg
+     = OnAnimationFrame Float
+     | KeyDown PlayerAction
+     | KeyUp PlayerAction
+-    | SleepDone ()
++    | SleepDone
+ 
+ 
+ type PlayerAction
+@@ -169,7 +169,7 @@ update msg model =
+                             let
+                                 delayCmd =
+                                     Process.sleep 500
+-                                        |> Task.perform SleepDone
++                                        |> Task.perform (always SleepDone)
+                             in
+                             ( Winner player, delayCmd )
+             in
+@@ -226,7 +226,7 @@ update msg model =
+                     , Cmd.none
+                     )
+ 
+-        SleepDone _ ->
++        SleepDone ->
+             let
+                 _ =
+                     Debug.log "restart" "game"
+```
+
+We don't care about the data attached to the message by `Task.perform`, so we
+just discard it by using the `always` helper. This might seem confusing, but
+keep in mind that a custom type variant is also a constructor. So when we
+wanted to create a new right paddle, we would do `RightPaddle paddleInfo`.
+You can see `RightPaddle` as a function with the following type signature:
+
+`RightPaddle : PaddleInfo -> Paddle`
+
+So you can also see `(always SleepDone)` as a function that take a parameter,
+and returns `SleepDone`, and we could call it `alwaysSleepDone`:
+
+`alwaysSleepDone : a -> Msg`
+
+Using a type starting with a lowercase (the `a` in the type signature just
+above) means that it could be any type, including an `unit`. In any case, we
+don't care about the type that's being passed to the helper, so no need to be
+specific here.
+
+So the final diff would be:
+
+```diff
+@@ -61,7 +61,7 @@ type Msg
+     = OnAnimationFrame Float
+     | KeyDown PlayerAction
+     | KeyUp PlayerAction
+-    | SleepDone ()
++    | SleepDone
+ 
+ 
+ type PlayerAction
+@@ -167,9 +167,13 @@ update msg model =
+ 
+                         Just player ->
+                             let
++                                alwaysSleepDone : a -> Msg
++                                alwaysSleepDone =
++                                    always SleepDone
++
+                                 delayCmd =
+                                     Process.sleep 500
+-                                        |> Task.perform SleepDone
++                                        |> Task.perform alwaysSleepDone
+                             in
+                             ( Winner player, delayCmd )
+             in
+@@ -226,7 +230,7 @@ update msg model =
+                     , Cmd.none
+                     )
+ 
+-        SleepDone _ ->
++        SleepDone ->
+             let
+                 _ =
+                     Debug.log "restart" "game"
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/1ab844992f82f875f31fca402070ee626b11d106)
+
+[Source code up to this point](https://github.com/magopian/elm-pong/tree/10-win-lose).
+
+This didn't give us much in terms of readability, or at least it's debatable. I
+know I'd rather have obvious types and slightly more complex code, but I guess
+that's a matter of taste.
