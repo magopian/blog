@@ -1,5 +1,5 @@
 Title: Making a pong game in elm (3)
-Date: 2019-08-02 11:01
+Date: 2019-08-06 14:03
 Category: elm
 Tags: gamedev
 
@@ -9,7 +9,7 @@ Following the [two]({filename}/making-a-pong-game-in-elm.md)
 continue taking tiny steps in our endeavour to create a pong game in elm.
 
 We left off with a ball bouncing off two paddles, and two players able to move
-their paddle. And the realization that we were a long way off to have a game
+their paddles. And the realization that we were a long way off to have a game
 that is at least mildly enjoyable.
 
 ## Moving paddles at the same time
@@ -26,7 +26,7 @@ the second player wanted to move their paddle).
 After some [digging around on the internet](https://stackoverflow.com/questions/5203407/how-to-detect-if-multiple-keys-are-pressed-at-once-using-javascript)
 it seems that the proper way to deal with that issue is to keep track of which
 key has been pressed (by tracking the `onKeyDown` events), and then update the
-state of those keys when an `onKeyUp` is received.
+state of this key when an `onKeyUp` is received.
 
 One way to do that would be to store the pressed keys in a list, and then
 remove a key from the list once we detect that it's released.
@@ -156,10 +156,10 @@ moving them. We used to add or substract a number of pixels from their `y`
 coordinates directly on the `KeyDown playerAction` message, but it's not the
 case anymore.
 
-In games the updating of the movements, reacting to player inputs and all that
-is done in a "game loop". The closer we have in our program is the
-`onAnimationFrameDelta` message. So we'll first update our helper function
-`updatePaddle` to take a `PaddleMovement` instead of an amount:
+Updating the movements, reacting to player inputs, updating the world and all
+that is usually done in a "game loop". The closer we have to a game loop in our
+program is the `onAnimationFrameDelta` message. So we'll first update our
+helper function `updatePaddle` to take a `PaddleMovement` instead of an amount:
 
 ```diff
 -updatePaddle : Int -> Paddle -> Paddle
@@ -539,8 +539,8 @@ new custom type that we'll call `GameStatus`:
 [commit](https://github.com/magopian/elm-pong/commit/583616d83b7371cce1fe2e79647b96ea57eea9a1)
 
 We now have a proper `GameState` that gets updated whenever the ball reaches
-the left or right, but we aren't doing anything with it yet. But what should we
-do with it?
+the left or right, but we aren't doing anything with it yet. What should we do
+with it?
 
 Well... if we're in the `NoWinner` state, it means we should be playing, and as
 such listening to user input and animation frames. If we're in the `Winner ...`
@@ -769,7 +769,7 @@ You can see `RightPaddle` as a function with the following type signature:
 
 `RightPaddle : PaddleInfo -> Paddle`
 
-So you can also see `(always SleepDone)` as a function that take a parameter,
+So you can also see `(always SleepDone)` as a function that takes a parameter
 and returns `SleepDone`, and we could call it `alwaysSleepDone`:
 
 `alwaysSleepDone : a -> Msg`
@@ -824,3 +824,224 @@ So the final diff would be:
 This didn't give us much in terms of readability, or at least it's debatable. I
 know I'd rather have obvious types and slightly more complex code, but I guess
 that's a matter of taste.
+
+
+## Restarting the game
+
+So what should happen once the delay has elapsed, and the game should
+"restart"? Well the ball should be reset to its initial position and speed, and
+the game status should be `NoWinner` again:
+
+```diff
+         SleepDone ->
+-            let
+-                _ =
+-                    Debug.log "restart" "game"
+-            in
+-            ( model, Cmd.none )
++            ( { model
++                | ball = initBall
++                , gameStatus = NoWinner
++              }
++            , Cmd.none
++            )
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/49ca518a40f427c0b6f7fd24c2493522e568fe8f)
+
+Once the ball touches one of the "goals", the whole game stops for half a
+second, and then the ball position is reset.
+
+
+## Keeping track of the score
+
+Let's add a `score` record with the `rightPlayerScore` and `leftPlayerScore`
+fields to the model, and update them whenever there's a win:
+
+```diff
+@@ -16,6 +16,7 @@ type alias Model =
+     , rightPaddleMovement : PaddleMovement
+     , leftPaddleMovement : PaddleMovement
+     , gameStatus : GameStatus
++    , score : Score
+     }
+ 
+ 
+@@ -71,6 +72,12 @@ type PlayerAction
+     | LeftPaddleDown
+ 
+ 
++type alias Score =
++    { rightPlayerScore : Int
++    , leftPlayerScore : Int
++    }
++
++
+ type alias Flags =
+     ()
+ 
+@@ -83,6 +90,10 @@ init _ =
+       , rightPaddleMovement = NotMoving
+       , leftPaddleMovement = NotMoving
+       , gameStatus = NoWinner
++      , score =
++            { rightPlayerScore = 0
++            , leftPlayerScore = 0
++            }
+       }
+     , Cmd.none
+     )
+@@ -160,10 +171,10 @@ update msg model =
+                 updatedLeftPaddle =
+                     updatePaddle model.leftPaddleMovement model.leftPaddle
+ 
+-                ( gameStatus, cmd ) =
++                ( gameStatus, score, cmd ) =
+                     case maybeWinner updatedBall of
+                         Nothing ->
+-                            ( NoWinner, Cmd.none )
++                            ( NoWinner, model.score, Cmd.none )
+ 
+                         Just player ->
+                             let
+@@ -174,14 +185,19 @@ update msg model =
+                                 delayCmd =
+                                     Process.sleep 500
+                                         |> Task.perform alwaysSleepDone
++
++                                updatedScore =
++                                    updateScores model.score player
++                                        |> Debug.log "score"
+                             in
+-                            ( Winner player, delayCmd )
++                            ( Winner player, updatedScore, delayCmd )
+             in
+             ( { model
+                 | ball = updatedBall
+                 , rightPaddle = updatedRightPaddle
+                 , leftPaddle = updatedLeftPaddle
+                 , gameStatus = gameStatus
++                , score = score
+               }
+             , cmd
+             )
+@@ -306,6 +322,16 @@ maybeWinner ball =
+         Nothing
+ 
+ 
++updateScores : Score -> Player -> Score
++updateScores score winner =
++    case winner of
++        RightPlayer ->
++            { score | rightPlayerScore = score.rightPlayerScore + 1 }
++
++        LeftPlayer ->
++            { score | leftPlayerScore = score.leftPlayerScore + 1 }
++
++
+ view : Model -> Svg.Svg Msg
+ view { ball, rightPaddle, leftPaddle } =
+     svg
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/84d0867a619fde6032c5563e28542606ff0ecd4a)
+
+Now that we have the score, we can display it ;)
+
+```diff
+@@ -188,7 +188,6 @@ update msg model =
+ 
+                                 updatedScore =
+                                     updateScores model.score player
+-                                        |> Debug.log "score"
+                             in
+                             ( Winner player, updatedScore, delayCmd )
+             in
+@@ -333,7 +332,7 @@ updateScores score winner =
+ 
+ 
+ view : Model -> Svg.Svg Msg
+-view { ball, rightPaddle, leftPaddle } =
++view { ball, rightPaddle, leftPaddle, score } =
+     svg
+         [ width "500"
+         , height "500"
+@@ -343,6 +342,7 @@ view { ball, rightPaddle, leftPaddle } =
+         [ viewBall ball
+         , viewPaddle rightPaddle
+         , viewPaddle leftPaddle
++        , viewScore score
+         ]
+ 
+ 
+@@ -376,6 +376,19 @@ viewPaddle paddle =
+         []
+ 
+ 
++viewScore : Score -> Svg.Svg Msg
++viewScore score =
++    g
++        [ fontSize "100px"
++        , fontFamily "monospace"
++        ]
++        [ text_ [ x "100", y "100", textAnchor "start" ]
++            [ text <| String.fromInt score.leftPlayerScore ]
++        , text_ [ x "400", y "100", textAnchor "end" ]
++            [ text <| String.fromInt score.rightPlayerScore ]
++        ]
++
++
+ subscriptions : Model -> Sub Msg
+ subscriptions model =
+     case model.gameStatus of
+```
+
+[commit](https://github.com/magopian/elm-pong/commit/bbb07a70ec9bd4e2b089cfdb4bba16c3df7c117d)
+
+[Source code up to this point](https://github.com/magopian/elm-pong/tree/11-display-score).
+
+Tada!!!
+
+![Displaying the score]({static}/images/elm-pong_score.png)
+
+Maybe it's time to talk briefly about the view. You might have been wondering
+how that was working.
+
+In elm we have packages that provide helpers to build the node tree. There's
+one for [Html](https://package.elm-lang.org/packages/elm/html/latest/) and one
+for [SVG](https://package.elm-lang.org/packages/elm/svg/latest/Svg), and they
+both work the same way.
+Each node builder has two parameters:
+
+- a list of attributes and event listeners
+- a list of child nodes
+
+One notable exception is the `text` helper which just returns plain text.
+
+This is how you would build a paragraph with the `foobar` class:
+
+```elm
+Html.p
+    [ Html.Attributes.class "foobar" ]
+    [ Html.text "Hello world"]
+```
+
+So building a node tree (a DOM) is a matter of calling helpers and providing
+them their list of attributes and children.
+
+And that's exactly what we did with the `viewScore` function:
+
+- the parent node is an SVG `<g>` container, with a list of attributes
+    - first child is an SVG `<text>` node with its list of attributes
+        - and its child is just plain text
+    - second child is an SVG `<text>` node with its list of attributes
+        - and its child is just plain text
+
+The use of an underscore in `text_` is needed to disambiguate between the
+`<text>` SVG node and the plain text helper `text`.
+
+We now have a fully playable game! It might not be pretty, or fun, but it has
+all the minimal requirements, congratulations!
+
+Next time, we might have a look at how to add a few bells and whistles just for
+the sake of introducing a few more elm concepts ;)
