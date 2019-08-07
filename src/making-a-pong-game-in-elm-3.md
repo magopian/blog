@@ -1045,3 +1045,7 @@ all the minimal requirements, congratulations!
 
 Next time, we might have a look at how to add a few bells and whistles just for
 the sake of introducing a few more elm concepts ;)
+
+----
+
+There's now a [follow up]({filename}/making-a-pong-game-in-elm-4.md).
