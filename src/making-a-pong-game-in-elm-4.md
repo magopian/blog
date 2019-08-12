@@ -10,20 +10,23 @@ Following the [three]({filename}/making-a-pong-game-in-elm.md)
 tiny steps in our endeavour to create a pong game in elm.
 
 
-## External contribution from [Rémy](https://github.com/Natim)
+## Contribution from [Rémy](https://github.com/Natim)
 
-Rémy is an former colleague from
-[Mozilla](https://github.com/magopian/elm-pong/pulls) and is a wonderful, very
+Rémy is a former colleague from
+[Mozilla](https://mozilla.org) and is a wonderful, very
 joyful and productive friend. When he saw this series of blog posts, he
-contributed a few [issues](https://github.com/magopian/elm-pong/issues) and
-[pull requests](https://github.com/magopian/elm-pong/pulls) to the project,
-thanks!
+contributed a few
+[issues](https://github.com/magopian/elm-pong/issues?q=is%3Aissue+author%3ANatim)
+and
+[pull requests](https://github.com/magopian/elm-pong/pulls?q=is%3Apr+author%3ANatim)
+to the project, thanks!
 
 The [first PR](https://github.com/magopian/elm-pong/pull/1/files) is to fix a
 corner case where the ball would be "trapped" by the paddle: if the paddle
-catches the ball before it touches the side, the ball bounces back and forth on
-each frame. To fix that, the trick is to also check the direction the ball is
-going, and only bounce if it's going towards the side the paddle is on:
+catches the ball "too late" but still before it touches the side, the ball
+bounces back and forth on each frame. To fix that, the trick is to also check
+the direction the ball is going, and only bounce if it's going towards the side
+the paddle is on:
 
 ```diff
              (ball.x - ball.radius <= x + width)
@@ -85,7 +88,9 @@ the game restarts:
 Another way would have been to keep being subscribed to the key events even
 during the pause, but that wouldn't have been sufficient: during the pause we
 don't subscribe to the animation frame events anymore, and as such our "game
-loop" is on pause, and we don't update anything anymore.
+loop" is on pause, and we don't update anything anymore. So even though we'd be
+registering the key presses, the paddles wouldn't be moving, which would be
+confusing.
 
 So instead of changing the subscription, we'd have to do a `case` on the
 `GameStatus` when updating the ball, and only update it while there's no
@@ -147,11 +152,11 @@ winner:
 +        ]
 ```
 
-[commit](https://github.com/magopian/elm-pong/commit/661a31e4bf082cae5c74aa1840541933c5e4a22a)
+[commit](https://github.com/magopian/elm-pong/commit/194042eb8130d08fd25c989bfdfe92bc37a08975)
 
-So we revert our change in the `SleepDone` message (when we restart the game),
-and we always subscribe to all the events (animation frame and keys). And
-finally we only update the ball when it's not on pause after a win.
+So we reverted our change in the `SleepDone` message (when we restart the
+game), and we now always subscribe to all the events (animation frame and
+keys). And finally we only update the ball when it's not on pause after a win.
 
 However we now have a very weird behaviour:
 
@@ -159,8 +164,9 @@ However we now have a very weird behaviour:
 
 Well... the game loop runs every animation frame (so roughly 60 times per
 second). And on each frame, even when the game is "paused" (actually, just the
-ball is paused now) we check if there's a win, and we increase the score, and
-start a 500ms delay...
+ball is paused now) we check if there's a win, and we increase the score, and then
+start a 500ms delay, but this delay doesn't prevent the score increase on the
+next frame as there's still a win (the ball hasn't moved).
 
 So let's modify the current `case maybeWinner updatedBall` to be:
 
@@ -192,7 +198,7 @@ So let's modify the current `case maybeWinner updatedBall` to be:
 
 [commit](https://github.com/magopian/elm-pong/commit/c9cc341ce66ff28c0922a9a2c04ad70569fa939b)
 
-Here the case is on a 2-tuple, and the only special case that interests us is
+Here the `case` is on a 2-tuple, and the only special case that interests us is
 when we have no winner in the `GameStatus` yet, but we just detected there's a
 win. In this case, and only in this case do we increase the score and start a
 500ms sleep.
@@ -353,7 +359,7 @@ To sum it up, it's a way to
 - narrow the arguments to the function: it'll only take, use or return specific fields from the records
 - make a function usable on several different types of records, as long as they have the fields defined in the extensible record
 
-In our case we're mostly using this for the first two use cases.
+In our case we're only using this for the first two use cases.
 
 We're now left with this game status and score update. Those two should
 obviously happen together, but it feels a bit alien to have them mixed in the
@@ -365,12 +371,12 @@ could update the game status and the score update in this `case` of the
 
 "But Mathieu, how do we *send* our own messages to the `update function`?
 Aren't messages usually coming from subscriptions, or maybe events like
-`onClick` on a button and the like?".
+`onClick` on a button and the like? We've always had those messages handed to
+us by the elm runtime through the `update` function!".
 
-Well, yes, usually the messages are "handed to us" by the elm runtime. And we
-could tell the runtime to
-[send us such a
-message](http://faq.elm-community.org/#how-do-i-generate-a-new-message-as-a-command),
+Well, yes, usually the messages are provided, relayed by the elm runtime. And
+we could tell the runtime to
+[send us such a message](http://faq.elm-community.org/#how-do-i-generate-a-new-message-as-a-command),
 but as you can read from this piece, it's not recommended (check
 ["How to turn a Msg into a Cmd in Elm?" from Wouter In t Velt](https://medium.com/elm-shorts/how-to-turn-a-msg-into-a-cmd-msg-in-elm-5dd095175d84)
 for more information on why).
@@ -590,10 +596,10 @@ Here's the modified `updateBall` function:
 
 ```
 
-Nothing fancy here, but maybe the `maybeDistance`: we "combine" both `Maybe`s
-by keeping the first one that isn't a `Nothing`. This way we simplify the `case
-maybeDistance` and we don't have to duplicate the code that updates the
-`horizSpeed` and `vertSpeed` if there's a hit on the left or right paddle.
+Nothing fancy here appart from the `maybeDistance`: we "combine" both `Maybe`s
+by keeping the first one that isn't a `Nothing` if any. This way we simplify
+the `case maybeDistance` and we don't have to duplicate the code that updates
+the `horizSpeed` and `vertSpeed` if there's a hit on the left or right paddle.
 
 Now for the hairy `maybeBounceDistanceFromCenter`:
 
@@ -819,7 +825,7 @@ So let's use the
 [elm/random](https://package.elm-lang.org/packages/elm/random/latest/) package!
 It should be very straightforward, just calling the equivalent of `Math.random`
 in javascript right?
-[Wrong](https://package.elm-lang.org/packages/elm/random/latest/#mindset-shift)
+[Wrong](https://package.elm-lang.org/packages/elm/random/latest/#mindset-shift).
 
 I know what you're thinking: "this elm thing is such a downer, always in my
 way, always restricting what I can and can't do and all that crap!". And I feel
@@ -827,21 +833,23 @@ you. However let's not lose track of the upsides. Every programming language
 that I know of is a compromise between upsides and downsides.
 
 Sure, the pure functional part of elm can be a pain (wait, no side effects? How
-are people meant to achieve anything without side effects?), but it's also the
-best part in my humble opinion. Not having to worry about hidden side effects
-is a blessing.
+are people meant to achieve anything without side effects? In elm the side
+effects only happen in the elm runtime), but it's also the best part in my
+humble opinion. Not having to worry about hidden side effects is a blessing.
 
 So anyway, back to the point: getting a random number without an initial seed
 is impure (every time you call `Math.random()` you have a different result).
-And in elm everything is pure.
+And in elm everything is pure. "Pure" meaning that a function call with the
+same arguments will always return the exact same result. Which means there's no
+side effects.
 
 With a seed though, it's entirely different: a random number generator will
-always give the same result for a given seed.
+always give the same result for a given seed, so it's pure.
 
 So we have two ways to get a random number in elm
 
 1. send a `Cmd Msg` to the elm runtime, and "receive" it through a `Msg`
-2. query a number directly by giving a seed
+2. query a number directly by providing a seed
 
 Let's try the first one, and see how it goes:
 
@@ -919,11 +927,11 @@ The code is pretty straightforward and easy to understand, but wait a minute:
 when will we use this random number? I mean, it would be a pity if the sleep
 was expired already, and the game restarted, before we get the new direction.
 
-The easy way out is to first query the new random direction, and then when
-dealing with the reception of that random number, start the sleep. This way
-we're sure it's done in the right order. It does mean we'll have two messages
-that are tied together, linked, which feels a bit artifical, awkward, even
-though it's doable, and wouldn't be that bad.
+The easy way to "synchronize" this is to first query the new random direction,
+and then when dealing with the reception of that random number, start the
+sleep. This way we're sure it's done in the right order. It does mean we'll
+have two messages that are tied together, linked, which feels a bit artifical,
+awkward, even though it's doable and wouldn't be that bad.
 
 Still, let's try the other solution, just to see what it looks like. We'll use
 [`Random.step`](https://package.elm-lang.org/packages/elm/random/latest/Random#step)
@@ -932,7 +940,7 @@ which needs a `Seed`. But the only way we can create a `Seed` is with
 which takes... a number.
 
 Ok, but where does this number come from? Let's deal with that later, and use a
-perfectly fine number for now: `42`:
+perfectly fine number for now: `42`
 
 ```diff
 @@ -65,7 +65,6 @@ type Msg
@@ -983,7 +991,9 @@ So far, we don't have any randomness in the numbers we're getting... but that's
 expected, because we're always using the same exact `Seed` based on the same
 exact number: `42`.
 
-The cool thing with `Random.step` is that it gives you a new seed together with the random number you asked. So if we could store this new seed in the model and use that on the next call, we'd have a series of different random number:
+The cool thing with `Random.step` is that it gives you a new seed together with
+the random number you asked. So if we could store this new seed in the model
+and use that on the next call, we'd have a series of different random number:
 
 ```diff
 @@ -18,6 +18,7 @@ type alias Model =
@@ -1028,10 +1038,10 @@ The cool thing with `Random.step` is that it gives you a new seed together with 
 ![Random directions in the console from a seed]({static}/images/elm-pong_random_directions_from_seed.png)
 
 "But Mathieu, that's not really random, we're always using the same seed to
-initialize the generator, so we'll always have the exact same numbers whenever
-we reload the page!". That's true. We're using a fixed seed whenever we start
-the game the first time, so this means players could theoretically remembers
-the sequence.
+initialize the generator, so we'll always have the exact same number sequence
+whenever we reload the page!". That's true. We're using a fixed seed whenever
+we start the game so this means players could theoretically remembers the
+sequence.
 
 This could be fixed using several techniques:
 
@@ -1051,7 +1061,7 @@ But as we're going through a series of blog posts that are dedicated to
 learning elm, let's take this opportunity to talk about the third solution:
 it's based on the [javascript
 interop](https://guide.elm-lang.org/interop/), and specifically the
-flags in our case.
+`flags` in our case.
 
 
 ## Using flags
@@ -1062,14 +1072,18 @@ for our use case: Call `Math.random()` in javascript, then pass that initial
 seed to the elm program on startup. And from then on use this seed to get new
 random numbers (and new seeds, and so on).
 
-But before we can use flags, we need a bit of setup: we need to generate an
-`index.html` file that imports the generated javascript, and a piece of
-javascript code that initializes the elm program.
+But before we can use flags, we need a bit of setup. Up til now we used an
+automatically generated `index.html` file containing the inline javascript code
+compiled from our elm code. But this means we can't modify the initialization
+code as it would be overwritten each and every time we could compile again.
+
+So we need to generate an `index.html` file that imports the generated
+javascript, and a piece of javascript code that initializes the elm program.
 
 Let's base our new `index.html` file on the example from the interop
 documentation:
 
-```elm
+```html
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -1089,15 +1103,13 @@ documentation:
 </html>
 ```
 
-We'll also need to change the `scripts` entries in the `package.json` file.
+We also need to change the `scripts` entries in the `package.json` file.
 You'll see all of that in the
 [commit](https://github.com/magopian/elm-pong/commit/7b5a3e88b7d0b42d8670297ac6e59134a3402753).
 
-So now that we initialize the elm program ourselves (previously the
-`index.html` file was auto-generated and contained the full javascript compiled
-for our elm program), we can change the initialization script to pass flags.
+We can now change the initialization script so it passes flags to elm.
 
-Tiny steps: let's first pass the number `42` from the javascript side:
+Tiny step: let's first pass the number `42` from the javascript side:
 
 The `index.html` file:
 
@@ -1143,14 +1155,12 @@ And the `src/Main.elm` file:
 
 [commit](https://github.com/magopian/elm-pong/commit/3677ba73201269c673eb3cec57381561e73f68ec)
 
-What that says is:
-
-- the `Flags` type isn't the `unit` anymore (remember, the type that we usually
-  use in place of values we don't care), but an `Int` to hold our seed. It
-  could be a `Record`, a `String`, a `Bool` or any other of the base types in
-  elm.
-- we now care very much about the `Flags` passed to the `init` function, as
-  we're using it to initialize our seed.
+What that says is we now care very much about the `Flags` passed to the `init`
+function, as we're using it to initialize our seed.
+So the `Flags` type isn't the `unit` anymore (remember, the type that we
+usually use in place of values we don't care about), but an `Int` to hold our
+seed.  It could be a `Record`, a `String`, a `Bool`, a JSON value or any other
+of the base types in elm.
 
 Next tiny step: generate a proper random number on the javascript side, and
 pass it to our elm program instead of the number `42`.
@@ -1214,7 +1224,7 @@ And the `src/Main.elm` file:
              }
 -      , seed = Random.initialSeed seed
 +      , seed =
-+            -- A number between -100 and 100
++            -- A number between 0 and 100
 +            seed
 +                |> (*) 100
 +                |> round
@@ -1224,7 +1234,7 @@ And the `src/Main.elm` file:
      )
 ```
 
-[commit](https://github.com/magopian/elm-pong/commit/d4311c7f32c56186de73f99dc600c2c4d9040eec)
+[commit](https://github.com/magopian/elm-pong/commit/6abb97e68ae1456a7dc1726cc06ce8e2052d1648)
 
 Keep in mind that here we convert the float between 0 to 1 to an integer
 between 0 to 100. We could do whatever we want here, for example convert it to
@@ -1247,7 +1257,7 @@ initialize our ball `vertSpeed` this way:
 -    ( { ball = initBall
 +    let
 +        initialSeed =
-+            -- A number between -100 and 100
++            -- A number between 0 and 100
 +            seed
 +                |> (*) 100
 +                |> round
@@ -1279,7 +1289,7 @@ initialize our ball `vertSpeed` this way:
      )
 ```
 
-[commit](https://github.com/magopian/elm-pong/commit/571ff4d6e8b1c411fdab78eb535e613e3eef73d3)
+[commit](https://github.com/magopian/elm-pong/commit/24d6be334b72f898cd590cd1250c38d34e5974e8)
 
 So we created a small `randomVertSpeed` helper, and using the initial seed we
 compute from the javascript value, we set the initial ball's `vertSpeed`.
@@ -1325,7 +1335,7 @@ And now we want to also use a random vertical seed on each game restart:
              )
 ```
 
-[commit](https://github.com/magopian/elm-pong/commit/9d8113166f041c8c7c9a21e277cf2baf41a917d4)
+[commit](https://github.com/magopian/elm-pong/commit/2c647468180e3eddb63799493a66c37d2f4e8aa4)
 
 We moved the new vertical speed generation and the seed updating code to the
 `RestartGame` were we also initialized the ball.
@@ -1362,10 +1372,16 @@ Maybe a last addition: let's shoot the ball towards the last loser
                  | ball = ball
 ```
 
-[commit](https://github.com/magopian/elm-pong/commit/d6038968ed7e0fc639d5af1c0afb3427c35aaa61)
+[commit](https://github.com/magopian/elm-pong/commit/542ef76c1664bb8039482179ba25fc125a25eb92)
 
 [Source code up to this point](https://github.com/magopian/elm-pong/tree/14-completed).
 
-And we have now completed our game!
+And we have now completed our game, and this series of blog posts!
 
 ![Completed game]({static}/images/elm-pong_completed.gif)
+
+If you've followed along during those four episodes, thanks for your patience!
+I hope that those have been useful to you, and feel free to reach out via
+[email](mailto:mathieu@agopian.info?subject=making a pong game in elm),
+[twitter](https://twitter.com/magopian) or on the
+[elm slack](https://elmlang.herokuapp.com/).
