@@ -775,7 +775,7 @@ and returns `SleepDone`, and we could call it `alwaysSleepDone`:
 `alwaysSleepDone : a -> Msg`
 
 Using a type starting with a lowercase (the `a` in the type signature just
-above) means that it could be any type, including an `unit`. In any case, we
+above) means that it could be any type, including a `unit`. In any case, we
 don't care about the type that's being passed to the helper, so no need to be
 specific here.
 

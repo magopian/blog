@@ -1,5 +1,5 @@
 Title: Making a pong game in elm (4)
-Date: 2019-08-07 14:03
+Date: 2019-08-12 11:36
 Category: elm
 Tags: gamedev
 
@@ -470,7 +470,7 @@ What we did here is:
   with our `NewWinner Player` message and the updated model
 
 While we're rewriting and refactoring parts of the `update` function, let's
-rename this `SleepDone` message wich isn't very meaningful to `RestartGame`
+rename this `SleepDone` message which isn't very meaningful to `RestartGame`
 instead:
 
 ```diff
