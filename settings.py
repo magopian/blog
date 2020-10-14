@@ -4,7 +4,7 @@
 AUTHOR = "Mathieu Agopian"
 SITENAME = "Mathieu Agopian"
 PATH = "src/"
-SITEURL = "http://mathieu.agopian.info/blog"
+SITEURL = "//mathieu.agopian.info/blog"
 #WITH_PAGINATION = True
 TWITTER_USERNAME = "magopian"
 TIMEZONE = "Europe/Paris"
