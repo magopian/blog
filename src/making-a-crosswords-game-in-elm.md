@@ -2,6 +2,7 @@ Title: Making a crosswords game in elm
 Date: 2020-03-14 19:21
 Category: elm
 Tags: gamedev
+Status: draft
 
 
 After having made a graphical and animated [game of pong]({filename}/making-a-pong-game-in-elm.md) in
@@ -78,7 +79,7 @@ main =
 
 This does display a pretty neat "all white cells" grid.
 
-![the 3x3 grid]({static}/images/elm-crosswords/3x3_grid.png)
+![the 3x3 grid]({static}/images/elm-crosswords/elm-crosswords_3x3_grid.png)
 
 We're using a [grid
 layout](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids)
@@ -212,7 +213,7 @@ Don't worry too much about it, we'll soon replace those with a `Msg` type.
 
 Ok so now we have a grid that's displayed given its width. But wait, what happens if we change the width to 4?
 
-![the 4x3 grid]({static}/images/elm-crosswords/4x3_grid.png)
+![the 4x3 grid]({static}/images/elm-crosswords/elm-crosswords_4x3_grid.png)
 
 That's because the grid is indeed 4 columns wide, and still 3 lignes height,
 because we defined 9 cells (4*3 = 12 cells). That's pretty and all, but
